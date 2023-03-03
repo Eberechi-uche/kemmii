@@ -1,8 +1,11 @@
 import { Flex, Image, Spacer, Text } from "@chakra-ui/react";
 import SearchInput from "./SearchInput/SearchInput.component";
 import NavContentRight from "./NavBarRightContent/NavContentRight";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/src/firebase/clientApp";
 
 export const Navbar: React.FC = () => {
+  const [user] = useAuthState(auth);
   return (
     <Flex bg="white" height="50px" padding="10px 12px" alignItems="center">
       <Flex>
@@ -21,7 +24,7 @@ export const Navbar: React.FC = () => {
         </Text>
       </Flex>
       <SearchInput />
-      <NavContentRight />
+      <NavContentRight user={user} />
     </Flex>
   );
 };

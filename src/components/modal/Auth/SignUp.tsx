@@ -2,21 +2,38 @@ import { authModalState } from "@/src/Atoms/AuthModalAtom";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/src/firebase/clientApp";
+import { FIREBASE_ERROR } from "@/src/firebase/error";
 
 export const SignUp = () => {
-  const [formValue, setFormValue] = useState({
+  const [userError, setUserError] = useState("");
+  const [signUpData, setSignUpdate] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
+
   const setAuthState = useSetRecoilState(authModalState);
+
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValue((prev) => ({
+    setSignUpdate((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
   };
-  const handleSubmit = () => {};
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { password, confirmPassword, email } = signUpData;
+    if (password !== confirmPassword) {
+      setUserError("! Passwords do not match");
+      return;
+    }
+    createUserWithEmailAndPassword(email, password);
+  };
   return (
     <form onSubmit={handleSubmit}>
       <Input
@@ -25,7 +42,6 @@ export const SignUp = () => {
         placeholder="Email"
         mb={"2"}
         onChange={handleFormChange}
-        value={formValue.email}
         required
         focusBorderColor="rgb(182, 244, 146)"
       />
@@ -40,20 +56,33 @@ export const SignUp = () => {
       />
       <Input
         type={"password"}
-        name="password"
+        name="confirmPassword"
         placeholder="confirm password"
         mb={"2"}
         onChange={handleFormChange}
         required
         focusBorderColor="rgb(182, 244, 146)"
       />
+      {userError ||
+        (error && (
+          <Text textAlign={"center"} color={"red.800"} fontSize={"10pt"}>
+            {userError ||
+              FIREBASE_ERROR[error.message as keyof typeof FIREBASE_ERROR]}
+          </Text>
+        ))}
+
       <Flex
         direction={"column"}
         justify={"center"}
         align={"center"}
         paddingY={"3"}
       >
-        <Button type="submit" variant={"outline"} width={"80%"}>
+        <Button
+          type="submit"
+          variant={"outline"}
+          width={"80%"}
+          isLoading={loading}
+        >
           Sign in
         </Button>
       </Flex>

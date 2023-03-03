@@ -2,20 +2,29 @@ import { authModalState } from "@/src/Atoms/AuthModalAtom";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
+import { auth } from "@/src/firebase/clientApp";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { FIREBASE_ERROR } from "@/src/firebase/error";
 
 export const Login: React.FC = () => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   });
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
   const setAuthState = useSetRecoilState(authModalState);
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormValue((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
   };
-  const onSubmit = () => {};
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const { email, password } = formValue;
+    e.preventDefault();
+    signInWithEmailAndPassword(email, password);
+  };
   return (
     <form onSubmit={onSubmit}>
       <Input
@@ -25,6 +34,7 @@ export const Login: React.FC = () => {
         mb={2}
         required
         focusBorderColor="rgb(182, 244, 146)"
+        onChange={handleChange}
       />
       <Input
         placeholder="Password"
@@ -33,6 +43,7 @@ export const Login: React.FC = () => {
         required
         mb={"2"}
         focusBorderColor="rgb(182, 244, 146)"
+        onChange={handleChange}
       />
       <Flex
         direction={"column"}
@@ -40,7 +51,13 @@ export const Login: React.FC = () => {
         align={"center"}
         paddingY={"3"}
       >
-        <Button type="submit" width={"80%"}>
+        {error && (
+          <Text color={"red.700"} fontSize={"sm"} pb={"2"}>
+            {FIREBASE_ERROR[error.message as keyof typeof FIREBASE_ERROR]}
+          </Text>
+        )}
+
+        <Button type="submit" width={"80%"} isLoading={loading}>
           Login
         </Button>
       </Flex>
@@ -63,6 +80,17 @@ export const Login: React.FC = () => {
           SIGN UP
         </Text>
       </Flex>
+      <Text
+        textAlign={"center"}
+        onClick={() => {
+          setAuthState((prev) => ({
+            ...prev,
+            view: "reset password",
+          }));
+        }}
+      >
+        Reset password
+      </Text>
     </form>
   );
 };
