@@ -2,28 +2,18 @@ import { Button, Flex } from "@chakra-ui/react";
 import React from "react";
 import { AuthModal } from "../../modal/Auth/AuthModal";
 import AuthButtons from "./AuthButtons";
-import { signOut } from "firebase/auth";
+import { signOut, User } from "firebase/auth";
 import { auth } from "@/src/firebase/clientApp";
+import { UserMenu } from "./UserMenu";
 
 type NavContentRightProps = {
-  user: any;
+  user?: User | null;
 };
 
 const NavContentRight: React.FC<NavContentRightProps> = ({ user }) => {
   return (
     <Flex>
-      {user ? (
-        <Button
-          onClick={() => {
-            signOut(auth);
-          }}
-        >
-          {" "}
-          sign Out
-        </Button>
-      ) : (
-        <AuthButtons />
-      )}
+      {user ? <UserMenu /> : <AuthButtons />}
       <AuthModal />
     </Flex>
   );

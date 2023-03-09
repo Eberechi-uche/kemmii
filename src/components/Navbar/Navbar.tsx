@@ -6,6 +6,7 @@ import { auth } from "@/src/firebase/clientApp";
 
 export const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
+
   return (
     <Flex bg="white" height="50px" padding="10px 12px" alignItems="center">
       <Flex>

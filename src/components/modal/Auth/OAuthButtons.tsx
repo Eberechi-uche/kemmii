@@ -9,7 +9,8 @@ export const OAuthButtons = () => {
       variant={"outline"}
       fontSize={"10"}
       my={"5"}
-      borderColor={" #b21f1f"}
+      outlineColor={" #b21f1f"}
+      color={"red.600"}
       _hover={{
         bg: "#b21f1f",
         color: "#fff",
