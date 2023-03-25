@@ -5,6 +5,10 @@ export const Button: ComponentStyleConfig = {
     m: "2",
   },
   sizes: {
+    xs: {
+      px: 5,
+      py: 3,
+    },
     sm: {
       fontSize: "sm",
       px: 10, // <-- px is short for paddingLeft and paddingRight
