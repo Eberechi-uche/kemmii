@@ -1,10 +1,12 @@
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/src/firebase/clientApp";
+import { auth, firestore } from "@/src/firebase/clientApp";
 import { FIREBASE_ERROR } from "@/src/firebase/error";
+import { User } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 export const SignUp = () => {
   const [userError, setUserError] = useState("");
@@ -16,7 +18,7 @@ export const SignUp = () => {
 
   const setAuthState = useSetRecoilState(authModalState);
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, userDetails, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +36,23 @@ export const SignUp = () => {
     }
     createUserWithEmailAndPassword(email, password);
   };
+
+  const createUser = async (user: User) => {
+    await addDoc(
+      collection(firestore, "users"),
+      JSON.parse(JSON.stringify(user))
+    );
+  };
+  useEffect(() => {
+    if (userDetails) {
+      createUser(userDetails.user);
+      setAuthState((prev) => ({
+        ...prev,
+        open: false,
+      }));
+    }
+  }, [userDetails]);
+
   return (
     <form onSubmit={handleSubmit}>
       <Input
@@ -77,13 +96,8 @@ export const SignUp = () => {
         align={"center"}
         paddingY={"3"}
       >
-        <Button
-          type="submit"
-          variant={"outline"}
-          width={"80%"}
-          isLoading={loading}
-        >
-          Sign in
+        <Button type="submit" width={"80%"} isLoading={loading}>
+          Sign up
         </Button>
       </Flex>
       <Flex dir="row" justify={"center"} align={"center"}>

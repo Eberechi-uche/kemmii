@@ -1,9 +1,23 @@
 import { Button, Image } from "@chakra-ui/react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { auth } from "@/src/firebase/clientApp";
+import { auth, firestore } from "@/src/firebase/clientApp";
+import { doc, setDoc } from "firebase/firestore";
+import { User } from "firebase/auth";
+import { useEffect } from "react";
 
 export const OAuthButtons = () => {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, userData, loading, error] =
+    useSignInWithGoogle(auth);
+
+  const creatUser = async (user: User) => {
+    const userDocRef = doc(firestore, "users", user.uid);
+    await setDoc(userDocRef, JSON.parse(JSON.stringify(user)));
+  };
+  useEffect(() => {
+    if (userData) {
+      creatUser(userData.user);
+    }
+  }, [userData]);
   return (
     <Button
       variant={"outline"}
@@ -20,7 +34,7 @@ export const OAuthButtons = () => {
         signInWithGoogle();
       }}
     >
-      <Image src="images/google.png" width={"20px"} m={"2"} />
+      <Image src="/images/google.png" width={"20px"} m={"2"} />
       Login with google
     </Button>
   );

@@ -88,6 +88,10 @@ export const Login: React.FC = () => {
             view: "reset password",
           }));
         }}
+        _hover={{
+          cursor: "pointer",
+          color: "whatsapp.600",
+        }}
       >
         Reset password
       </Text>

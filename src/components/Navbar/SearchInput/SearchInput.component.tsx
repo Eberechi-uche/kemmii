@@ -10,6 +10,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
           type="text"
           placeholder="search post"
           focusBorderColor="rgb(182, 244, 146)"
+          borderRadius={"full"}
         />
         <InputRightElement
           pointerEvents="none"

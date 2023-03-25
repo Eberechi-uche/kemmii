@@ -45,6 +45,7 @@ export const AuthModal: React.FC = () => {
             bgGradient={
               " linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
             }
+            color={"white"}
           >
             {modalState.view}
           </ModalHeader>

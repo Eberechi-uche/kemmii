@@ -1,5 +1,10 @@
 import { auth } from "@/src/firebase/clientApp";
-import { AddIcon, ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
+
+import { BiLogOut } from "react-icons/bi";
+import { GrBraille } from "react-icons/gr";
+import { GiCyborgFace } from "react-icons/Gi";
+import { CreateSpace } from "./userActions/CreateSpace";
 
 import {
   Menu,
@@ -7,41 +12,50 @@ import {
   MenuList,
   MenuItem,
   Image,
-  Button,
-  IconButton,
+  Text,
+  Flex,
+  Icon,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useResetRecoilState } from "recoil";
+import { SpaceSnippet } from "@/src/Atoms/spacesAtom";
 
 export const UserMenu: React.FC = () => {
+  const [user] = useAuthState(auth);
+  const ResetSpace = useResetRecoilState(SpaceSnippet);
+  const logout = async () => {
+    await signOut(auth);
+    ResetSpace();
+  };
   return (
     <Menu>
-      <MenuButton
-        as={IconButton}
-        aria-label="Options"
-        icon={<HamburgerIcon />}
-        variant="outline"
-      />
+      <MenuButton>
+        <Flex justify={"center"} align={"center"}>
+          <Text px={"2"} display={{ base: "none", md: "unset" }}>
+            hafa! {user?.email?.slice(0, 8)}
+          </Text>
+          <Icon as={GrBraille}></Icon>
+        </Flex>
+      </MenuButton>
       <MenuList>
         <MenuItem minH="48px">
           <Image
             boxSize="2rem"
             borderRadius="full"
-            src={"https://cutt.ly/M8X1jj4"}
+            src={"https://bit.ly/3JNT4Su"}
             alt="Fluffybuns the destroyer"
             mr="12px"
           />
+          <Text> {user?.email} </Text>
           <span></span>
         </MenuItem>
         <MenuItem icon={<AddIcon />}>create post</MenuItem>
-        <MenuItem> spaces</MenuItem>
+        <MenuItem icon={<GiCyborgFace />}> add NFT</MenuItem>
 
-        <Button
-          onClick={() => {
-            signOut(auth);
-          }}
-        >
+        <MenuItem onClick={logout} icon={<BiLogOut />}>
           sign Out
-        </Button>
+        </MenuItem>
       </MenuList>
     </Menu>
   );
