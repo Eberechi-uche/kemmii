@@ -1,11 +1,32 @@
 import { BsImage, BsFillChatSquareDotsFill } from "react-icons/bs";
-import { Icon, Flex } from "@chakra-ui/react";
+import {
+  Icon,
+  Flex,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+} from "@chakra-ui/react";
 import { TabItem } from "./PostTabItems";
 import { useState } from "react";
 import { TextInput, TextInputProp } from "./PostForm/TextInput";
 import { ImageUpload } from "./PostForm/ImageUpload";
+import { User } from "firebase/auth";
+import { useRouter } from "next/router";
+import { Post } from "@/src/Atoms/PostAtom";
+import {
+  addDoc,
+  serverTimestamp,
+  Timestamp,
+  collection,
+  updateDoc,
+} from "firebase/firestore";
+import { firestore, storage } from "@/src/firebase/clientApp";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
-interface FormTabs {}
+type NewPostFormProps = {
+  user: User;
+};
 const formTabs: TabItems[] = [
   { title: "Post", icon: BsFillChatSquareDotsFill },
   {
@@ -17,16 +38,51 @@ export type TabItems = {
   title: string;
   icon: typeof Icon.arguments;
 };
-export const NewPostForm: React.FC = () => {
+export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   const [activeTab, setActivetab] = useState(formTabs[0].title);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
   const [input, setInput] = useState({
     title: "",
     body: "",
   });
+  const router = useRouter();
 
-  const onPostSubmit = () => {};
+  const onPostSubmit = async () => {
+    setError("");
+    const { spaceid } = router.query;
+    const newPost: Post = {
+      spaceId: spaceid as string,
+      creatorId: user.uid,
+      creatorDisplayName: user.email!.split("@")[0],
+      title: input.title,
+      body: input.body,
+      numberOfComments: 0,
+      reactions: 0,
+      createdAt: serverTimestamp() as Timestamp,
+    };
+    setLoading(true);
+    try {
+      // get doc refrence,
+      const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
+
+      if (selectedFile) {
+        const ImageRef = ref(storage, `posts/${postDocRef.id}/image`);
+        await uploadString(ImageRef, selectedFile, "data_url");
+        const downloadUrl = await getDownloadURL(ImageRef);
+        await updateDoc(postDocRef, {
+          imageUrl: downloadUrl,
+        });
+      }
+    } catch (error: any) {
+      console.log("onPostSubmit", error.message);
+      setError(error.message);
+    }
+    setLoading(false);
+    router.back();
+  };
+
   const onInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -85,6 +141,17 @@ export const NewPostForm: React.FC = () => {
             />
           )}
         </Flex>
+        {error && (
+          <Alert
+            status="error"
+            flexDir={"column"}
+            fontSize={{ base: "xs", md: "sm" }}
+          >
+            <AlertIcon />
+            <AlertTitle>Error Creating post</AlertTitle>
+            <AlertDescription>please try again</AlertDescription>
+          </Alert>
+        )}
       </Flex>
     </>
   );

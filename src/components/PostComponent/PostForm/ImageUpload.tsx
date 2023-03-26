@@ -81,19 +81,18 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
           <Button
             size={{ base: "xs", md: "sm" }}
             onClick={() => {
-              setSelectedFile("");
+              setActiveTab("Post");
             }}
           >
-            cancel
+            done
           </Button>
           <Button
             size={{ base: "xs", md: "sm" }}
             onClick={() => {
-              setActiveTab("Post");
+              setSelectedFile("");
             }}
           >
-            {" "}
-            done
+            remove
           </Button>
         </Flex>
       </Flex>

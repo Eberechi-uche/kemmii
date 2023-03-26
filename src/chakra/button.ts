@@ -7,7 +7,7 @@ export const Button: ComponentStyleConfig = {
   sizes: {
     xs: {
       px: 5,
-      py: 3,
+      py: 4,
     },
     sm: {
       fontSize: "sm",

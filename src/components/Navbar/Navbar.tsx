@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
             <MenuButton px={"5"} pt={"1"}>
               <Icon as={BsUiRadiosGrid}></Icon>
             </MenuButton>
-            <MenuList>
+            <MenuList fontSize={{ base: "xs", md: "md" }}>
               <CreateSpace />
               <MenuItem>user space go here</MenuItem>
             </MenuList>

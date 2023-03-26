@@ -8,7 +8,7 @@ const AuthButtons: React.FC = () => {
   return (
     <>
       <Button
-        size={{ base: "sm", md: "md" }}
+        size={{ base: "xs", md: "md" }}
         onClick={() => {
           setmodalState(() => ({
             open: true,

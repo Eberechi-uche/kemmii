@@ -97,9 +97,9 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
   };
 
   return (
-    <Modal isOpen={active} onClose={setActive} size={"lg"}>
+    <Modal isOpen={active} onClose={setActive} size={{ base: "xs", md: "sm" }}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent fontSize={{ base: "xs", md: "md" }}>
         <ModalHeader color={"whatsapp.600"}>
           {!loading ? (
             "Create your space"
@@ -143,7 +143,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
                   name="public"
                   isChecked={spaceType === "public"}
                   onChange={handleCheckSelection}
-                  size={"lg"}
+                  size={{ base: "sm", md: "md" }}
                   colorScheme={"green"}
                   css={`
                     > span:first-of-type {
@@ -164,7 +164,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
                   name="private"
                   isChecked={spaceType === "private"}
                   onChange={handleCheckSelection}
-                  size={"lg"}
+                  size={{ base: "sm", md: "md" }}
                   colorScheme={"green"}
                   css={`
                     > span:first-of-type {
@@ -184,7 +184,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
                   name="restricted"
                   isChecked={spaceType === "restricted"}
                   onChange={handleCheckSelection}
-                  size={"lg"}
+                  size={{ base: "sm", md: "md" }}
                   colorScheme={"green"}
                   css={`
                     > span:first-of-type {
@@ -211,13 +211,15 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
             mr={3}
             onClick={setActive}
             variant={"outline"}
+            size={{ base: "xs", md: "sm" }}
           >
             cancel
           </Button>
           <Button
-            width={"xs"}
+            width={"100%"}
             onClick={handleSpaceCreation}
             isLoading={loading}
+            size={{ base: "xs", md: "sm" }}
           >
             create space
           </Button>

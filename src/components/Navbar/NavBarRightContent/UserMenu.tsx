@@ -31,14 +31,14 @@ export const UserMenu: React.FC = () => {
   return (
     <Menu>
       <MenuButton>
-        <Flex justify={"center"} align={"center"}>
-          <Text px={"2"} display={{ base: "none", md: "unset" }}>
-            hafa! {user?.email?.slice(0, 8)}
+        <Flex justify={"center"} align={"center"} flexGrow={"1"}>
+          <Text px={"5"} fontSize={{ base: "xs", md: "md" }} isTruncated>
+            hafa! {user?.email?.split("@")[0]}
           </Text>
           <Icon as={GrBraille}></Icon>
         </Flex>
       </MenuButton>
-      <MenuList>
+      <MenuList fontSize={{ base: "xs", md: "md" }}>
         <MenuItem minH="48px">
           <Image
             boxSize="2rem"
@@ -47,7 +47,7 @@ export const UserMenu: React.FC = () => {
             alt="Fluffybuns the destroyer"
             mr="12px"
           />
-          <Text> {user?.email} </Text>
+          <Text>{user?.email} </Text>
           <span></span>
         </MenuItem>
         <MenuItem icon={<AddIcon />}>create post</MenuItem>
