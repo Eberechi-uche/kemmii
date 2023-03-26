@@ -15,6 +15,7 @@ const theme = extendTheme({
     global: () => ({
       "html, body": {
         bg: "gray.200",
+        fontSize: { base: "sm", md: "md" },
       },
     }),
   },

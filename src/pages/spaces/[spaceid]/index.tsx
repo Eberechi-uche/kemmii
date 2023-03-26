@@ -9,6 +9,8 @@ import { Header } from "@/src/components/Spaces.component.tsx/Header.spaces";
 import { PageContentLayout } from "@/src/components/layouts/PageContentLayout";
 import { CreatePostLink } from "@/src/components/Spaces.component.tsx/CreatePostLink";
 import { useSpaceDataFetch } from "@/src/components/Hooks/useSpaceDataFetch";
+import { Posts } from "@/src/components/PostComponent/Posts";
+import { useEffect } from "react";
 
 type spacePageProps = {
   spaceData: Space;
@@ -24,6 +26,7 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
       <PageContentLayout>
         <>
           <CreatePostLink />
+          <Posts spaceData={spaceData} />
         </>
         <>
           <div>right or top</div>
@@ -32,6 +35,7 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
     </div>
   );
 };
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const spaceRef = doc(firestore, "spaces", context.query.spaceid as string);

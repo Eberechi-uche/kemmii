@@ -75,12 +75,12 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
           imageUrl: downloadUrl,
         });
       }
+      router.back();
     } catch (error: any) {
       console.log("onPostSubmit", error.message);
       setError(error.message);
     }
     setLoading(false);
-    router.back();
   };
 
   const onInputChange = (

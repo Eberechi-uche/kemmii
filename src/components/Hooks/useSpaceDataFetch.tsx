@@ -1,6 +1,6 @@
 import { Space, SpaceSnippet, SpaceState } from "@/src/Atoms/spacesAtom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { async } from "@firebase/util";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
@@ -101,6 +101,9 @@ export const useSpaceDataFetch = () => {
     }
     joinSpace(space);
   };
+  useEffect(() => {
+    getSpaceSnippet();
+  }, [user]);
 
   return {
     spaceValue,

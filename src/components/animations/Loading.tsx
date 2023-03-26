@@ -1,13 +1,19 @@
-import { Image } from "@chakra-ui/react";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 interface image {
   link: string;
+  size?: string;
 }
 
-export const Loading = ({ link }: image) => {
+export const Loading = ({ link, size = "300px" }: image) => {
   return (
     <>
-      <Image src={link} alt="loading-img" borderRadius={"5px"} />
+      <Player
+        autoplay
+        loop
+        src={link}
+        style={{ height: size, width: size }}
+      ></Player>
     </>
   );
 };
