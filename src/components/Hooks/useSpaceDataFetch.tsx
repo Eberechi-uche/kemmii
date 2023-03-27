@@ -21,6 +21,7 @@ export const useSpaceDataFetch = () => {
   const [user] = useAuthState(auth);
 
   const joinSpace = async (spaceData: Space) => {
+    setLoading(true);
     const batch = writeBatch(firestore);
     const newSpace: SpaceSnippet = {
       SpaceId: spaceData.id,
@@ -46,6 +47,7 @@ export const useSpaceDataFetch = () => {
   };
 
   const leaveSpace = async (spaceId: string) => {
+    setLoading(true);
     try {
       const batch = writeBatch(firestore);
       batch.delete(doc(firestore, `users/${user?.uid}/spaceSnippet`, spaceId));

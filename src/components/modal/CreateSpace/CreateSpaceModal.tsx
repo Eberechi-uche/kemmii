@@ -14,9 +14,7 @@ import {
   Checkbox,
   Icon,
 } from "@chakra-ui/react";
-import { MdOutlinePublic, MdRocketLaunch } from "react-icons/md";
-import { RiChatPrivateFill } from "react-icons/ri";
-import { BiHide } from "react-icons/bi";
+import { MdRocketLaunch } from "react-icons/md";
 import { useState } from "react";
 import {
   doc,
@@ -28,6 +26,11 @@ import {
 import { auth, firestore } from "@/src/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Loading } from "../../animations/Loading";
+import {
+  CreateSpaceFlow,
+  CreateSpaceTab,
+  PickSpaceVibeTab,
+} from "./CreateSpaceFlow";
 
 type createSpaceModalProps = {
   active: boolean;
@@ -113,96 +116,13 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody display={"grid"} placeItems={"start"}>
-          {loading && (
-            <Loading
-              link={
-                "https://media.tenor.com/6Tc-POkXDgYAAAAC/epic-rick-and-morty.gif"
-              }
-            />
-          )}
-          {!loading && (
-            <>
-              <Text>Enter the name of the spaceType you want to create</Text>
-              <Input
-                bg={"whatsapp.500"}
-                focusBorderColor={"whatsapp.500"}
-                mt={"5"}
-                borderRadius={"full"}
-                maxLength={30}
-                color={"white"}
-                onChange={handleInputChange}
-              />
-              {error.length > 2 && (
-                <Text color={"red.500"} fontSize={"xs"}>
-                  {error}
-                </Text>
-              )}
-
-              <Box display={"flex"} flexDir={"column"} pt={"10"}>
-                <Checkbox
-                  name="public"
-                  isChecked={spaceType === "public"}
-                  onChange={handleCheckSelection}
-                  size={{ base: "sm", md: "md" }}
-                  colorScheme={"green"}
-                  css={`
-                    > span:first-of-type {
-                      box-shadow: unset;
-                    }
-                  `}
-                >
-                  <Flex align={"center"}>
-                    <Icon as={MdOutlinePublic} />
-                    <Text ml={"2"}>Public</Text>
-                    <Text fontSize={"x-small"} ml={"5"}>
-                      everyone can view and post
-                    </Text>
-                  </Flex>
-                </Checkbox>
-
-                <Checkbox
-                  name="private"
-                  isChecked={spaceType === "private"}
-                  onChange={handleCheckSelection}
-                  size={{ base: "sm", md: "md" }}
-                  colorScheme={"green"}
-                  css={`
-                    > span:first-of-type {
-                      box-shadow: unset;
-                    }
-                  `}
-                >
-                  <Flex align={"center"}>
-                    <Icon as={RiChatPrivateFill} />
-                    <Text ml={"2"}>Private</Text>
-                    <Text fontSize={"x-small"} ml={"5"}>
-                      everyone can view and comment but cannot post
-                    </Text>
-                  </Flex>
-                </Checkbox>
-                <Checkbox
-                  name="restricted"
-                  isChecked={spaceType === "restricted"}
-                  onChange={handleCheckSelection}
-                  size={{ base: "sm", md: "md" }}
-                  colorScheme={"green"}
-                  css={`
-                    > span:first-of-type {
-                      box-shadow: unset;
-                    }
-                  `}
-                >
-                  <Flex align={"center"}>
-                    <Icon as={BiHide} />
-                    <Text ml={"2"}>Restricted</Text>
-                    <Text fontSize={"x-small"} ml={"5"}>
-                      only approved users can view it and post
-                    </Text>
-                  </Flex>
-                </Checkbox>
-              </Box>
-            </>
-          )}
+          <CreateSpaceFlow
+            handleCheckSelection={handleCheckSelection}
+            handleInputChange={handleInputChange}
+            error={error}
+            spaceType={spaceType}
+            loading={loading}
+          />
         </ModalBody>
 
         <ModalFooter>
@@ -220,6 +140,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
             onClick={handleSpaceCreation}
             isLoading={loading}
             size={{ base: "xs", md: "sm" }}
+            isDisabled={spaceName.length < 3}
           >
             create space
           </Button>

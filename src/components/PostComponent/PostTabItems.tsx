@@ -1,7 +1,5 @@
-import { Box, TabIndicatorProps } from "@chakra-ui/react";
 import { TabItems } from "./NewPostForm";
 import { Flex, Text, Icon } from "@chakra-ui/react";
-import { easeInOut } from "framer-motion";
 
 type tabItemProps = {
   item: TabItems;

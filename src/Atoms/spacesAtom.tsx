@@ -8,6 +8,7 @@ export interface Space {
   privacyType: "public" | "private" | "restricted";
   createdAt?: Timestamp;
   imageUrl?: string;
+  vibe?: string | string[];
 }
 export interface SpaceSnippet {
   SpaceId: string;
