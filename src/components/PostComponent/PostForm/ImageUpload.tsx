@@ -25,7 +25,6 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
       minH={"200px"}
       borderColor={"whatsapp.500"}
       overflow={"hidden"}
-      m={"10px 10px"}
     >
       <Flex align={"center"}>
         {fileSelected ? (

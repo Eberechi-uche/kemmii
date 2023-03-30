@@ -14,10 +14,6 @@ const NotFound: React.FC = () => {
       <Text letterSpacing={"widest"} fontSize={"20pt"} color={"whatsapp.500"}>
         space not found
       </Text>
-      <img
-        src="https://media.tenor.com/6Tc-POkXDgYAAAAC/epic-rick-and-morty.gif"
-        alt="not found"
-      />
       <Button>home</Button>
     </Flex>
   );

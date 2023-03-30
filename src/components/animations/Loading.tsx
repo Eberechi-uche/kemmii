@@ -2,17 +2,16 @@ import { Player } from "@lottiefiles/react-lottie-player";
 
 interface image {
   link: string;
-  size?: string;
 }
 
-export const Loading = ({ link, size = "300px" }: image) => {
+export const Loading = ({ link }: image) => {
   return (
     <>
       <Player
         autoplay
         loop
         src={link}
-        style={{ height: size, width: size }}
+        style={{ width: 200, height: 200 }}
       ></Player>
     </>
   );

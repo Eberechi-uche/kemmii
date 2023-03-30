@@ -1,4 +1,4 @@
-import { Space, SpaceSnippet, SpaceState } from "@/src/Atoms/spacesAtom";
+import { Space, SpaceSnippet, spaceStateAtom } from "@/src/Atoms/spacesAtom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import { async } from "@firebase/util";
@@ -14,7 +14,7 @@ import { auth, firestore } from "@/src/firebase/clientApp";
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
 
 export const useSpaceDataFetch = () => {
-  const [spaceValue, setSpaceValue] = useRecoilState(SpaceSnippet);
+  const [spaceValue, setSpaceValue] = useRecoilState(spaceStateAtom);
   const [error, setError] = useState("");
   const setAuthmodalState = useSetRecoilState(authModalState);
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export const useSpaceDataFetch = () => {
     setLoading(true);
     const batch = writeBatch(firestore);
     const newSpace: SpaceSnippet = {
-      SpaceId: spaceData.id,
+      spaceId: spaceData.id,
       imageUrl: spaceData.imageUrl || "",
     };
     try {
@@ -33,7 +33,7 @@ export const useSpaceDataFetch = () => {
         newSpace
       );
       batch.update(doc(firestore, `spaces`, spaceData.id), {
-        numberOfMember: increment(1),
+        numberOfMembers: increment(1),
       });
       await batch.commit();
       setSpaceValue((prev) => ({
@@ -53,11 +53,11 @@ export const useSpaceDataFetch = () => {
       batch.delete(doc(firestore, `users/${user?.uid}/spaceSnippet`, spaceId));
 
       batch.update(doc(firestore, "spaces", spaceId), {
-        numberOfMember: increment(-1),
+        numberOfMembers: increment(-1),
       });
       await batch.commit();
       const updateSpace = spaceValue.mySpaces.filter(
-        (space) => space.SpaceId !== spaceId
+        (space) => space.spaceId !== spaceId
       );
       setSpaceValue((prev) => ({
         ...prev,
@@ -79,6 +79,7 @@ export const useSpaceDataFetch = () => {
       const snippets = snippetDoc.docs.map((doc) => ({ ...doc.data() }));
       setSpaceValue((prev) => ({
         ...prev,
+
         mySpaces: snippets as Array<SpaceSnippet>,
       }));
     } catch (error: any) {
@@ -105,7 +106,11 @@ export const useSpaceDataFetch = () => {
   };
   useEffect(() => {
     getSpaceSnippet();
-  }, [user]);
+  }, [
+    user,
+    spaceValue.currentSpace?.imageUrl,
+    spaceValue.currentSpace?.numberOfMembers,
+  ]);
 
   return {
     spaceValue,

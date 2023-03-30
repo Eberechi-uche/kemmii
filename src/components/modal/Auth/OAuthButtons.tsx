@@ -15,7 +15,6 @@ export const OAuthButtons = () => {
   };
   useEffect(() => {
     if (userData) {
-      creatUser(userData.user);
     }
   }, [userData]);
   return (

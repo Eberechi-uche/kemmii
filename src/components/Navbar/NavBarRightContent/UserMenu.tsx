@@ -19,11 +19,11 @@ import {
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useResetRecoilState } from "recoil";
-import { SpaceSnippet } from "@/src/Atoms/spacesAtom";
+import { spaceStateAtom } from "@/src/Atoms/spacesAtom";
 
 export const UserMenu: React.FC = () => {
   const [user] = useAuthState(auth);
-  const ResetSpace = useResetRecoilState(SpaceSnippet);
+  const ResetSpace = useResetRecoilState(spaceStateAtom);
   const logout = async () => {
     await signOut(auth);
     ResetSpace();

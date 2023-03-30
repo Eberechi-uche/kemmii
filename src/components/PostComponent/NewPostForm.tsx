@@ -23,6 +23,7 @@ import {
 } from "firebase/firestore";
 import { firestore, storage } from "@/src/firebase/clientApp";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { useFileUpload } from "../Hooks/useFileUpload";
 
 type NewPostFormProps = {
   user: User;
@@ -42,11 +43,14 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   const [activeTab, setActivetab] = useState(formTabs[0].title);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState("");
+
   const [input, setInput] = useState({
     title: "",
     body: "",
   });
+
+  const { file, setFile, onFileUpload } = useFileUpload();
+
   const router = useRouter();
 
   const onPostSubmit = async () => {
@@ -67,9 +71,9 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       // get doc refrence,
       const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
 
-      if (selectedFile) {
+      if (file) {
         const ImageRef = ref(storage, `posts/${postDocRef.id}/image`);
-        await uploadString(ImageRef, selectedFile, "data_url");
+        await uploadString(ImageRef, file, "data_url");
         const downloadUrl = await getDownloadURL(ImageRef);
         await updateDoc(postDocRef, {
           imageUrl: downloadUrl,
@@ -93,17 +97,7 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       [name]: value,
     }));
   };
-  const onFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = new FileReader();
-    if (event.target.files?.[0]) {
-      file.readAsDataURL(event.target.files[0]);
-    }
-    file.onload = (loadEvent) => {
-      if (loadEvent.target?.result) {
-        setSelectedFile(loadEvent.target.result as string);
-      }
-    };
-  };
+
   return (
     <>
       <Flex
@@ -135,8 +129,8 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
           {activeTab === formTabs[1].title && (
             <ImageUpload
               onUpload={onFileUpload}
-              setSelectedFile={setSelectedFile}
-              fileSelected={selectedFile}
+              setSelectedFile={setFile}
+              fileSelected={file}
               setActiveTab={setActivetab}
             />
           )}

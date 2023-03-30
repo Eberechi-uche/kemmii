@@ -8,13 +8,13 @@ import {
   ModalBody,
   ModalFooter,
   Text,
-  Input,
   Flex,
-  Box,
-  Checkbox,
+  AlertIcon,
   Icon,
+  Alert,
 } from "@chakra-ui/react";
 import { MdRocketLaunch } from "react-icons/md";
+
 import { useState } from "react";
 import {
   doc,
@@ -25,12 +25,9 @@ import {
 } from "firebase/firestore";
 import { auth, firestore } from "@/src/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Loading } from "../../animations/Loading";
-import {
-  CreateSpaceFlow,
-  CreateSpaceTab,
-  PickSpaceVibeTab,
-} from "./CreateSpaceFlow";
+
+import { CreateSpaceFlow } from "./CreateSpaceFlow";
+import { useRouter } from "next/router";
 
 type createSpaceModalProps = {
   active: boolean;
@@ -46,14 +43,18 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [user] = useAuthState(auth);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSpaceName(e.target.value);
   };
+
   const handleCheckSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSpaceType(e.target.name);
   };
+
+  const router = useRouter();
   const handleSpaceCreation = async () => {
     setError("");
     const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -79,8 +80,9 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
         transaction.set(spaceDocRef, {
           creatorId: user?.uid,
           createdAt: serverTimestamp(),
-          numberOfMember: 1,
+          numberOfMembers: 1,
           privacyType: spaceType,
+          imageUrl: "",
         });
         // add user to the space and make moderator
         transaction.set(
@@ -97,6 +99,9 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
       setError(error.message);
       console.log("handleCreateSpace", error.message);
     }
+
+    setActive();
+    router.push(`/spaces/${spaceName}`);
   };
 
   return (

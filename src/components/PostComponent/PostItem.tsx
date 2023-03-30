@@ -1,18 +1,30 @@
 import { Post } from "@/src/Atoms/PostAtom";
-import { Flex, Text, Image, Stack, Icon, Divider } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Image,
+  Stack,
+  Icon,
+  Divider,
+  Alert,
+  AlertIcon,
+  ScaleFade,
+  Spinner,
+} from "@chakra-ui/react";
 import { SiEgghead } from "react-icons/si";
 import { AiOutlineFire, AiTwotoneFire } from "react-icons/ai";
 import { HiChatBubbleBottomCenterText, HiOutlineXMark } from "react-icons/hi2";
 import moment from "moment";
 import { useState } from "react";
 import { Loading } from "../animations/Loading";
+import { Posts } from "./Posts";
 type PostItemProps = {
   post: Post;
-  userIsCreator?: boolean;
-  userReaction?: number;
-  onReaction?: () => void;
-  onDeletePost?: () => void;
-  onPostSelect?: () => void;
+  userIsCreator: boolean;
+  userReaction: number;
+  onReaction: () => void;
+  onDeletePost: (post: Post) => Promise<boolean>;
+  onPostSelect: () => void;
 };
 
 export const PostItem: React.FC<PostItemProps> = ({
@@ -24,6 +36,20 @@ export const PostItem: React.FC<PostItemProps> = ({
   onPostSelect,
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
+  const [error, setError] = useState("");
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const handlePostDelete = async () => {
+    setError("");
+    setLoadingDelete(true);
+    try {
+      const success = await onDeletePost(post);
+      if (!success) {
+        throw new Error("failed to delete post");
+      }
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
   return (
     <>
       <Flex
@@ -60,16 +86,15 @@ export const PostItem: React.FC<PostItemProps> = ({
                 link={
                   "https://assets4.lottiefiles.com/temporary_files/b7BtQW.json"
                 }
-                size={"200px"}
               />
             )}
             <Image
               src={post.imageUrl}
               alt={post.creatorDisplayName}
               maxH={"200px"}
-              maxW={"300px"}
+              width={"100%"}
               objectFit={"cover"}
-              borderRadius={"10px"}
+              borderRadius={"7px"}
               onLoad={() => {
                 setLoadingImage(false);
               }}
@@ -118,7 +143,7 @@ export const PostItem: React.FC<PostItemProps> = ({
           {userIsCreator && (
             <Flex
               align={"center"}
-              onClick={onDeletePost}
+              onClick={handlePostDelete}
               cursor={"pointer"}
               mx={"3"}
               _hover={{
@@ -128,11 +153,25 @@ export const PostItem: React.FC<PostItemProps> = ({
               p={"3px 7px"}
               borderRadius={"5px"}
             >
-              <Icon as={HiOutlineXMark} />
-              <Text fontSize={"sm"}>delete</Text>
+              {!loadingDelete ? (
+                <>
+                  <Icon as={HiOutlineXMark} />
+                  <Text fontSize={"sm"}>delete</Text>
+                </>
+              ) : (
+                <Spinner size={{ base: "xs", md: "sm" }} />
+              )}
             </Flex>
           )}
         </Flex>
+        {error.length > 1 && (
+          <ScaleFade initialScale={0.9} in={error.length > 1}>
+            <Alert status="error" borderRadius={"5px"}>
+              <AlertIcon />
+              {error}
+            </Alert>
+          </ScaleFade>
+        )}
       </Flex>
     </>
   );
