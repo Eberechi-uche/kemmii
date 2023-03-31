@@ -19,6 +19,10 @@ export const Button: ComponentStyleConfig = {
       px: 10, // <-- these values are tokens from the design system
       py: 2, // <-- these values are tokens from the design system
     },
+    icon: {
+      px: 3,
+      py: 1,
+    },
   },
   variants: {
     outline: {
@@ -44,6 +48,17 @@ export const Button: ComponentStyleConfig = {
         outline: "1px solid",
         outlineColor: "rgb(51, 139, 147)",
         color: "teal.500",
+      },
+      icons: {
+        outline: "1px solid",
+        outlineColor: "rgb(51, 139, 147)",
+        colorScheme: "whatsapp.500",
+        color: "teal.500",
+
+        _hover: {
+          bg: "whatsapp.200",
+          color: "white",
+        },
       },
       _active: {
         bg: "rgb(51, 139, 147)",

@@ -10,6 +10,7 @@ import {
   AlertIcon,
   ScaleFade,
   Spinner,
+  Button,
 } from "@chakra-ui/react";
 import { SiEgghead } from "react-icons/si";
 import { AiOutlineFire, AiTwotoneFire } from "react-icons/ai";
@@ -18,13 +19,16 @@ import moment from "moment";
 import { useState } from "react";
 import { Loading } from "../animations/Loading";
 import { Posts } from "./Posts";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/src/firebase/clientApp";
 type PostItemProps = {
   post: Post;
   userIsCreator: boolean;
-  userReaction: number;
-  onReaction: () => void;
+  userReaction: number | undefined;
+  onReaction: (post: Post, reaction: number, spaceId: string) => void;
   onDeletePost: (post: Post) => Promise<boolean>;
   onPostSelect: () => void;
+  loading: boolean;
 };
 
 export const PostItem: React.FC<PostItemProps> = ({
@@ -34,10 +38,12 @@ export const PostItem: React.FC<PostItemProps> = ({
   onReaction,
   onDeletePost,
   onPostSelect,
+  loading,
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
   const [error, setError] = useState("");
   const [loadingDelete, setLoadingDelete] = useState(false);
+
   const handlePostDelete = async () => {
     setError("");
     setLoadingDelete(true);
@@ -112,11 +118,9 @@ export const PostItem: React.FC<PostItemProps> = ({
         >
           <Flex
             align={"center"}
-            onClick={onReaction}
             cursor={"pointer"}
             mx={"3"}
             _hover={{
-              backgroundColor: "whatsapp.100",
               color: "white",
             }}
             p={"3px 7px"}
@@ -127,7 +131,9 @@ export const PostItem: React.FC<PostItemProps> = ({
           </Flex>
           <Flex
             align={"center"}
-            onClick={onReaction}
+            onClick={() => {
+              onReaction(post, post.reactions, post.spaceId);
+            }}
             cursor={"pointer"}
             mx={"3"}
             _hover={{
@@ -137,8 +143,17 @@ export const PostItem: React.FC<PostItemProps> = ({
             p={"3px 7px"}
             borderRadius={"5px"}
           >
-            <Icon as={userReaction === 1 ? AiTwotoneFire : AiOutlineFire} />
-            <Text fontSize={"sm"}>{post.reactions}</Text>
+            <Button
+              variant={"unstyled"}
+              outline={"1px solid"}
+              display={"flex"}
+              height={"fit-content"}
+              px={"2"}
+              isDisabled={loading}
+            >
+              <Icon as={userReaction !== 1 ? AiOutlineFire : AiTwotoneFire} />
+              <Text fontSize={"sm"}>{post.reactions}</Text>
+            </Button>
           </Flex>
           {userIsCreator && (
             <Flex

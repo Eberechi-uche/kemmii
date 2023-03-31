@@ -29,10 +29,7 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
       ...prev,
       currentSpace: spaceData,
     }));
-  }, [
-    spaceState.currentSpace?.imageUrl,
-    spaceState.currentSpace?.numberOfMembers,
-  ]);
+  }, []);
   return (
     <div>
       <Header spacesData={spaceData} />

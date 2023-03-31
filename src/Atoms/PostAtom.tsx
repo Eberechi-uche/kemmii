@@ -14,14 +14,22 @@ export type Post = {
   imageUrl?: string;
   createdAt: Timestamp;
 };
+export type Reaction = {
+  id: string;
+  postId: string;
+  spaceId: string;
+  reactionValue: number;
+};
 
 export interface PostState {
   selectedPost: Post | null;
   posts: Post[];
+  reactions: Reaction[];
 }
 const defaultPostState: PostState = {
   selectedPost: null,
   posts: [],
+  reactions: [],
 };
 
 export const postState = atom<PostState>({

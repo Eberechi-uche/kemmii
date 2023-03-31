@@ -23,10 +23,8 @@ import { spaceStateAtom } from "@/src/Atoms/spacesAtom";
 
 export const UserMenu: React.FC = () => {
   const [user] = useAuthState(auth);
-  const ResetSpace = useResetRecoilState(spaceStateAtom);
   const logout = async () => {
     await signOut(auth);
-    ResetSpace();
   };
   return (
     <Menu>

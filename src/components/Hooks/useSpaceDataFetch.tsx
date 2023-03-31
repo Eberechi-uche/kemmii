@@ -76,10 +76,10 @@ export const useSpaceDataFetch = () => {
       const snippetDoc = await getDocs(
         collection(firestore, `users/${user?.uid}/spaceSnippet`)
       );
+
       const snippets = snippetDoc.docs.map((doc) => ({ ...doc.data() }));
       setSpaceValue((prev) => ({
         ...prev,
-
         mySpaces: snippets as Array<SpaceSnippet>,
       }));
     } catch (error: any) {
@@ -105,12 +105,15 @@ export const useSpaceDataFetch = () => {
     joinSpace(space);
   };
   useEffect(() => {
+    if (!user) {
+      setSpaceValue((prev) => ({
+        ...prev,
+        mySpaces: [],
+      }));
+      return;
+    }
     getSpaceSnippet();
-  }, [
-    user,
-    spaceValue.currentSpace?.imageUrl,
-    spaceValue.currentSpace?.numberOfMembers,
-  ]);
+  }, [user]);
 
   return {
     spaceValue,

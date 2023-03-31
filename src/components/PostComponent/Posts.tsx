@@ -16,8 +16,14 @@ export const Posts: React.FC<PostProps> = ({ spaceData }) => {
   const [user] = useAuthState(auth);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { postData, setPostData, onReaction, onDeletePost, onPostSelect } =
-    usePostData();
+  const {
+    postData,
+    setPostData,
+    onReaction,
+    onDeletePost,
+    onPostSelect,
+    reactionloading,
+  } = usePostData();
 
   const getSpacePost = async () => {
     setLoading(true);
@@ -57,11 +63,15 @@ export const Posts: React.FC<PostProps> = ({ spaceData }) => {
           <PostItem
             post={post}
             key={post.id}
-            userReaction={post.reactions}
+            userReaction={
+              postData.reactions.find((reaction) => reaction.postId === post.id)
+                ?.reactionValue
+            }
             onReaction={onReaction}
             userIsCreator={post.creatorId === user?.uid}
             onDeletePost={onDeletePost}
             onPostSelect={onPostSelect}
+            loading={reactionloading}
           />
         ))
       )}
