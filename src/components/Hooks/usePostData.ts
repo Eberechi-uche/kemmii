@@ -16,6 +16,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { spaceStateAtom } from "@/src/Atoms/spacesAtom";
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
+import { useRouter } from "next/router";
 
 export const usePostData = () => {
   const [postData, setPostData] = useRecoilState(postState);
@@ -24,8 +25,14 @@ export const usePostData = () => {
   const [reactionloading, setReactionLoading] = useState(false);
   const [error, setError] = useState("");
   const setAuthModalState = useSetRecoilState(authModalState);
+  const route = useRouter();
 
-  const onReaction = async (post: Post, reaction: number, spaceId: string) => {
+  const onReaction = async (
+    event: React.MouseEvent<HTMLDivElement>,
+    post: Post,
+    reaction: number,
+    spaceId: string
+  ) => {
     if (!user?.uid) {
       setAuthModalState({
         open: true,
@@ -33,6 +40,7 @@ export const usePostData = () => {
       });
       return;
     }
+    event.stopPropagation();
     setReactionLoading(true);
     try {
       let { reactions } = post;
@@ -92,13 +100,23 @@ export const usePostData = () => {
         posts: updatedPosts,
         reactions: updatedReaction,
       }));
+      if (postData.selectedPost) {
+        setPostData((prev) => ({
+          ...prev,
+          selectedPost: updatePost,
+        }));
+      }
       await batch.commit();
     } catch (error: any) {
       setError(error.message);
     }
     setReactionLoading(false);
   };
-  const onDeletePost = async (post: Post): Promise<boolean> => {
+  const onDeletePost = async (
+    event: React.MouseEvent<HTMLDivElement>,
+    post: Post
+  ): Promise<boolean> => {
+    event.stopPropagation();
     try {
       if (post.imageUrl) {
         const imageRef = ref(storage, `posts/${post.id}/image`);
@@ -113,9 +131,17 @@ export const usePostData = () => {
     } catch (error) {
       return false;
     }
+
+    route.push(`/spaces/${post.spaceId}`);
     return true;
   };
-  const onPostSelect = () => {};
+  const onPostSelect = (post: Post) => {
+    setPostData((prev) => ({
+      ...prev,
+      selectedPost: post,
+    }));
+    route.push(`/spaces/${post.spaceId}/comments/${post.id}`);
+  };
 
   const getUsersPostReactions = async (spaceId: string) => {
     try {

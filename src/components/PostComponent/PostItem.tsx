@@ -24,11 +24,20 @@ import { auth } from "@/src/firebase/clientApp";
 type PostItemProps = {
   post: Post;
   userIsCreator: boolean;
-  userReaction: number | undefined;
-  onReaction: (post: Post, reaction: number, spaceId: string) => void;
-  onDeletePost: (post: Post) => Promise<boolean>;
-  onPostSelect: () => void;
-  loading: boolean;
+  userReaction?: number | undefined;
+  onReaction?: (
+    event: React.MouseEvent<HTMLDivElement>,
+    post: Post,
+    reaction: number,
+    spaceId: string
+  ) => void;
+  onDeletePost: (
+    event: React.MouseEvent<HTMLDivElement>,
+    post: Post
+  ) => Promise<boolean>;
+  onPostSelect?: (post: Post) => void;
+  loading?: boolean;
+  actionError?: string;
 };
 
 export const PostItem: React.FC<PostItemProps> = ({
@@ -44,11 +53,11 @@ export const PostItem: React.FC<PostItemProps> = ({
   const [error, setError] = useState("");
   const [loadingDelete, setLoadingDelete] = useState(false);
 
-  const handlePostDelete = async () => {
+  const handlePostDelete = async (event: React.MouseEvent<HTMLDivElement>) => {
     setError("");
     setLoadingDelete(true);
     try {
-      const success = await onDeletePost(post);
+      const success = await onDeletePost(event, post);
       if (!success) {
         throw new Error("failed to delete post");
       }
@@ -64,6 +73,9 @@ export const PostItem: React.FC<PostItemProps> = ({
         flexDir={"column"}
         bg={"white"}
         my={"2"}
+        onClick={() => {
+          onPostSelect && onPostSelect(post);
+        }}
       >
         <Text fontWeight={"bold"} my={"1"}>
           {post.title}
@@ -131,8 +143,9 @@ export const PostItem: React.FC<PostItemProps> = ({
           </Flex>
           <Flex
             align={"center"}
-            onClick={() => {
-              onReaction(post, post.reactions, post.spaceId);
+            onClick={(event: React.MouseEvent<HTMLDivElement>) => {
+              onReaction &&
+                onReaction(event, post, post.reactions, post.spaceId);
             }}
             cursor={"pointer"}
             mx={"3"}

@@ -9,9 +9,12 @@ import {
   writeBatch,
   doc,
   increment,
+  getDoc,
 } from "firebase/firestore";
 import { auth, firestore } from "@/src/firebase/clientApp";
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
+import { useRouter } from "next/router";
+import { Post } from "@/src/Atoms/PostAtom";
 
 export const useSpaceDataFetch = () => {
   const [spaceValue, setSpaceValue] = useRecoilState(spaceStateAtom);
@@ -19,6 +22,7 @@ export const useSpaceDataFetch = () => {
   const setAuthmodalState = useSetRecoilState(authModalState);
   const [loading, setLoading] = useState(false);
   const [user] = useAuthState(auth);
+  const route = useRouter();
 
   const joinSpace = async (spaceData: Space) => {
     setLoading(true);
@@ -87,7 +91,18 @@ export const useSpaceDataFetch = () => {
     }
     setLoading(false);
   };
-
+  const getSpaceInfo = async (spaceID: string) => {
+    const spaceRef = doc(firestore, "spaces", `${spaceID}`);
+    const spaceDoc = await getDoc(spaceRef);
+    setSpaceValue((prev) => ({
+      ...prev,
+      currentSpace: { id: spaceDoc.id, ...spaceDoc.data() } as Space,
+    }));
+    try {
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
   const onSpaceJoinOrLeave = (space: Space, isMember: boolean) => {
     // TODO check if user is signed in,
     if (!user) {
@@ -114,6 +129,12 @@ export const useSpaceDataFetch = () => {
     }
     getSpaceSnippet();
   }, [user]);
+  useEffect(() => {
+    const { spaceid } = route.query;
+    if (spaceid && !spaceValue.currentSpace) {
+      getSpaceInfo(spaceid as string);
+    }
+  }, [route.query, spaceValue.currentSpace]);
 
   return {
     spaceValue,

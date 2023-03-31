@@ -6,17 +6,21 @@ import { auth } from "@/src/firebase/clientApp";
 import { useRecoilValue } from "recoil";
 import { spaceStateAtom } from "@/src/Atoms/spacesAtom";
 import { About } from "@/src/components/Spaces.component.tsx/About";
+import { useSpaceDataFetch } from "@/src/components/Hooks/useSpaceDataFetch";
 
 const SubmitPost: React.FC = () => {
   const [user] = useAuthState(auth);
-  const spaceDataValue = useRecoilValue(spaceStateAtom);
+  // const spaceDataValue = useRecoilValue(spaceStateAtom);
+  const { spaceValue } = useSpaceDataFetch();
 
   return (
     <>
       <PageContentLayout>
         <>{user && <NewPostForm user={user} />}</>
         <>
-          <About spaceData={spaceDataValue.currentSpace!} />
+          {spaceValue.currentSpace && (
+            <About spaceData={spaceValue.currentSpace} />
+          )}
         </>
       </PageContentLayout>
     </>
