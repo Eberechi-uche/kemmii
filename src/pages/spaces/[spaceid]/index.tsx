@@ -13,6 +13,7 @@ import { About } from "@/src/components/Spaces.component.tsx/About";
 import { Posts } from "@/src/components/PostComponent/Posts";
 import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRouter } from "next/router";
 
 type spacePageProps = {
   spaceData: Space;
@@ -36,7 +37,7 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
       <PageContentLayout>
         <>
           <CreatePostLink />
-          <Posts spaceData={spaceData} />
+          {spaceState && <Posts spaceData={spaceData} />}
         </>
         <>
           <About spaceData={spaceData} />

@@ -1,4 +1,4 @@
-import { Flex, Icon, Image, Spacer, Text } from "@chakra-ui/react";
+import { Flex, Icon, Image, Spacer, Text, Stack } from "@chakra-ui/react";
 import SearchInput from "./SearchInput/SearchInput.component";
 import NavContentRight from "./NavBarRightContent/NavContentRight";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -7,9 +7,15 @@ import { BsUiRadiosGrid } from "react-icons/bs";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { CreateSpace } from "./NavBarRightContent/userActions/CreateSpace";
 import { CreateSpaceModal } from "../modal/CreateSpace/CreateSpaceModal";
-
+import { useRecoilState } from "recoil";
+import { spaceStateAtom } from "@/src/Atoms/spacesAtom";
+import { useSpaceDataFetch } from "../Hooks/useSpaceDataFetch";
+import { useRouter } from "next/router";
+import { SpaceList } from "../Spaces.component.tsx/SpaceList";
 export const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
+  const route = useRouter();
+  const { spaceValue } = useSpaceDataFetch();
 
   return (
     <Flex bg="white" height="50px" padding="10px 12px" alignItems="center">
@@ -30,9 +36,21 @@ export const Navbar: React.FC = () => {
             <MenuButton px={"5"} pt={"1"}>
               <Icon as={BsUiRadiosGrid}></Icon>
             </MenuButton>
-            <MenuList fontSize={{ base: "xs", md: "md" }}>
+
+            <MenuList fontSize={{ base: "xs", md: "sm" }} p={"2"}>
+              <Text fontWeight={"extrabold"}> my spaces</Text>
+              {spaceValue.mySpaces
+                .filter((space) => space.isModerator)
+                .map((space) => (
+                  <SpaceList spaceSnippet={space} key={space.spaceId} />
+                ))}
               <CreateSpace />
-              <MenuItem>user space go here</MenuItem>
+              <Text fontWeight={"extrabold"}> Joined spaces</Text>
+              {spaceValue.mySpaces
+                .filter((space) => !space.isModerator)
+                .map((space) => (
+                  <SpaceList key={space.spaceId} spaceSnippet={space} />
+                ))}
             </MenuList>
           </Menu>
         </>

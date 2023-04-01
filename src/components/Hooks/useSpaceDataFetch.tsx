@@ -30,6 +30,7 @@ export const useSpaceDataFetch = () => {
     const newSpace: SpaceSnippet = {
       spaceId: spaceData.id,
       imageUrl: spaceData.imageUrl || "",
+      isModerator: user!.uid === spaceData.creatorId,
     };
     try {
       batch.set(

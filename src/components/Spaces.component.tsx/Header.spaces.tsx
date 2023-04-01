@@ -3,7 +3,7 @@ import { auth } from "@/src/firebase/clientApp";
 import { Flex, Box, Image, Text, Button, Icon } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { GiJasonMask } from "react-icons/Gi";
+import { RiUserSmileFill } from "react-icons/ri";
 import { useRecoilValue } from "recoil";
 import { useSpaceDataFetch } from "../Hooks/useSpaceDataFetch";
 
@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
                   top={"-3"}
                 />
               ) : (
-                <Icon as={GiJasonMask} width={"40px"} height={"40px"} />
+                <Icon as={RiUserSmileFill} width={"50px"} height={"50px"} />
               )}
 
               <Flex direction={"column"}>

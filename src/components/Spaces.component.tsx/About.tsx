@@ -16,7 +16,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useFileUpload } from "../Hooks/useFileUpload";
-import { GiJasonMask } from "react-icons/Gi";
+import { RiUserSmileFill } from "react-icons/ri";
 import { useRef, useState } from "react";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
@@ -99,7 +99,7 @@ export const About: React.FC<AboutProps> = ({ spaceData }) => {
                   />
                 ) : (
                   <>
-                    <Icon as={GiJasonMask} width={"35px"} height={"35px"} />
+                    <Icon as={RiUserSmileFill} width={"35px"} height={"35px"} />
                   </>
                 )}
 
