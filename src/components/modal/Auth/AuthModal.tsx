@@ -12,6 +12,7 @@ import {
   ModalFooter,
   Flex,
   Text,
+  Slide,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { AuthInputs } from "./AuthInputs";
@@ -38,7 +39,11 @@ export const AuthModal: React.FC = () => {
 
   return (
     <>
-      <Modal isOpen={modalState.open} onClose={handleClick}>
+      <Modal
+        isOpen={modalState.open}
+        onClose={handleClick}
+        motionPreset="slideInBottom"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader
@@ -50,6 +55,7 @@ export const AuthModal: React.FC = () => {
             {modalState.view}
           </ModalHeader>
           <ModalCloseButton />
+
           <ModalBody
             display="flex"
             flexDirection={"column"}

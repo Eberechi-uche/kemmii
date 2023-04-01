@@ -79,7 +79,7 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
           imageUrl: downloadUrl,
         });
       }
-      router.back();
+      router.push(`/spaces/${spaceid}`);
     } catch (error: any) {
       console.log("onPostSubmit", error.message);
       setError(error.message);

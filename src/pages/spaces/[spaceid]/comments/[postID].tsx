@@ -2,10 +2,12 @@ import { Post } from "@/src/Atoms/PostAtom";
 import { usePostData } from "@/src/components/Hooks/usePostData";
 import { useSpaceDataFetch } from "@/src/components/Hooks/useSpaceDataFetch";
 import { PageContentLayout } from "@/src/components/layouts/PageContentLayout";
+import { Comments } from "@/src/components/PostComponent/CommentComponent/Comments";
 import { PostItem } from "@/src/components/PostComponent/PostItem";
 import { About } from "@/src/components/Spaces.component.tsx/About";
 import { auth, firestore } from "@/src/firebase/clientApp";
 import { Text } from "@chakra-ui/react";
+import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -53,7 +55,14 @@ const PostCommentPage: React.FC = () => {
               actionError={error}
             />
           )}
+
+          <Comments
+            selectedPost={postData.selectedPost}
+            spaceId={spaceValue.currentSpace?.id!}
+            user={user as User}
+          />
         </>
+
         <>
           {spaceValue.currentSpace && (
             <About spaceData={spaceValue.currentSpace} />
