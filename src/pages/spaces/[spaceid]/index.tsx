@@ -12,8 +12,7 @@ import { useSpaceDataFetch } from "@/src/components/Hooks/useSpaceDataFetch";
 import { About } from "@/src/components/Spaces.component.tsx/About";
 import { Posts } from "@/src/components/PostComponent/Posts";
 import { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
 
 type spacePageProps = {
   spaceData: Space;
@@ -30,7 +29,7 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
       ...prev,
       currentSpace: spaceData,
     }));
-  }, []);
+  }, [spaceData]);
   return (
     <div>
       <Header spacesData={spaceData} />

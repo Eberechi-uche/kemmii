@@ -116,7 +116,7 @@ export default function Home() {
   }, [user, loadingUser]);
   useEffect(() => {
     if (spaceValue.snippetFetched) getLogggedIntUserFeed();
-  }, [spaceValue.snippetFetched]);
+  }, [spaceValue]);
   useEffect(() => {
     if (user && postData.posts) getUserReactedPost();
     return () => {

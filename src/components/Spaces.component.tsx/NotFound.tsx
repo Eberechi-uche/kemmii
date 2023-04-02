@@ -1,4 +1,5 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import PageNotFound from "../animations/PageNotFound";
 
 const NotFound: React.FC = () => {
@@ -14,7 +15,9 @@ const NotFound: React.FC = () => {
       <Text letterSpacing={"widest"} fontSize={"20pt"} color={"whatsapp.500"}>
         space not found
       </Text>
-      <Button>home</Button>
+      <Link href={`/`}>
+        <Button>home</Button>
+      </Link>
     </Flex>
   );
 };

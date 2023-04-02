@@ -29,6 +29,7 @@ export const SpaceList: React.FC<SpaceListProp> = ({
             width={"25px"}
             height={"25px"}
             borderRadius={"full"}
+            alt={displayText}
           />
         ) : (
           <Icon

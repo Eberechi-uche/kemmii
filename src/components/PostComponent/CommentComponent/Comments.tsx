@@ -128,7 +128,7 @@ export const Comments: React.FC<CommentProps> = ({
 
   useEffect(() => {
     selectedPost && getPostComment();
-  }, [selectedPost?.id]);
+  }, [selectedPost]);
   return (
     <>
       <Flex

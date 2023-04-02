@@ -135,7 +135,7 @@ export const useSpaceDataFetch = () => {
     if (spaceid && !spaceValue.currentSpace) {
       getSpaceInfo(spaceid as string);
     }
-  }, [route.query, spaceValue.currentSpace]);
+  }, [route.query, spaceValue]);
 
   return {
     spaceValue,

@@ -33,7 +33,12 @@ export const OAuthButtons = () => {
         signInWithGoogle();
       }}
     >
-      <Image src="/images/google.png" width={"20px"} m={"2"} />
+      <Image
+        src="/images/google.png"
+        width={"20px"}
+        m={"2"}
+        alt={"google logo"}
+      />
       Login with google
     </Button>
   );

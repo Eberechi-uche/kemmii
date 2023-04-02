@@ -15,10 +15,9 @@ const SearchInput: React.FC<SearchInputProps> = () => {
             fontSize: { base: "xs", md: "md" },
           }}
         />
-        <InputRightElement
-          pointerEvents="none"
-          children={<SearchIcon color="rgb(182, 244, 146)" />}
-        />
+        <InputRightElement pointerEvents="none">
+          <SearchIcon color="rgb(182, 244, 146)" />
+        </InputRightElement>
       </InputGroup>
     </Flex>
   );

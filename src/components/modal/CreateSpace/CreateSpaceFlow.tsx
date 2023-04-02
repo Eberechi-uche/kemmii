@@ -84,7 +84,7 @@ export const PickSpaceVibeTab: React.FC<PickSpaceVibeTabProps> = ({
               link={
                 "https://assets9.lottiefiles.com/packages/lf20_osdxlbqq.json"
               }
-              size={"150px"}
+              size={150}
             />
           </Stack>
           <Flex align={"center"}>
@@ -214,7 +214,7 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
         <Stack align={"center"} justify={"center"}>
           <Loading
             link={"https://assets1.lottiefiles.com/packages/lf20_wl5xqfbq.json"}
-            size={"250px"}
+            size={250}
           />
         </Stack>
       )}

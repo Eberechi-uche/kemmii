@@ -33,7 +33,7 @@ export const Navbar: React.FC = () => {
   return (
     <Flex bg="white" height="50px" padding="10px 12px" alignItems="center">
       <Flex cursor={"pointer"} onClick={handleHomeIconClick}>
-        <Image src="/yellow.ico" height="25px" />
+        <Image src="/yellow.ico" height="25px" alt={"logo"} />
         <Text
           bgGradient="linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
           bgClip="text"
@@ -66,6 +66,7 @@ export const Navbar: React.FC = () => {
                   width={"15px"}
                   height={"15px"}
                   borderRadius={"full"}
+                  alt={"spaces icons"}
                 />
               ) : (
                 <Icon as={RiUserSmileFill} width={"15px"} />
@@ -114,7 +115,7 @@ export const Navbar: React.FC = () => {
       )}
       <Spacer />
 
-      <SearchInput />
+      {/* <SearchInput /> */}
       <Spacer />
       <NavContentRight user={user} />
     </Flex>

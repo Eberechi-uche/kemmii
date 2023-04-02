@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
                   boxSize="50px"
                   objectFit="cover"
                   src={spacesData.imageUrl}
-                  alt="emike"
+                  alt={spacesData.id}
                   borderRadius={"5px"}
                   border={"2px solid white"}
                   position={"relative"}
