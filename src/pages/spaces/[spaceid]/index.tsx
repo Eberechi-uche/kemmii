@@ -20,16 +20,16 @@ type spacePageProps = {
 
 const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
   const [spaceState, setSpaceState] = useRecoilState(spaceStateAtom);
-
-  if (!spaceData) {
-    return <NotFound />;
-  }
   useEffect(() => {
     setSpaceState((prev) => ({
       ...prev,
       currentSpace: spaceData,
     }));
-  }, []);
+  }, [spaceData]);
+  if (!spaceData) {
+    return <NotFound />;
+  }
+
   return (
     <div>
       <Header spacesData={spaceData} />
