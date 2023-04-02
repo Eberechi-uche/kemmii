@@ -20,10 +20,11 @@ import { PostItem } from "../components/PostComponent/PostItem";
 import { CreatePostLink } from "../components/Spaces.component.tsx/CreatePostLink";
 import { auth, firestore } from "../firebase/clientApp";
 import { useSpaceDataFetch } from "../components/Hooks/useSpaceDataFetch";
+import { Button, Flex, Text } from "@chakra-ui/react";
 
 export default function Home() {
   const [user, loadingUser] = useAuthState(auth);
-  const [loadingFeeds, setLoadingFeeds] = useState("");
+  const [loadingFeeds, setLoadingFeeds] = useState(false);
   const [error, setError] = useState("");
   const { spaceValue } = useSpaceDataFetch();
 
@@ -37,7 +38,7 @@ export default function Home() {
   } = usePostData();
 
   const getLogggedIntUserFeed = async () => {
-    setLoadingFeeds("loading");
+    setLoadingFeeds(true);
     try {
       if (!spaceValue.mySpaces.length) {
         getNoUserFeed();
@@ -61,11 +62,11 @@ export default function Home() {
     } catch (error: any) {
       console.log("getLoggedInUser", error.message);
     }
-    setLoadingFeeds("from logged in user");
+    setLoadingFeeds(false);
   };
 
   const getNoUserFeed = async () => {
-    setLoadingFeeds("loading");
+    setLoadingFeeds(true);
     try {
       const feedsQuerry = query(
         collection(firestore, "posts"),
@@ -84,14 +85,15 @@ export default function Home() {
     } catch (error: any) {
       console.log("no user feeds", error.message);
     }
-    setLoadingFeeds("loaded");
+    setLoadingFeeds(false);
   };
   const getUserReactedPost = async () => {
     try {
       const postReactions = postData.posts.map((post) => post.id);
       const postQuery = query(
         collection(firestore, `users/${user?.uid}/reactions`),
-        where("postId", "in", postReactions)
+        where("postId", "in", postReactions),
+        limit(15)
       );
       const userReactionDocs = await getDocs(postQuery);
       const userReactions = userReactionDocs.docs.map((reaction) => ({
@@ -117,6 +119,12 @@ export default function Home() {
   }, [spaceValue.snippetFetched]);
   useEffect(() => {
     if (user && postData.posts) getUserReactedPost();
+    return () => {
+      setPostData((prev) => ({
+        ...prev,
+        reactions: [],
+      }));
+    };
   }, [user, postData.posts]);
   return (
     <>
@@ -144,8 +152,33 @@ export default function Home() {
             />
           ))}
         </>
-        <></>
+        <>
+          <HomePageSideBar />
+        </>
       </PageContentLayout>
     </>
   );
 }
+
+const HomePageSideBar: React.FC = () => {
+  return (
+    <>
+      <Flex
+        width={"100%"}
+        p={"5px"}
+        borderRadius={"5px"}
+        mb={"2"}
+        bg={"white"}
+        flexDir={"column"}
+        fontSize={{ base: "xx-small", md: "x-small" }}
+        height={"fit-content"}
+      >
+        <Text>
+          Discover top Space: this would be available as more users sign in and
+          create spaces and join spaces
+        </Text>
+        <Button size={{ base: "xs", md: "sm" }}> discover top spaces</Button>
+      </Flex>
+    </>
+  );
+};

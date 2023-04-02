@@ -40,7 +40,7 @@ export const Navbar: React.FC = () => {
           display={{ base: "none", md: "unset" }}
           as="b"
         >
-          Kemmii
+          emmii
         </Text>
       </Flex>
       {user && (
