@@ -22,7 +22,7 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
   const [spaceState, setSpaceState] = useRecoilState(spaceStateAtom);
 
   if (!spaceData) {
-    return <NotFound />;
+    <NotFound />;
   }
   useEffect(() => {
     setSpaceState((prev) => ({
