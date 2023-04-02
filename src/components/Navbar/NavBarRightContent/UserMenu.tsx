@@ -3,8 +3,8 @@ import { AddIcon } from "@chakra-ui/icons";
 
 import { BiLogOut } from "react-icons/bi";
 import { GrBraille } from "react-icons/gr";
-import { GiCyborgFace } from "react-icons/Gi";
-import { CreateSpace } from "./userActions/CreateSpace";
+import { GiCyborgFace } from "react-icons/gi";
+
 import { AiFillSmile } from "react-icons/ai";
 
 import {
@@ -12,7 +12,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Image,
   Text,
   Flex,
   Icon,
