@@ -1,7 +1,6 @@
 import { Space, SpaceSnippet, spaceStateAtom } from "@/src/Atoms/spacesAtom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useEffect, useState } from "react";
-import { async } from "@firebase/util";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   collection,
@@ -15,6 +14,7 @@ import { auth, firestore } from "@/src/firebase/clientApp";
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
 import { useRouter } from "next/router";
 import { Post } from "@/src/Atoms/PostAtom";
+import { useSpaceListState } from "./useSpaceListState";
 
 export const useSpaceDataFetch = () => {
   const [spaceValue, setSpaceValue] = useRecoilState(spaceStateAtom);
@@ -130,6 +130,7 @@ export const useSpaceDataFetch = () => {
     }
     getSpaceSnippet();
   }, [user]);
+
   useEffect(() => {
     const { spaceid } = route.query;
     if (spaceid && !spaceValue.currentSpace) {

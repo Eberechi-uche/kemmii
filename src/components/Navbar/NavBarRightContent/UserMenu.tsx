@@ -5,6 +5,7 @@ import { BiLogOut } from "react-icons/bi";
 import { GrBraille } from "react-icons/gr";
 import { GiCyborgFace } from "react-icons/Gi";
 import { CreateSpace } from "./userActions/CreateSpace";
+import { AiFillSmile } from "react-icons/ai";
 
 import {
   Menu,
@@ -38,14 +39,8 @@ export const UserMenu: React.FC = () => {
       </MenuButton>
       <MenuList fontSize={{ base: "xs", md: "md" }}>
         <MenuItem minH="48px">
-          <Image
-            boxSize="2rem"
-            borderRadius="full"
-            src={"https://bit.ly/3JNT4Su"}
-            alt="Fluffybuns the destroyer"
-            mr="12px"
-          />
-          <Text>{user?.email} </Text>
+          <Icon as={AiFillSmile} fontSize={"20px"} />
+          <Text ml={"2"}>{user?.email} </Text>
           <span></span>
         </MenuItem>
         <MenuItem icon={<AddIcon />}>create post</MenuItem>

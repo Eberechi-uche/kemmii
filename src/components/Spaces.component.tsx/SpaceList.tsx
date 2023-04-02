@@ -1,17 +1,25 @@
 import { SpaceSnippet } from "@/src/Atoms/spacesAtom";
 import { Flex, MenuItem, Image, Text, Icon } from "@chakra-ui/react";
 import { RiUserSmileFill } from "react-icons/ri";
+import { useSpaceListState } from "../Hooks/useSpaceListState";
+
 type SpaceListProp = {
   spaceSnippet: SpaceSnippet;
+  link: string;
+  displayText: string;
+  imageUrl: string | undefined;
 };
 
-export const SpaceList: React.FC<SpaceListProp> = ({ spaceSnippet }) => {
-  const { spaceId, imageUrl } = spaceSnippet;
+export const SpaceList: React.FC<SpaceListProp> = ({
+  link,
+  displayText,
+  imageUrl,
+}) => {
+  const { onSpaceSelect } = useSpaceListState();
   return (
     <MenuItem
-      key={spaceId}
       onClick={() => {
-        route.push(`/spaces/${spaceId}`);
+        onSpaceSelect({ link, displayText, imageUrl });
       }}
     >
       <Flex align={"center"}>
@@ -32,7 +40,7 @@ export const SpaceList: React.FC<SpaceListProp> = ({ spaceSnippet }) => {
           />
         )}
 
-        <Text ml={"2"}>{spaceId}</Text>
+        <Text ml={"2"}>{displayText}</Text>
       </Flex>
     </MenuItem>
   );

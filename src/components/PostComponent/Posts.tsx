@@ -51,7 +51,7 @@ export const Posts: React.FC<PostProps> = ({ spaceData }) => {
 
   useEffect(() => {
     getSpacePost();
-  }, []);
+  }, [spaceData]);
   return (
     <>
       {loading ? (

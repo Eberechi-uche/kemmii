@@ -4,13 +4,17 @@ import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/src/firebase/clientApp";
 import { useSetRecoilState } from "recoil";
+import { useSpaceListState } from "../Hooks/useSpaceListState";
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
 
 export const CreatePostLink: React.FC = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
+  const toggleSpaceListMenu = useSpaceListState().toggleSpaceListMenu;
   const setAuthModalView = useSetRecoilState(authModalState);
   const handleClick = () => {
+    const { spaceid } = router.query;
+
     if (!user) {
       setAuthModalView((prev) => ({
         open: true,
@@ -18,8 +22,11 @@ export const CreatePostLink: React.FC = () => {
       }));
       return;
     }
-    const { spaceid } = router.query;
-    router.push(`/spaces/${spaceid}/submit`);
+    if (spaceid) {
+      router.push(`/spaces/${spaceid}/submit`);
+      return;
+    }
+    toggleSpaceListMenu();
   };
 
   return (

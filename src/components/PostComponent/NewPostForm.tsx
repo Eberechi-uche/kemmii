@@ -81,7 +81,6 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       }
       router.push(`/spaces/${spaceid}`);
     } catch (error: any) {
-      console.log("onPostSubmit", error.message);
       setError(error.message);
     }
     setLoading(false);

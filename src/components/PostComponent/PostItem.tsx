@@ -12,15 +12,15 @@ import {
   Spinner,
   Button,
 } from "@chakra-ui/react";
-import { SiEgghead } from "react-icons/si";
-import { AiOutlineFire, AiTwotoneFire } from "react-icons/ai";
+
+import { AiOutlineFire, AiTwotoneFire, AiFillSmile } from "react-icons/ai";
 import { HiChatBubbleBottomCenterText, HiOutlineXMark } from "react-icons/hi2";
+import { RiUserSmileFill } from "react-icons/ri";
 import moment from "moment";
 import { useState } from "react";
 import { Loading } from "../animations/Loading";
-import { Posts } from "./Posts";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/src/firebase/clientApp";
+import { useRouter } from "next/router";
+
 type PostItemProps = {
   post: Post;
   userIsCreator: boolean;
@@ -52,6 +52,14 @@ export const PostItem: React.FC<PostItemProps> = ({
   const [loadingImage, setLoadingImage] = useState(true);
   const [error, setError] = useState("");
   const [loadingDelete, setLoadingDelete] = useState(false);
+  const [reactionLoading] = useState(loading);
+  const route = useRouter();
+  const { spaceid } = route.query;
+
+  const handleSpaceRoute = (event: React.MouseEvent, to: string) => {
+    event.stopPropagation();
+    route.push(to);
+  };
 
   const handlePostDelete = async (event: React.MouseEvent<HTMLDivElement>) => {
     setError("");
@@ -76,13 +84,39 @@ export const PostItem: React.FC<PostItemProps> = ({
         onClick={() => {
           onPostSelect && onPostSelect(post);
         }}
+        cursor={"pointer"}
       >
-        <Text fontWeight={"bold"} my={"1"}>
-          {post.title}
-        </Text>
+        <Flex align={"center"} justify={"space-between"}>
+          <Text fontWeight={"bold"} my={"1"}>
+            {post.title}
+          </Text>
+          {!spaceid && (
+            <>
+              <Text
+                fontSize={"x-small"}
+                fontWeight={"extrabold"}
+                onClick={(e) => {
+                  handleSpaceRoute(e, `/spaces/${post.spaceId}`);
+                }}
+                color={"whatsapp.600"}
+                letterSpacing={"0.5px"}
+                _hover={{
+                  color: "whatsapp.800",
+                  textDecoration: "underline",
+                }}
+                border={"0.5px solid"}
+                borderRadius={"full"}
+                px={"2"}
+              >
+                posted in: {post.spaceId}
+              </Text>
+            </>
+          )}
+        </Flex>
+
         <Flex justify={"flex-start"} align={"center"}>
           <Flex align={"center"} justify={"center"}>
-            <Icon as={SiEgghead} width={"30px"} height={"30px"} />
+            <Icon as={AiFillSmile} width={"30px"} height={"30px"} />
             <Flex flexDir={"column"} ml={"1"}>
               <Text pb={"none"} fontWeight={"bold"}>
                 {post.creatorDisplayName}
@@ -162,7 +196,7 @@ export const PostItem: React.FC<PostItemProps> = ({
               display={"flex"}
               height={"fit-content"}
               px={"2"}
-              isDisabled={loading}
+              isDisabled={reactionLoading}
             >
               <Icon as={userReaction !== 1 ? AiOutlineFire : AiTwotoneFire} />
               <Text fontSize={"sm"}>{post.reactions}</Text>

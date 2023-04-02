@@ -9,6 +9,7 @@ export default function Home() {
       <Head>
         <link rel="icon" href="/nav-logo.svg" />
       </Head>
+
       <p>Kemmi</p>
     </>
   );
