@@ -43,6 +43,7 @@ export const AuthModal: React.FC = () => {
         isOpen={modalState.open}
         onClose={handleClick}
         motionPreset="slideInBottom"
+        size={{ base: "full", md: "md" }}
       >
         <ModalOverlay />
         <ModalContent>

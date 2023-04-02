@@ -26,10 +26,11 @@ export const Button: ComponentStyleConfig = {
   },
   variants: {
     outline: {
-      outline: "1px solid",
-      outlineColor: "rgb(51, 139, 147)",
+      border: "1px solid",
+      borderColor: "rgb(51, 139, 147)",
       colorScheme: "teal.800",
       color: "teal.500",
+      outline: "none",
 
       _hover: {
         bg: "rgb(51, 139, 147)",
@@ -43,15 +44,17 @@ export const Button: ComponentStyleConfig = {
       bg: "rgb(51, 139, 147)",
       color: "white",
       colorScheme: "teal.800",
+      outline: "none",
       _hover: {
         bg: "none",
-        outline: "1px solid",
-        outlineColor: "rgb(51, 139, 147)",
+        border: "1px solid",
+        borderColor: "rgb(51, 139, 147)",
         color: "teal.500",
       },
       icons: {
-        outline: "1px solid",
-        outlineColor: "rgb(51, 139, 147)",
+        border: "1px solid",
+        outline: "none",
+        borderColor: "rgb(51, 139, 147)",
         colorScheme: "whatsapp.500",
         color: "teal.500",
 
