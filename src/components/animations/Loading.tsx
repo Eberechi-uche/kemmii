@@ -1,17 +1,33 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 
-interface image {
+type LoadingProps = {
   link: string;
-}
+  size?: number;
+  display?: string;
+  speed?: number;
+  loop?: boolean;
+};
 
-export const Loading = ({ link }: image) => {
+export const Loading: React.FC<LoadingProps> = ({
+  link,
+  size = 200,
+  display,
+  speed,
+  loop,
+}) => {
+  const loopValue = loop == false ? false : true;
   return (
     <>
       <Player
         autoplay
-        loop
+        loop={loopValue}
         src={link}
-        style={{ width: 200, height: 200 }}
+        style={{
+          width: size,
+          height: size,
+          display: display,
+        }}
+        speed={speed || 1}
       ></Player>
     </>
   );

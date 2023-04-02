@@ -1,13 +1,11 @@
-import { SpaceSnippet } from "@/src/Atoms/spacesAtom";
 import { Flex, MenuItem, Image, Text, Icon } from "@chakra-ui/react";
 import { RiUserSmileFill } from "react-icons/ri";
 import { useSpaceListState } from "../Hooks/useSpaceListState";
 
 type SpaceListProp = {
-  spaceSnippet: SpaceSnippet;
   link: string;
   displayText: string;
-  imageUrl: string | undefined;
+  imageUrl: string;
 };
 
 export const SpaceList: React.FC<SpaceListProp> = ({
@@ -16,6 +14,7 @@ export const SpaceList: React.FC<SpaceListProp> = ({
   imageUrl,
 }) => {
   const { onSpaceSelect } = useSpaceListState();
+
   return (
     <MenuItem
       onClick={() => {

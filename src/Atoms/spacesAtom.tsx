@@ -19,9 +19,11 @@ export interface SpaceSnippet {
 export interface SpaceState {
   mySpaces: SpaceSnippet[];
   currentSpace?: Space;
+  snippetFetched: boolean;
 }
 const defaultSpaceState: SpaceState = {
   mySpaces: [],
+  snippetFetched: false,
 };
 export const spaceStateAtom = atom<SpaceState>({
   key: "SpaceState",

@@ -36,7 +36,7 @@ const PostCommentPage: React.FC = () => {
     if (postID && !postData.selectedPost) {
       fetchPost(postID as string);
     }
-  }, [postData.selectedPost, route]);
+  }, [postData.selectedPost, route.query]);
   return (
     <>
       <PageContentLayout>

@@ -10,23 +10,30 @@ import { useSpaceDataFetch } from "../Hooks/useSpaceDataFetch";
 import { SpaceList } from "../Spaces.component.tsx/SpaceList";
 import { useSpaceListState } from "../Hooks/useSpaceListState";
 import { RiUserSmileFill } from "react-icons/ri";
-import { defaultSPaceListMenuItem } from "@/src/Atoms/spaceListMenuAtom";
+import {
+  defaultSPaceListMenuItem,
+  defaultSpaceListMenuState,
+} from "@/src/Atoms/spaceListMenuAtom";
+import { useRouter } from "next/router";
 
 export const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
   const { spaceValue } = useSpaceDataFetch();
-  const { toggleSpaceListMenu, spaceListState, onSpaceSelect } =
-    useSpaceListState();
+  const route = useRouter();
+  const {
+    toggleSpaceListMenu,
+    spaceListState,
+    setSpaceListState,
+    onSpaceSelect,
+  } = useSpaceListState();
+  const handleHomeIconClick = () => {
+    onSpaceSelect(defaultSPaceListMenuItem);
+  };
 
   return (
     <Flex bg="white" height="50px" padding="10px 12px" alignItems="center">
-      <Flex
-        cursor={"pointer"}
-        onClick={() => {
-          onSpaceSelect(defaultSPaceListMenuItem);
-        }}
-      >
-        <Image src="/nav-logo.svg" height="25px" padding="0 3px 0 0" />
+      <Flex cursor={"pointer"} onClick={handleHomeIconClick}>
+        <Image src="/yellow.ico" height="25px" />
         <Text
           bgGradient="linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
           bgClip="text"
@@ -39,7 +46,7 @@ export const Navbar: React.FC = () => {
       {user && (
         <>
           <Menu isOpen={spaceListState.isOpen}>
-            <MenuButton px={"2"} pt={"2"} onClick={toggleSpaceListMenu}>
+            <MenuButton px={"1"} pt={"2"} onClick={toggleSpaceListMenu}>
               <Icon as={MdWorkspacesFilled} fontSize={"15px"} />
             </MenuButton>
             <Flex
@@ -49,13 +56,13 @@ export const Navbar: React.FC = () => {
               borderRadius={"full"}
               px={"2"}
               py={"1px"}
-              width={"-moz-fit-content"}
+              maxW={"70px"}
               mt={"1"}
             >
               {spaceListState.selectedSpace.imageUrl ? (
                 <Image
                   src={spaceListState.selectedSpace.imageUrl}
-                  objectFit={"fill"}
+                  objectFit={"cover"}
                   width={"15px"}
                   height={"15px"}
                   borderRadius={"full"}
@@ -63,17 +70,26 @@ export const Navbar: React.FC = () => {
               ) : (
                 <Icon as={RiUserSmileFill} width={"15px"} />
               )}
-              <Text ml={"1"} fontSize={"xx-small"} fontWeight={"extrabold"}>
+              <Text
+                ml={"1"}
+                fontSize={"xx-small"}
+                fontWeight={"extrabold"}
+                isTruncated
+              >
                 {spaceListState.selectedSpace.displayText}
               </Text>
             </Flex>
-            <MenuList fontSize={{ base: "xs", md: "sm" }}>
+            <MenuList
+              fontSize={{ base: "xs", md: "sm" }}
+              zIndex={5}
+              maxH={"50vh"}
+              overflow={"scroll"}
+            >
               <MenuItem fontWeight={"extrabold"}> my spaces</MenuItem>
               {spaceValue.mySpaces
                 .filter((space) => space.isModerator)
                 .map((space) => (
                   <SpaceList
-                    spaceSnippet={space}
                     key={space.spaceId}
                     link={`/spaces/${space.spaceId}`}
                     displayText={`${space.spaceId}`}
@@ -87,8 +103,7 @@ export const Navbar: React.FC = () => {
                 .map((space) => (
                   <SpaceList
                     key={space.spaceId}
-                    imageUrl={space.imageUrl}
-                    spaceSnippet={space}
+                    imageUrl={space.imageUrl!}
                     link={`/spaces/${space.spaceId}`}
                     displayText={`${space.spaceId}`}
                   />

@@ -13,8 +13,6 @@ import {
 import { auth, firestore } from "@/src/firebase/clientApp";
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
 import { useRouter } from "next/router";
-import { Post } from "@/src/Atoms/PostAtom";
-import { useSpaceListState } from "./useSpaceListState";
 
 export const useSpaceDataFetch = () => {
   const [spaceValue, setSpaceValue] = useRecoilState(spaceStateAtom);
@@ -29,7 +27,7 @@ export const useSpaceDataFetch = () => {
     const batch = writeBatch(firestore);
     const newSpace: SpaceSnippet = {
       spaceId: spaceData.id,
-      imageUrl: spaceData.imageUrl || "",
+      imageUrl: spaceData.imageUrl,
       isModerator: user!.uid === spaceData.creatorId,
     };
     try {
@@ -85,7 +83,8 @@ export const useSpaceDataFetch = () => {
       const snippets = snippetDoc.docs.map((doc) => ({ ...doc.data() }));
       setSpaceValue((prev) => ({
         ...prev,
-        mySpaces: snippets as Array<SpaceSnippet>,
+        mySpaces: snippets as SpaceSnippet[],
+        snippetFetched: true,
       }));
     } catch (error: any) {
       setError(error.message);

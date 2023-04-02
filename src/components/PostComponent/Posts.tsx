@@ -71,7 +71,7 @@ export const Posts: React.FC<PostProps> = ({ spaceData }) => {
             userIsCreator={post.creatorId === user?.uid}
             onDeletePost={onDeletePost}
             onPostSelect={onPostSelect}
-            loading={reactionloading}
+            loading={reactionloading == post.id}
           />
         ))
       )}

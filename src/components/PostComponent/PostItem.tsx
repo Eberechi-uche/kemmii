@@ -16,6 +16,7 @@ import {
 import { AiOutlineFire, AiTwotoneFire, AiFillSmile } from "react-icons/ai";
 import { HiChatBubbleBottomCenterText, HiOutlineXMark } from "react-icons/hi2";
 import { RiUserSmileFill } from "react-icons/ri";
+import { HiRocketLaunch, HiOutlineRocketLaunch } from "react-icons/hi2";
 import moment from "moment";
 import { useState } from "react";
 import { Loading } from "../animations/Loading";
@@ -52,7 +53,6 @@ export const PostItem: React.FC<PostItemProps> = ({
   const [loadingImage, setLoadingImage] = useState(true);
   const [error, setError] = useState("");
   const [loadingDelete, setLoadingDelete] = useState(false);
-  const [reactionLoading] = useState(loading);
   const route = useRouter();
   const { spaceid } = route.query;
 
@@ -190,17 +190,30 @@ export const PostItem: React.FC<PostItemProps> = ({
             p={"3px 7px"}
             borderRadius={"5px"}
           >
-            <Button
-              variant={"unstyled"}
-              outline={"1px solid"}
-              display={"flex"}
-              height={"fit-content"}
-              px={"2"}
-              isDisabled={reactionLoading}
+            <Flex
+              color="#0F603E"
+              align={"center"}
+              justify={"center"}
+              maxW={"20px"}
+              maxH={"20px"}
             >
-              <Icon as={userReaction !== 1 ? AiOutlineFire : AiTwotoneFire} />
-              <Text fontSize={"sm"}>{post.reactions}</Text>
-            </Button>
+              {loading ? (
+                <Loading
+                  link={`https://assets3.lottiefiles.com/packages/lf20_nz9vz5ng.json`}
+                  size={40}
+                  display={"inline-block"}
+                  speed={2}
+                  loop={false}
+                />
+              ) : (
+                <Icon
+                  as={
+                    userReaction === 1 ? HiRocketLaunch : HiOutlineRocketLaunch
+                  }
+                />
+              )}
+              <Text fontSize={"md"}>{post.reactions}</Text>
+            </Flex>
           </Flex>
           {userIsCreator && (
             <Flex

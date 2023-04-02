@@ -22,7 +22,7 @@ export const usePostData = () => {
   const [postData, setPostData] = useRecoilState(postState);
   const currentSpace = useRecoilValue(spaceStateAtom)?.currentSpace;
   const [user] = useAuthState(auth);
-  const [reactionloading, setReactionLoading] = useState(false);
+  const [reactionloading, setReactionLoading] = useState("");
   const [error, setError] = useState("");
   const setAuthModalState = useSetRecoilState(authModalState);
   const route = useRouter();
@@ -41,7 +41,7 @@ export const usePostData = () => {
       return;
     }
     event.stopPropagation();
-    setReactionLoading(true);
+    setReactionLoading(post.id!);
     try {
       let { reactions } = post;
       const reacted = postData.reactions.find(({ postId }) => {
@@ -70,6 +70,7 @@ export const usePostData = () => {
         reactValue = reactions + 1;
         updatedReaction = [...updatedReaction, newReaction];
       } else {
+        setReactionLoading("");
         const reactionRef = doc(
           firestore,
           "users",
@@ -110,7 +111,7 @@ export const usePostData = () => {
     } catch (error: any) {
       setError(error.message);
     }
-    setReactionLoading(false);
+    setReactionLoading("");
   };
   const onDeletePost = async (
     event: React.MouseEvent<HTMLDivElement>,

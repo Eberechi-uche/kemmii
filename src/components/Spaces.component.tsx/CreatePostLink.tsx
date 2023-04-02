@@ -31,7 +31,14 @@ export const CreatePostLink: React.FC = () => {
 
   return (
     <>
-      <Flex width={"100%"} bg={"white"} py={"2"} borderRadius={"4px"}>
+      <Flex
+        width={"100%"}
+        bg={"white"}
+        py={"2"}
+        borderRadius={"4px"}
+        pos={"sticky"}
+        top={"1"}
+      >
         <Flex
           align={"center"}
           justifyContent={"space-evenly"}

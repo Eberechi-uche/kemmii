@@ -7,16 +7,18 @@ import { useSpaceDataFetch } from "./useSpaceDataFetch";
 export const useSpaceListState = () => {
   const route = useRouter();
   const [spaceListState, setSpaceListState] = useRecoilState(spaceListAtom);
-  const spaceValue = useSpaceDataFetch().spaceValue;
+  const { spaceValue } = useSpaceDataFetch();
+
   const onSpaceSelect = (space: SpaceListItem) => {
-    setSpaceListState({ selectedSpace: space, isOpen: false });
     route.push(space.link);
+    setSpaceListState({ selectedSpace: space, isOpen: false });
   };
   const toggleSpaceListMenu = () => {
     setSpaceListState((prev) => ({
       ...prev,
       isOpen: !spaceListState.isOpen,
     }));
+    return;
   };
   useEffect(() => {
     if (spaceValue.currentSpace) {
@@ -29,7 +31,7 @@ export const useSpaceListState = () => {
         },
       }));
     }
-  }, [spaceValue]);
+  }, [spaceValue.currentSpace, setSpaceListState]);
 
   return {
     spaceListState,

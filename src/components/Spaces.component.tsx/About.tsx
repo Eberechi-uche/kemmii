@@ -19,7 +19,7 @@ import { useFileUpload } from "../Hooks/useFileUpload";
 import { RiUserSmileFill } from "react-icons/ri";
 import { useRef, useState } from "react";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { doc, updateDoc } from "firebase/firestore";
+import { collection, doc, query, updateDoc } from "firebase/firestore";
 import { useRecoilState } from "recoil";
 
 type AboutProps = {
@@ -44,6 +44,12 @@ export const About: React.FC<AboutProps> = ({ spaceData }) => {
       await updateDoc(doc(firestore, "spaces", spaceData.id), {
         imageUrl: downloadUrl,
       });
+      await updateDoc(
+        doc(firestore, `users/${user?.uid}/spaceSnippet/${spaceData.id}`),
+        {
+          imageUrl: downloadUrl,
+        }
+      );
       setCurrentSpace((prev) => ({
         ...prev,
         currentSpace: {

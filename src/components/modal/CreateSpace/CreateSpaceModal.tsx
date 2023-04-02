@@ -25,7 +25,7 @@ import {
 } from "firebase/firestore";
 import { auth, firestore } from "@/src/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
-
+import { useSpaceListState } from "../../Hooks/useSpaceListState";
 import { CreateSpaceFlow } from "./CreateSpaceFlow";
 import { useRouter } from "next/router";
 
@@ -43,6 +43,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [user] = useAuthState(auth);
+  const { toggleSpaceListMenu, onSpaceSelect } = useSpaceListState();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -55,6 +56,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
   };
 
   const router = useRouter();
+
   const handleSpaceCreation = async () => {
     setError("");
     const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -90,6 +92,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
           {
             spaceId: spaceName,
             isModerator: true,
+            imageUrl: "",
           }
         );
       });
@@ -97,11 +100,15 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
     } catch (error: any) {
       setLoading(false);
       setError(error.message);
-      console.log("handleCreateSpace", error.message);
     }
 
     setActive();
     router.push(`/spaces/${spaceName}`);
+    onSpaceSelect({
+      imageUrl: "",
+      link: `/spaces/${spaceName}`,
+      displayText: spaceName,
+    });
   };
 
   return (
