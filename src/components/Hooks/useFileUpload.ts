@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export const useFileUpload = () => {
   const [file, setFile] = useState("");
+
   const onFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = new FileReader();
     if (event.target.files?.[0]) {

@@ -10,6 +10,10 @@ import {
   Icon,
   Spinner,
   Input,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
 } from "@chakra-ui/react";
 import moment from "moment";
 import Link from "next/link";
@@ -19,7 +23,7 @@ import { useFileUpload } from "../Hooks/useFileUpload";
 import { RiUserSmileFill } from "react-icons/ri";
 import { useRef, useState } from "react";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { collection, doc, query, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { useRecoilState } from "recoil";
 
 type AboutProps = {
@@ -29,12 +33,19 @@ type AboutProps = {
 export const About: React.FC<AboutProps> = ({ spaceData }) => {
   const [loading, setLoading] = useState(false);
   const [currentSpace, setCurrentSpace] = useRecoilState(spaceStateAtom);
+  const [error, setError] = useState("");
   const [user] = useAuthState(auth);
   const imageRef = useRef<HTMLInputElement>(null);
 
   const { file, setFile, onFileUpload } = useFileUpload();
 
   const handleSpaceImageUpdate = async () => {
+    if (file && file.length / 1024 > 150) {
+      setError(
+        "file too large, should not be more than 100K consider compressing it"
+      );
+      return;
+    }
     setLoading(true);
     try {
       const imageRef = ref(storage, `spaces/${spaceData.id}/image`);
@@ -136,13 +147,20 @@ export const About: React.FC<AboutProps> = ({ spaceData }) => {
                   <Spinner size={{ base: "xs", md: "sm" }} />
                 ) : (
                   <>
-                    <Text m="5" onClick={handleSpaceImageUpdate}>
+                    <Text
+                      m="5"
+                      onClick={handleSpaceImageUpdate}
+                      fontSize={"10pt"}
+                      hidden={error ? true : false}
+                    >
                       update
                     </Text>
                     <Text
                       onClick={() => {
                         setFile("");
+                        setError("");
                       }}
+                      fontSize={"10pt"}
                     >
                       cancel
                     </Text>
@@ -166,6 +184,13 @@ export const About: React.FC<AboutProps> = ({ spaceData }) => {
             </Button>
           </Link>
         </Flex>
+        {error && (
+          <Alert status="error" display={"flex"} flexDir={"column"}>
+            <AlertIcon />
+            <AlertTitle>Upload Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
       </Flex>
     </>
   );

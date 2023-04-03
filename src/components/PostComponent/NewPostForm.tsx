@@ -39,10 +39,12 @@ export type TabItems = {
   title: string;
   icon: typeof Icon.arguments;
 };
+
 export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   const [activeTab, setActivetab] = useState(formTabs[0].title);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const [input, setInput] = useState({
     title: "",
@@ -51,10 +53,15 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
 
   const { file, setFile, onFileUpload } = useFileUpload();
 
-  const router = useRouter();
-
   const onPostSubmit = async () => {
     setError("");
+
+    if (file && file.length / 1024 > 600) {
+      setError("file too large, should not be more than 450KB");
+      setLoading(false);
+      return;
+    }
+
     const { spaceid } = router.query;
     const newPost: Post = {
       spaceId: spaceid as string,
@@ -142,7 +149,7 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
           >
             <AlertIcon />
             <AlertTitle>Error Creating post</AlertTitle>
-            <AlertDescription>please try again</AlertDescription>
+            <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
       </Flex>

@@ -36,22 +36,30 @@ export const CommentInput: React.FC<CommentInputProp> = ({
     >
       {user ? (
         <>
-          <Textarea
-            borderColor={"white"}
-            size={"lg"}
-            value={commentText}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              e.preventDefault();
-              setCommentText(e.target.value);
-            }}
-            focusBorderColor={"whatsapp.500"}
-            _placeholder={{
-              color: "whatsapp.500",
-              fontSize: { base: "xs", md: "sm" },
-            }}
-            fontSize={"inherit"}
-            placeholder={"comment"}
-          />
+          <Flex
+            width={"100%"}
+            align={"center"}
+            justify={"center"}
+            p={"3"}
+            flexDir={"column"}
+          >
+            <Textarea
+              focusBorderColor="white"
+              outline={"none"}
+              maxW={"100%"}
+              size={"lg"}
+              value={commentText}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                e.preventDefault();
+                setCommentText(e.target.value);
+              }}
+              _placeholder={{
+                color: "brand.500",
+              }}
+              placeholder={"comment"}
+            />
+          </Flex>
+
           <Flex justify={"space-between"} py={"2"} align={"center"}>
             <Flex
               //   bg={"white"}
