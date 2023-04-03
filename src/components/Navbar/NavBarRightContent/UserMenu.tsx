@@ -34,7 +34,7 @@ export const UserMenu: React.FC = () => {
           <Icon as={GrBraille} fontSize={"30px"} ml="2" color={"brand.700"} />
         </Flex>
       </MenuButton>
-      <MenuList zIndex={"4"}>
+      <MenuList zIndex={"9"}>
         <MenuItem minH="48px">
           <Icon as={AiFillSmile} fontSize={"30px"} ml="2" color={"brand.700"} />
           <Text ml={"2"}>{user?.email} </Text>
