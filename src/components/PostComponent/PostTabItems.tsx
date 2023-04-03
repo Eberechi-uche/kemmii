@@ -23,10 +23,10 @@ export const TabItem: React.FC<tabItemProps> = ({
       fontSize={"12"}
       transition={"all 0.5s "}
       borderRadius={"5px"}
-      color={isActive ? "whatsapp.500" : "gray.800"}
-      border={isActive ? "1px solid " : "grey.800"}
+      color={isActive ? "brand.500" : "brand.700"}
+      border={isActive ? "1px solid " : "brand.500"}
       _hover={{
-        bg: "whatsapp.500",
+        bg: "brand.200",
         color: "white",
       }}
       onClick={() => {

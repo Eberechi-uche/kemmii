@@ -161,7 +161,9 @@ export const About: React.FC<AboutProps> = ({ spaceData }) => {
 
         <Flex justify={"center"}>
           <Link href={`/spaces/${spaceData.id}/submit`}>
-            <Button size={{ base: "xs", md: "sm" }}>post on space</Button>
+            <Button size={{ base: "xs", md: "sm" }} isDisabled={!user}>
+              {user ? "post on space" : "login to post"}
+            </Button>
           </Link>
         </Flex>
       </Flex>

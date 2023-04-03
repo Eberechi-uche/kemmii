@@ -21,9 +21,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
     <Flex
       justify={"center"}
       align={"center"}
-      border={"2px dashed"}
+      border={"1px dashed"}
       minH={"200px"}
-      borderColor={"whatsapp.500"}
+      borderColor={"brand.500"}
       overflow={"hidden"}
     >
       <Flex align={"center"}>
@@ -38,7 +38,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             <Icon
               as={RiImageAddFill}
               fontSize={"5xl"}
-              color={"whatsapp.500"}
+              color={"brand.500"}
               onClick={() => {
                 inputElement.current?.click();
               }}

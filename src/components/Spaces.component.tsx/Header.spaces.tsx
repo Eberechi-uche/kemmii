@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
   return (
     <>
       <Flex direction={"column"} width={"100%"} height={"130px"}>
-        <Box height={"50%"} width={"100%"} bg={"whatsapp.400"} />
+        <Box height={"50%"} width={"100%"} bg={"brand.500"} />
         <Flex width={"100%"} bg={"white"} flexGrow={"1"} justify={"center"}>
           <Flex width={"70%"} maxWidth={"760px"} justify={"space-between"}>
             <Box display={"flex"}>

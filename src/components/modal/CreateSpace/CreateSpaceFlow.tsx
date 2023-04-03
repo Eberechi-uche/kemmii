@@ -209,7 +209,9 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
       ) : (
         <Stack align={"center"} justify={"center"}>
           <Loading
-            link={"https://assets1.lottiefiles.com/packages/lf20_wl5xqfbq.json"}
+            link={
+              "https://assets6.lottiefiles.com/packages/lf20_Au6z826BEy.json"
+            }
             size={250}
           />
         </Stack>

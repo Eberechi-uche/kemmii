@@ -1,4 +1,5 @@
-import { Flex, MenuItem, Image, Text, Icon } from "@chakra-ui/react";
+import { Flex, Image, Text, Icon, ListItem } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { RiUserSmileFill } from "react-icons/ri";
 import { useSpaceListState } from "../Hooks/useSpaceListState";
 
@@ -14,9 +15,13 @@ export const SpaceList: React.FC<SpaceListProp> = ({
   imageUrl,
 }) => {
   const { onSpaceSelect } = useSpaceListState();
+  const route = useRouter();
 
   return (
-    <MenuItem
+    <ListItem
+      display={"flex"}
+      justifyContent={"space-between"}
+      alignItems={"center"}
       onClick={() => {
         onSpaceSelect({ link, displayText, imageUrl });
       }}
@@ -26,22 +31,16 @@ export const SpaceList: React.FC<SpaceListProp> = ({
           <Image
             objectFit={"cover"}
             src={imageUrl}
-            width={"25px"}
-            height={"25px"}
+            width={"30px"}
+            height={"30px"}
             borderRadius={"full"}
             alt={displayText}
           />
         ) : (
-          <Icon
-            as={RiUserSmileFill}
-            width={"30px"}
-            height={"30px"}
-            borderRadius={"full"}
-          />
+          <Icon as={RiUserSmileFill} fontSize={"30px"} color={"brand.700"} />
         )}
-
         <Text ml={"2"}>{displayText}</Text>
       </Flex>
-    </MenuItem>
+    </ListItem>
   );
 };

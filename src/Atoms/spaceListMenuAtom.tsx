@@ -6,7 +6,7 @@ export type SpaceListItem = {
   displayText: string;
 };
 
-interface SpaceListMenuState {
+export interface SpaceListMenuState {
   selectedSpace: SpaceListItem;
   isOpen: boolean;
 }

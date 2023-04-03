@@ -1,4 +1,5 @@
-import { Flex, Icon, Image, Spacer, Text } from "@chakra-ui/react";
+import { Button, Flex, Icon, Image, Spacer, Text } from "@chakra-ui/react";
+
 import SearchInput from "./SearchInput/SearchInput.component";
 import NavContentRight from "./NavBarRightContent/NavContentRight";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,10 +16,13 @@ import {
   defaultSpaceListMenuState,
 } from "@/src/Atoms/spaceListMenuAtom";
 import { useRouter } from "next/router";
+import { SideDrawer } from "./SideDrawer";
+import { useRef } from "react";
 
 export const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
   const { spaceValue } = useSpaceDataFetch();
+
   const route = useRouter();
   const {
     toggleSpaceListMenu,
@@ -45,7 +49,21 @@ export const Navbar: React.FC = () => {
       </Flex>
       {user && (
         <>
-          <Menu isOpen={spaceListState.isOpen}>
+          <Icon
+            as={MdWorkspacesFilled}
+            fontSize={"30px"}
+            ml="2"
+            color={"brand.700"}
+            onClick={() => {
+              toggleSpaceListMenu();
+            }}
+          />
+          <SideDrawer
+            spaceListState={spaceListState}
+            spaceValue={spaceValue}
+            close={toggleSpaceListMenu}
+          />
+          {/* <Menu isOpen={spaceListState.isOpen}>
             <MenuButton px={"1"} pt={"2"} onClick={toggleSpaceListMenu}>
               <Icon
                 as={MdWorkspacesFilled}
@@ -105,7 +123,7 @@ export const Navbar: React.FC = () => {
                   />
                 ))}
             </MenuList>
-          </Menu>
+          </Menu> */}
         </>
       )}
       <Spacer />
@@ -116,3 +134,6 @@ export const Navbar: React.FC = () => {
     </Flex>
   );
 };
+function useDisclosure(): { isOpen: any; onOpen: any; onClose: any } {
+  throw new Error("Function not implemented.");
+}

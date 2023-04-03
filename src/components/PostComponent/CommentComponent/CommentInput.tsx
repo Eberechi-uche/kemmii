@@ -38,6 +38,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
         <>
           <Textarea
             borderColor={"white"}
+            size={"lg"}
             value={commentText}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
               e.preventDefault();

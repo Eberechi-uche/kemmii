@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MenuItem } from "@chakra-ui/react";
+import { ListItem, MenuItem } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { Text, Icon } from "@chakra-ui/react";
 import { CreateSpaceModal } from "@/src/components/modal/CreateSpace/CreateSpaceModal";
@@ -13,10 +13,15 @@ export const CreateSpace: React.FC = () => {
         active={isActive}
         setActive={() => setIsActive(false)}
       />
-      <MenuItem onClick={() => setIsActive(true)}>
+      <ListItem
+        onClick={() => setIsActive(true)}
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
         <Icon as={AiOutlineAppstoreAdd} fontSize={"30px"} color={"brand.700"} />
         <Text fontWeight={"extrabold"}>create space</Text>
-      </MenuItem>
+      </ListItem>
     </>
   );
 };

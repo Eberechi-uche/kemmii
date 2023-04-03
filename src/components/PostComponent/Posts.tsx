@@ -55,9 +55,13 @@ export const Posts: React.FC<PostProps> = ({ spaceData }) => {
   return (
     <>
       {loading ? (
-        <Loading
-          link={"https://assets10.lottiefiles.com/packages/lf20_h1bogema.json"}
-        />
+        <>
+          <Loading
+            link={
+              "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
+            }
+          />
+        </>
       ) : (
         postData.posts.map((post) => (
           <PostItem

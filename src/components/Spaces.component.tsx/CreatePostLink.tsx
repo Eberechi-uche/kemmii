@@ -38,6 +38,7 @@ export const CreatePostLink: React.FC = () => {
         borderRadius={"4px"}
         pos={"sticky"}
         top={"1"}
+        zIndex={4}
       >
         <Flex
           align={"center"}
@@ -46,9 +47,9 @@ export const CreatePostLink: React.FC = () => {
           px={"10px"}
         >
           <Input
-            bg={"whatsapp.50"}
+            bg={"brand.50"}
             borderRadius={"5px"}
-            focusBorderColor={"whatsapp.100"}
+            focusBorderColor={"brand.50"}
             color={"white"}
             maxWidth={"80%"}
             height={"7"}

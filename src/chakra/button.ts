@@ -7,16 +7,16 @@ export const Button: ComponentStyleConfig = {
   sizes: {
     xs: {
       px: 5,
-      py: 4,
+      py: 5,
     },
     sm: {
       fontSize: "sm",
       px: 5, // <-- px is short for paddingLeft and paddingRight
-      py: 3, // <-- py is short for paddingTop and paddingBottom
+      py: 5, // <-- py is short for paddingTop and paddingBottom
     },
     md: {
       fontSize: "md",
-      px: 7, // <-- these values are tokens from the design system
+      px: 5, // <-- these values are tokens from the design system
       py: 5, // <-- these values are tokens from the design system
     },
     icon: {

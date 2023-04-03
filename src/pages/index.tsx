@@ -21,10 +21,11 @@ import { CreatePostLink } from "../components/Spaces.component.tsx/CreatePostLin
 import { auth, firestore } from "../firebase/clientApp";
 import { useSpaceDataFetch } from "../components/Hooks/useSpaceDataFetch";
 import { Button, Flex, Text } from "@chakra-ui/react";
+import { Loading } from "../components/animations/Loading";
 
 export default function Home() {
   const [user, loadingUser] = useAuthState(auth);
-  const [loadingFeeds, setLoadingFeeds] = useState(false);
+  const [loadingFeeds, setLoadingFeeds] = useState(true);
   const [error, setError] = useState("");
   const { spaceValue } = useSpaceDataFetch();
 
@@ -107,6 +108,7 @@ export default function Home() {
     } catch (error: any) {
       setError(error.message);
     }
+    setLoadingFeeds(false);
   };
 
   useEffect(() => {
@@ -135,22 +137,30 @@ export default function Home() {
         <>
           <p> {loadingFeeds}</p>
           <CreatePostLink />
-          {postData.posts.map((post) => (
-            <PostItem
-              key={post.id}
-              post={post}
-              onDeletePost={onDeletePost}
-              onPostSelect={onPostSelect}
-              onReaction={onReaction}
-              userIsCreator={user?.uid === post.creatorId}
-              loading={reactionloading === post.id}
-              userReaction={
-                postData.reactions.find(
-                  (reaction) => reaction.postId === post.id
-                )?.reactionValue
+          {loadingFeeds ? (
+            <Loading
+              link={
+                "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
               }
             />
-          ))}
+          ) : (
+            postData.posts.map((post) => (
+              <PostItem
+                key={post.id}
+                post={post}
+                onDeletePost={onDeletePost}
+                onPostSelect={onPostSelect}
+                onReaction={onReaction}
+                userIsCreator={user?.uid === post.creatorId}
+                loading={reactionloading === post.id}
+                userReaction={
+                  postData.reactions.find(
+                    (reaction) => reaction.postId === post.id
+                  )?.reactionValue
+                }
+              />
+            ))
+          )}
         </>
         <>
           <HomePageSideBar />
