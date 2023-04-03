@@ -4,7 +4,11 @@ import Button from "./button";
 const theme = extendTheme({
   colors: {
     brand: {
-      100: "gray.600",
+      50: "#EBF8FF",
+      100: "#2C5282",
+      200: "#90CDF4",
+      500: "#3182CE",
+      700: "#2C5282",
     },
   },
   fonts: {
@@ -14,7 +18,7 @@ const theme = extendTheme({
   styles: {
     global: () => ({
       "html, body": {
-        bg: "gray.200",
+        bg: "#EBF8FF",
         fontSize: { base: "sm", md: "md" },
       },
     }),

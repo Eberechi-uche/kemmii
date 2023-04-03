@@ -11,13 +11,13 @@ export const Button: ComponentStyleConfig = {
     },
     sm: {
       fontSize: "sm",
-      px: 10, // <-- px is short for paddingLeft and paddingRight
+      px: 5, // <-- px is short for paddingLeft and paddingRight
       py: 3, // <-- py is short for paddingTop and paddingBottom
     },
     md: {
       fontSize: "md",
-      px: 10, // <-- these values are tokens from the design system
-      py: 2, // <-- these values are tokens from the design system
+      px: 7, // <-- these values are tokens from the design system
+      py: 5, // <-- these values are tokens from the design system
     },
     icon: {
       px: 3,
@@ -27,34 +27,34 @@ export const Button: ComponentStyleConfig = {
   variants: {
     outline: {
       border: "1px solid",
-      borderColor: "rgb(51, 139, 147)",
-      colorScheme: "teal.800",
-      color: "teal.500",
+      borderColor: "#2C5282",
+      colorScheme: "#2C5282",
+      color: "f.500",
       outline: "none",
 
       _hover: {
-        bg: "rgb(51, 139, 147)",
+        bg: "#2C5282",
         color: "white",
       },
       _active: {
-        bg: "rgb(51, 139, 147)",
+        bg: "#2C5282",
       },
     },
     solid: {
-      bg: "rgb(51, 139, 147)",
+      bg: "#2C5282",
       color: "white",
-      colorScheme: "teal.800",
+      colorScheme: "#2C5282",
       outline: "none",
       _hover: {
         bg: "none",
         border: "1px solid",
-        borderColor: "rgb(51, 139, 147)",
-        color: "teal.500",
+        borderColor: "#2C5282",
+        color: "#2C5282",
       },
       icons: {
         border: "1px solid",
         outline: "none",
-        borderColor: "rgb(51, 139, 147)",
+        borderColor: "#2C5282",
         colorScheme: "whatsapp.500",
         color: "teal.500",
 
@@ -64,7 +64,7 @@ export const Button: ComponentStyleConfig = {
         },
       },
       _active: {
-        bg: "rgb(51, 139, 147)",
+        bg: "#2C5282",
       },
     },
   },

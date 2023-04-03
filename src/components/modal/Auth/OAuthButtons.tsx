@@ -19,11 +19,10 @@ export const OAuthButtons = () => {
   }, [userData]);
   return (
     <Button
-      variant={"outline"}
+      variant={"solid"}
       fontSize={"10"}
       my={"5"}
-      outlineColor={" #b21f1f"}
-      color={"red.600"}
+      colorScheme={"red"}
       _hover={{
         bg: "#b21f1f",
         color: "#fff",

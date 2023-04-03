@@ -47,7 +47,12 @@ export const Navbar: React.FC = () => {
         <>
           <Menu isOpen={spaceListState.isOpen}>
             <MenuButton px={"1"} pt={"2"} onClick={toggleSpaceListMenu}>
-              <Icon as={MdWorkspacesFilled} fontSize={"15px"} />
+              <Icon
+                as={MdWorkspacesFilled}
+                fontSize={"30px"}
+                ml="2"
+                color={"brand.700"}
+              />
             </MenuButton>
             <Flex
               align={"center"}
@@ -71,21 +76,11 @@ export const Navbar: React.FC = () => {
               ) : (
                 <Icon as={RiUserSmileFill} width={"15px"} />
               )}
-              <Text
-                ml={"1"}
-                fontSize={"xx-small"}
-                fontWeight={"extrabold"}
-                isTruncated
-              >
+              <Text ml={"1"} fontWeight={"extrabold"} isTruncated>
                 {spaceListState.selectedSpace.displayText}
               </Text>
             </Flex>
-            <MenuList
-              fontSize={{ base: "xs", md: "sm" }}
-              zIndex={5}
-              maxH={"50vh"}
-              overflow={"scroll"}
-            >
+            <MenuList zIndex={5} maxH={"50vh"} overflow={"scroll"}>
               <MenuItem fontWeight={"extrabold"}> my spaces</MenuItem>
               {spaceValue.mySpaces
                 .filter((space) => space.isModerator)

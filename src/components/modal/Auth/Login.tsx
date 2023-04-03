@@ -32,17 +32,18 @@ export const Login: React.FC = () => {
         name="email"
         type={"email"}
         mb={2}
+        focusBorderColor={"brand.50"}
         required
-        focusBorderColor="rgb(182, 244, 146)"
+        size={"lg"}
         onChange={handleChange}
       />
       <Input
         placeholder="Password"
         name="password"
         type={"password"}
+        size={"lg"}
         required
         mb={"2"}
-        focusBorderColor="rgb(182, 244, 146)"
         onChange={handleChange}
       />
       <Flex
@@ -90,7 +91,7 @@ export const Login: React.FC = () => {
         }}
         _hover={{
           cursor: "pointer",
-          color: "whatsapp.600",
+          color: "brand.200",
         }}
       >
         Reset password

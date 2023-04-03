@@ -49,7 +49,7 @@ export const AuthModal: React.FC = () => {
         <ModalContent>
           <ModalHeader
             bgGradient={
-              " linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
+              "radial-gradient(circle at 10% 20%, rgb(149, 219, 254) 0%, rgb(7, 134, 197) 90.1%)"
             }
             color={"white"}
           >

@@ -18,8 +18,6 @@ import {
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useResetRecoilState } from "recoil";
-import { spaceStateAtom } from "@/src/Atoms/spacesAtom";
 
 export const UserMenu: React.FC = () => {
   const [user] = useAuthState(auth);
@@ -30,15 +28,15 @@ export const UserMenu: React.FC = () => {
     <Menu>
       <MenuButton>
         <Flex justify={"center"} align={"center"} flexGrow={"1"}>
-          <Text px={"5"} fontSize={{ base: "xs", md: "md" }} isTruncated>
-            hafa! {user?.email?.split("@")[0]}
+          <Text px={"5"} isTruncated>
+            hello {user?.email?.split("@")[0]}
           </Text>
-          <Icon as={GrBraille}></Icon>
+          <Icon as={GrBraille} fontSize={"30px"} ml="2" color={"brand.700"} />
         </Flex>
       </MenuButton>
-      <MenuList fontSize={{ base: "xs", md: "md" }}>
+      <MenuList>
         <MenuItem minH="48px">
-          <Icon as={AiFillSmile} fontSize={"20px"} />
+          <Icon as={AiFillSmile} fontSize={"30px"} ml="2" color={"brand.700"} />
           <Text ml={"2"}>{user?.email} </Text>
           <span></span>
         </MenuItem>

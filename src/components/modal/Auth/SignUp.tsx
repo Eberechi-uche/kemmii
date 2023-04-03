@@ -62,7 +62,8 @@ export const SignUp = () => {
         mb={"2"}
         onChange={handleFormChange}
         required
-        focusBorderColor="rgb(182, 244, 146)"
+        focusBorderColor="brand.50"
+        size={"lg"}
       />
       <Input
         type={"password"}
@@ -71,7 +72,8 @@ export const SignUp = () => {
         mb={"2"}
         onChange={handleFormChange}
         required
-        focusBorderColor="rgb(182, 244, 146)"
+        focusBorderColor="brand.50"
+        size={"lg"}
       />
       <Input
         type={"password"}
@@ -80,7 +82,8 @@ export const SignUp = () => {
         mb={"2"}
         onChange={handleFormChange}
         required
-        focusBorderColor="rgb(182, 244, 146)"
+        focusBorderColor="brand.50"
+        size={"lg"}
       />
       {userError ||
         (error && (

@@ -120,12 +120,11 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
         <>
           <Text>Enter the name of the spaceType you want to create</Text>
           <Input
-            bg={"whatsapp.200"}
-            focusBorderColor={"whatsapp.200"}
             mt={"5"}
             borderRadius={"full"}
             maxLength={30}
-            color={"white"}
+            size={"lg"}
+            color={"brand.700"}
             onChange={handleInputChange}
           />
           {error.length > 2 && (
@@ -140,7 +139,6 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
               isChecked={spaceType === "public"}
               onChange={handleCheckSelection}
               size={{ base: "sm", md: "md" }}
-              colorScheme={"green"}
               css={`
                 > span:first-of-type {
                   box-shadow: unset;
@@ -161,7 +159,6 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
               isChecked={spaceType === "private"}
               onChange={handleCheckSelection}
               size={{ base: "sm", md: "md" }}
-              colorScheme={"green"}
               css={`
                 > span:first-of-type {
                   box-shadow: unset;
@@ -181,7 +178,6 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
               isChecked={spaceType === "restricted"}
               onChange={handleCheckSelection}
               size={{ base: "sm", md: "md" }}
-              colorScheme={"green"}
               css={`
                 > span:first-of-type {
                   box-shadow: unset;

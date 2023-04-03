@@ -112,10 +112,14 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
   };
 
   return (
-    <Modal isOpen={active} onClose={setActive} size={{ base: "xs", md: "sm" }}>
+    <Modal
+      isOpen={active}
+      onClose={setActive}
+      size={{ base: "full", md: "lg" }}
+    >
       <ModalOverlay />
-      <ModalContent fontSize={{ base: "xs", md: "md" }}>
-        <ModalHeader color={"whatsapp.600"}>
+      <ModalContent>
+        <ModalHeader color={"brand.700"}>
           {!loading ? (
             "Create your space"
           ) : (

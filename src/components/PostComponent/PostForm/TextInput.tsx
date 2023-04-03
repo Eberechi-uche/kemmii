@@ -22,16 +22,11 @@ export const TextInput: React.FC<TextInputProp> = ({
         <Input
           value={TextInput.title}
           name={"title"}
-          fontSize={{ base: "sm", md: "md" }}
-          bg={"whatsapp.50"}
           borderRadius={"5px"}
-          focusBorderColor={"whatsapp.100"}
-          borderColor={"none"}
-          border={"none"}
+          borderColor={"brand.50"}
           placeholder={"post title"}
           _placeholder={{
             color: "gray.500",
-            fontSize: { base: "sm", md: "md" },
           }}
           onChange={onChange}
         />
@@ -39,15 +34,10 @@ export const TextInput: React.FC<TextInputProp> = ({
           value={TextInput.body}
           _placeholder={{
             color: "gray.500",
-            fontSize: { base: "sm", md: "md" },
           }}
           placeholder={"post"}
-          fontSize={{ base: "sm", md: "md" }}
-          bg={"whatsapp.50"}
           borderRadius={"5px"}
-          focusBorderColor={"whatsapp.100"}
-          borderColor={"none"}
-          border={"none"}
+          borderColor={"brand.50"}
           name={"body"}
           height={"150"}
           onChange={onChange}
@@ -55,7 +45,6 @@ export const TextInput: React.FC<TextInputProp> = ({
         <Flex justify={"center"}>
           <Button
             isDisabled={!TextInput.body || !TextInput.title}
-            size={{ base: "sm", md: "md" }}
             onClick={handleSubmit}
             isLoading={loading}
           >

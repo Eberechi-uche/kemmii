@@ -98,10 +98,10 @@ export const PostItem: React.FC<PostItemProps> = ({
                 onClick={(e) => {
                   handleSpaceRoute(e, `/spaces/${post.spaceId}`);
                 }}
-                color={"whatsapp.600"}
+                color={"white"}
+                bg={"brand.200"}
                 letterSpacing={"0.5px"}
                 _hover={{
-                  color: "whatsapp.800",
                   textDecoration: "underline",
                 }}
                 border={"0.5px solid"}
@@ -160,7 +160,7 @@ export const PostItem: React.FC<PostItemProps> = ({
           width={"100%"}
           align={"center"}
           justify={"flex-start"}
-          color={"whatsapp.500"}
+          color={"brand.500"}
         >
           <Flex
             align={"center"}
@@ -184,14 +184,14 @@ export const PostItem: React.FC<PostItemProps> = ({
             cursor={"pointer"}
             mx={"3"}
             _hover={{
-              backgroundColor: "whatsapp.100",
+              backgroundColor: "brand.100",
               color: "white",
             }}
             p={"3px 7px"}
             borderRadius={"5px"}
           >
             <Flex
-              color="#0F603E"
+              color="red.600"
               align={"center"}
               justify={"center"}
               maxW={"20px"}
@@ -222,7 +222,7 @@ export const PostItem: React.FC<PostItemProps> = ({
               cursor={"pointer"}
               mx={"3"}
               _hover={{
-                backgroundColor: "whatsapp.100",
+                backgroundColor: "brand.100",
                 color: "white",
               }}
               p={"3px 7px"}
