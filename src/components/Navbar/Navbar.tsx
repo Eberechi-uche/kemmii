@@ -63,67 +63,6 @@ export const Navbar: React.FC = () => {
             spaceValue={spaceValue}
             close={toggleSpaceListMenu}
           />
-          {/* <Menu isOpen={spaceListState.isOpen}>
-            <MenuButton px={"1"} pt={"2"} onClick={toggleSpaceListMenu}>
-              <Icon
-                as={MdWorkspacesFilled}
-                fontSize={"30px"}
-                ml="2"
-                color={"brand.700"}
-              />
-            </MenuButton>
-            <Flex
-              align={"center"}
-              cursor={"pointer"}
-              border={"0.5px solid"}
-              borderRadius={"full"}
-              px={"2"}
-              py={"1px"}
-              maxW={"70px"}
-              mt={"1"}
-            >
-              {spaceListState.selectedSpace.imageUrl ? (
-                <Image
-                  src={spaceListState.selectedSpace.imageUrl}
-                  objectFit={"cover"}
-                  width={"15px"}
-                  height={"15px"}
-                  borderRadius={"full"}
-                  alt={"spaces icons"}
-                />
-              ) : (
-                <Icon as={RiUserSmileFill} width={"15px"} />
-              )}
-              <Text ml={"1"} fontWeight={"extrabold"} isTruncated>
-                {spaceListState.selectedSpace.displayText}
-              </Text>
-            </Flex>
-            <MenuList zIndex={5} maxH={"50vh"} overflow={"scroll"}>
-              <MenuItem fontWeight={"extrabold"}> my spaces</MenuItem>
-              {spaceValue.mySpaces
-                .filter((space) => space.isModerator)
-                .map((space) => (
-                  <SpaceList
-                    key={space.spaceId}
-                    link={`/spaces/${space.spaceId}`}
-                    displayText={`${space.spaceId}`}
-                    imageUrl={`${space.imageUrl}`}
-                  />
-                ))}
-              <CreateSpace />
-              <MenuItem fontWeight={"extrabold"}> Joined spaces</MenuItem>
-              {spaceValue.mySpaces
-                .filter((space) => !space.isModerator)
-                .map((space) => (
-                  <SpaceList
-                    key={space.spaceId}
-                    imageUrl={space.imageUrl!}
-                    link={`/spaces/${space.spaceId}`}
-                    displayText={`${space.spaceId}`}
-                  />
-                ))}
-            </MenuList>
-          </Menu> */}
         </>
       )}
       <Spacer />
