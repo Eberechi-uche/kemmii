@@ -36,17 +36,20 @@ export const Navbar: React.FC = () => {
 
   return (
     <Flex bg="white" height="50px" padding="10px 12px" alignItems="center">
-      <Flex cursor={"pointer"} onClick={handleHomeIconClick}>
-        <Image src="/yellow.ico" height="25px" alt={"logo"} />
-        <Text
-          bgGradient="linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
-          bgClip="text"
-          display={{ base: "none", md: "unset" }}
-          as="b"
-        >
-          emmii
-        </Text>
-      </Flex>
+      {!user && (
+        <Flex cursor={"pointer"} onClick={handleHomeIconClick}>
+          <Image src="/yellow.ico" height="25px" alt={"logo"} />
+          <Text
+            bgGradient="linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
+            bgClip="text"
+            display={{ base: "none", md: "unset" }}
+            as="b"
+          >
+            emmii
+          </Text>
+        </Flex>
+      )}
+
       {user && (
         <>
           <Icon

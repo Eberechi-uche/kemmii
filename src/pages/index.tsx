@@ -39,7 +39,6 @@ export default function Home() {
   } = usePostData();
 
   const getLogggedIntUserFeed = async () => {
-    setLoadingFeeds(true);
     try {
       if (!spaceValue.mySpaces.length) {
         getNoUserFeed();
@@ -67,7 +66,6 @@ export default function Home() {
   };
 
   const getNoUserFeed = async () => {
-    setLoadingFeeds(true);
     try {
       const feedsQuerry = query(
         collection(firestore, "posts"),
@@ -108,7 +106,6 @@ export default function Home() {
     } catch (error: any) {
       setError(error.message);
     }
-    setLoadingFeeds(false);
   };
 
   useEffect(() => {

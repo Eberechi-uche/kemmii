@@ -14,9 +14,9 @@ import {
   Divider,
   List,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 import { RiUserSmileFill } from "react-icons/ri";
-import { useSpaceListState } from "../Hooks/useSpaceListState";
 import { SpaceList } from "../Spaces.component.tsx/SpaceList";
 import { CreateSpace } from "./NavBarRightContent/userActions/CreateSpace";
 type SideDrawerProp = {
@@ -38,37 +38,43 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
           <DrawerHeader
             borderBottomWidth="1px"
             display={"flex"}
-            justifyContent={"space-evenly"}
+            justifyContent={"space-between"}
+            mt={"20"}
           >
+            <Link href={`/`}>
+              <Image src="/yellow.ico" height="25px" alt={"logo"} />
+            </Link>
+
             <Text> your spaces</Text>
-            <Flex
-              align={"center"}
-              cursor={"pointer"}
-              border={"0.5px solid"}
-              borderRadius={"full"}
-              px={"2"}
-              py={"1px"}
-              maxW={"70px"}
-              mt={"1"}
-              fontSize={"small"}
-            >
-              {spaceListState.selectedSpace.imageUrl ? (
-                <Image
-                  src={spaceListState.selectedSpace.imageUrl}
-                  objectFit={"cover"}
-                  width={"15px"}
-                  height={"15px"}
-                  borderRadius={"full"}
-                  alt={"spaces icons"}
-                />
-              ) : (
-                <Icon as={RiUserSmileFill} width={"15px"} />
-              )}
-              <Text ml={"1"} fontWeight={"extrabold"} isTruncated>
-                {spaceListState.selectedSpace.displayText}
-              </Text>
-            </Flex>
           </DrawerHeader>
+          <Flex
+            align={"center"}
+            cursor={"pointer"}
+            border={"0.5px solid"}
+            borderRadius={"full"}
+            px={"2"}
+            py={"1px"}
+            maxW={"70px"}
+            mt={"1"}
+            fontSize={"small"}
+            ml={"15"}
+          >
+            {spaceListState.selectedSpace.imageUrl ? (
+              <Image
+                src={spaceListState.selectedSpace.imageUrl}
+                objectFit={"cover"}
+                width={"15px"}
+                height={"15px"}
+                borderRadius={"full"}
+                alt={"spaces icons"}
+              />
+            ) : (
+              <Icon as={RiUserSmileFill} width={"15px"} />
+            )}
+            <Text ml={"1"} fontWeight={"extrabold"} isTruncated>
+              {spaceListState.selectedSpace.displayText}
+            </Text>
+          </Flex>
 
           <DrawerBody>
             <List>
