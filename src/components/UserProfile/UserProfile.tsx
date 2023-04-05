@@ -10,7 +10,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { createAvatar } from "@dicebear/core";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   IoArrowForwardCircleOutline,
   IoArrowBackCircleOutline,
@@ -19,6 +19,10 @@ import { adventurer, notionists, openPeeps } from "@dicebear/collection";
 import { auth, storage } from "@/src/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { Loading } from "../animations/Loading";
+import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
+import { authModalState } from "@/src/Atoms/AuthModalAtom";
 
 type UserProfileProps = {
   user: User;
@@ -31,12 +35,16 @@ export const UserProfile: React.FC = () => {
   const [name, setName] = useState("");
   const [activeTab, setActiveTab] = useState("input");
   const [user] = useAuthState(auth);
+  const [loading, setLoading] = useState(false);
+  const setAuthModalState = useSetRecoilState(authModalState);
+  const route = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setName(e.target.value);
   };
   const handleProfileUpdate = async (photo: any) => {
+    setLoading(true);
     const updateField: UpdateProfile = {};
 
     try {
@@ -52,44 +60,73 @@ export const UserProfile: React.FC = () => {
       await updateProfile(user!, updateField);
     } catch (error: any) {
       console.log("update", error.message);
+      setLoading(false);
     }
+    setLoading(false);
+    setAuthModalState((prev) => ({
+      ...prev,
+      open: false,
+    }));
+    route.back();
   };
   return (
     <>
       <Flex flexDir={"column"} textAlign={"center"}>
-        {activeTab === "input" && (
-          <Grid
-            height={"70vh"}
-            placeContent={"center"}
-            width={"100%"}
-            justifyContent={"center"}
-            placeItems={"center"}
-            position={"relative"}
-          >
-            <Text mb={"5"} fontWeight={"700"} position={"absolute"} top={"25%"}>
-              {name}
-            </Text>
-            <Input
-              onChange={(e) => {
-                handleInputChange(e);
-              }}
-              maxLength={10}
-            />
-            <Text
-              mt={"5"}
-              display={"flex"}
-              alignItems={"center"}
-              cursor={"pointer"}
-              onClick={() => {
-                setActiveTab("avatarPicker");
-              }}
-            >
-              <Icon as={IoArrowForwardCircleOutline} mr={"2"} />
-              proceed to generate your avatar
-            </Text>
-          </Grid>
+        {loading && (
+          <Loading
+            link={
+              "https://assets4.lottiefiles.com/private_files/lf30_amhtk28o.json"
+            }
+            speed={2}
+            size={500}
+          />
         )}
-        {activeTab == "avatarPicker" && (
+        {!loading && activeTab === "input" && (
+          <>
+            <Image
+              alt={"profile"}
+              boxSize={"80px"}
+              src={user?.photoURL ? user.photoURL : "/images/default.png"}
+              alignSelf={"center"}
+            />
+            <Grid
+              height={"70vh"}
+              placeContent={"center"}
+              width={"100%"}
+              justifyContent={"center"}
+              placeItems={"center"}
+              position={"relative"}
+            >
+              <Text
+                mb={"5"}
+                fontWeight={"700"}
+                position={"absolute"}
+                top={"25%"}
+              >
+                {name}
+              </Text>
+              <Input
+                onChange={(e) => {
+                  handleInputChange(e);
+                }}
+                maxLength={10}
+              />
+              <Text
+                mt={"5"}
+                display={"flex"}
+                alignItems={"center"}
+                cursor={"pointer"}
+                onClick={() => {
+                  setActiveTab("avatarPicker");
+                }}
+              >
+                <Icon as={IoArrowForwardCircleOutline} mr={"2"} />
+                proceed to generate your avatar
+              </Text>
+            </Grid>
+          </>
+        )}
+        {!loading && activeTab == "avatarPicker" && (
           <AvatarPicker
             setActiveTab={setActiveTab}
             handleProfileUpdate={handleProfileUpdate}
@@ -111,26 +148,24 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
 }) => {
   const [avatarStyle, setAvatarStyle] = useState<any>(adventurer);
   const [useAvatar, setUseAvatar] = useState("");
-  const [avatar, setAvatar] = useState("");
   const orientation = avatarStyle === adventurer ? true : false;
 
-  useEffect(() => {
-    let newAvatar = createAvatar(avatarStyle, {
+  const genAvatar = useMemo(() => {
+    return createAvatar(avatarStyle, {
       size: 128,
       flip: orientation,
       backgroundColor: ["ffdfbf", "ffd5dc", "d1d4f9", "c0aede", "b6e3f4"],
       seed: useAvatar,
     }).toDataUriSync();
-    setAvatar(newAvatar);
   }, [useAvatar]);
   return (
     <>
-      <Flex width={"100%"} justify={"space-evenly"} mb={"2"}>
-        <Box>
+      <Flex width={"100%"} justify={"space-evenly"} align={"center"}>
+        <Box pb={"2"}>
           <Image
             alt={"male"}
             src="/images/female.png"
-            boxSize={"60px"}
+            boxSize={"50px"}
             borderRadius={"full"}
             objectFit={"cover"}
             border={`5px solid ${
@@ -169,7 +204,7 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
           }}
         />
       </Flex>
-      <Image src={avatar} alt="Avatar" />
+      <Image src={genAvatar} alt="Avatar" boxSize={"400px"} />
       <Flex justify={"center"}>
         <Button
           onClick={() => {
@@ -181,7 +216,7 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
         </Button>
         <Button
           onClick={() => {
-            handleProfileUpdate(avatar);
+            handleProfileUpdate(genAvatar);
           }}
         >
           select

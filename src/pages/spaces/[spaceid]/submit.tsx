@@ -17,8 +17,7 @@ const SubmitPost: React.FC = () => {
   return (
     <>
       <PageContentLayout>
-        {/* <>{user && <NewPostForm user={user} />}</> */}
-        <UserProfile />
+        <>{user && <NewPostForm user={user} />}</>
 
         <></>
       </PageContentLayout>

@@ -51,6 +51,7 @@ export const Comments: React.FC<CommentProps> = ({
         creatorDisplayText: user.email!.split("@")[0],
         spaceId,
         postId: selectedPost?.id!,
+        creatorImage: user.photoURL!,
         postTitle: selectedPost?.title!,
         text: commentText,
         createdAt: serverTimestamp() as Timestamp,

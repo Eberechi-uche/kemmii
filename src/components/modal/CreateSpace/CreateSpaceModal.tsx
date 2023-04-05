@@ -69,6 +69,8 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
 
     try {
       setLoading(true);
+      const imagUrl = fetch("https://api.dicebear.com/6.x/shapes/svg");
+
       const spaceDocRef = doc(firestore, "spaces", spaceName);
 
       await runTransaction(firestore, async (transaction) => {

@@ -1,4 +1,4 @@
-import { Flex, Text, Icon, Spinner } from "@chakra-ui/react";
+import { Flex, Text, Icon, Spinner, Image } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 
@@ -19,6 +19,7 @@ export type Comment = {
   creatorDisplayText: string;
   spaceId: string;
   postId: string;
+  creatorImage: string;
   postTitle: string;
   text: string;
   createdAt: Timestamp;
@@ -39,7 +40,18 @@ export const CommentItem: React.FC<CommentItemProp> = ({
     <>
       <Flex key={comment.id} p={"4"} flexDir={"column"} bg={"facebook.100"}>
         <Flex>
-          <Text fontWeight={"bold"}> {comment.creatorDisplayText}</Text>
+          <Image
+            src={
+              comment.creatorImage
+                ? `${comment.creatorImage}`
+                : "/images/default.png"
+            }
+            alt={comment.creatorDisplayText}
+            boxSize={"30px"}
+          />
+          <Text fontWeight={"bold"} ml={"1"}>
+            {comment.creatorDisplayText}
+          </Text>
           <Text ml={"5"}>{date === "Invalid date" ? "now" : date}</Text>
         </Flex>
         <Text>{comment.text} </Text>

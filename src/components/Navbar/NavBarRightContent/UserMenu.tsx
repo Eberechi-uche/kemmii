@@ -15,6 +15,7 @@ import {
   Text,
   Flex,
   Icon,
+  Image,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -47,8 +48,12 @@ export const UserMenu: React.FC = () => {
       </MenuButton>
       <MenuList zIndex={"9"}>
         <MenuItem minH="48px" onClick={handleProfileClick}>
-          <Icon as={AiFillSmile} fontSize={"30px"} ml="2" color={"brand.700"} />
-          <Text ml={"2"}>{user?.email} </Text>
+          <Image
+            src={user?.photoURL ? `${user.photoURL}` : "images/default.png"}
+            alt={user?.uid}
+            boxSize={"70px"}
+          />
+          <Text ml={"2"}>{user?.displayName} </Text>
           <span></span>
         </MenuItem>
         <MenuItem icon={<AddIcon />}>create post</MenuItem>

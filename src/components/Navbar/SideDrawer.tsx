@@ -1,5 +1,6 @@
 import { SpaceListMenuState } from "@/src/Atoms/spaceListMenuAtom";
 import { SpaceState } from "@/src/Atoms/spacesAtom";
+import { auth } from "@/src/firebase/clientApp";
 import {
   Drawer,
   DrawerOverlay,
@@ -15,6 +16,7 @@ import {
   List,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import { RiUserSmileFill } from "react-icons/ri";
 import { SpaceList } from "../Spaces.component.tsx/SpaceList";
@@ -29,17 +31,31 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
   spaceValue,
   close,
 }) => {
+  const [user] = useAuthState(auth);
   return (
     <>
       <Drawer isOpen={spaceListState.isOpen} placement="left" onClose={close}>
         <DrawerOverlay />
         <DrawerContent>
+          <Flex>
+            <Image
+              src={user?.photoURL ? `${user.photoURL}` : "images/default.png"}
+              alt={user?.uid}
+              boxSize={"70px"}
+              p={"1"}
+            />
+            <Flex flexDir={"column"}>
+              <Text>{user?.displayName}</Text>
+              <Text fontSize={"xs"}>{user?.email}</Text>
+            </Flex>
+          </Flex>
+
           <DrawerCloseButton />
           <DrawerHeader
             borderBottomWidth="1px"
             display={"flex"}
             justifyContent={"space-between"}
-            mt={"20"}
+            mt={"10"}
           >
             <Link
               href={`/`}
