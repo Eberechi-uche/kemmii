@@ -63,11 +63,7 @@ const PostCommentPage: React.FC = () => {
           />
         </>
 
-        <>
-          {spaceValue.currentSpace && (
-            <About spaceData={spaceValue.currentSpace} />
-          )}
-        </>
+        <></>
       </PageContentLayout>
     </>
   );

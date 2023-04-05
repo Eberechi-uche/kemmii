@@ -7,6 +7,7 @@ import { useRecoilValue } from "recoil";
 import { spaceStateAtom } from "@/src/Atoms/spacesAtom";
 import { About } from "@/src/components/Spaces.component.tsx/About";
 import { useSpaceDataFetch } from "@/src/components/Hooks/useSpaceDataFetch";
+import { UserProfile } from "@/src/components/UserProfile/UserProfile";
 
 const SubmitPost: React.FC = () => {
   const [user] = useAuthState(auth);
@@ -16,12 +17,10 @@ const SubmitPost: React.FC = () => {
   return (
     <>
       <PageContentLayout>
-        <>{user && <NewPostForm user={user} />}</>
-        <>
-          {spaceValue.currentSpace && (
-            <About spaceData={spaceValue.currentSpace} />
-          )}
-        </>
+        {/* <>{user && <NewPostForm user={user} />}</> */}
+        <UserProfile />
+
+        <></>
       </PageContentLayout>
     </>
   );

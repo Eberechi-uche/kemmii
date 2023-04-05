@@ -48,7 +48,7 @@ export const SignUp = () => {
       createUser(userDetails.user);
       setAuthState((prev) => ({
         ...prev,
-        open: false,
+        view: "profile",
       }));
     }
   }, [userDetails]);

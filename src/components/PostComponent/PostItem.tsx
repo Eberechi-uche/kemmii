@@ -91,7 +91,8 @@ export const PostItem: React.FC<PostItemProps> = ({
       >
         <Flex justify={"flex-start"} align={"center"}>
           <Flex align={"center"} justify={"center"}>
-            <Icon as={AiFillSmile} width={"45px"} height={"45px"} />
+            {/* <Icon as={AiFillSmile} width={"45px"} height={"45px"} /> */}
+            <Image />
             <Flex flexDir={"column"} ml={"1"}>
               <Text pb={"none"} fontWeight={"500"}>
                 {post.creatorDisplayName}

@@ -1,5 +1,6 @@
 import { Space, SpaceSnippet, spaceStateAtom } from "@/src/Atoms/spacesAtom";
 import { auth } from "@/src/firebase/clientApp";
+
 import {
   Flex,
   Box,
@@ -11,11 +12,13 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { RiUserSmileFill } from "react-icons/ri";
+import { TiTime } from "react-icons/ti";
 import { useRecoilValue } from "recoil";
-import { BsPeople } from "react-icons/bs";
+import { BsPeople, BsClock } from "react-icons/bs";
+import { RxDotFilled } from "react-icons/rx";
 import { TfiSharethis } from "react-icons/tfi";
 import { useSpaceDataFetch } from "../Hooks/useSpaceDataFetch";
+import moment from "moment";
 
 type HeaderProps = {
   spacesData: Space;
@@ -65,15 +68,30 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
             <Text fontSize={"sm"} noOfLines={[4, 5]}>
               this is where the group details would go in sdhsdbhksdkb
             </Text>
-
-            <Text
+            <Flex
+              align={"center"}
               fontSize={{ base: "x-small", md: "small" }}
-              display={"flex"}
-              alignItems={"center"}
+              justify={"space-evenly"}
             >
-              <Icon as={BsPeople} mr={"1"} />
-              {spaceValue.currentSpace?.numberOfMembers} members
-            </Text>
+              <Text
+                fontSize={{ base: "x-small", md: "small" }}
+                display={"flex"}
+                alignItems={"center"}
+              >
+                <Icon as={BsPeople} mr={"0.5"} />
+                {spaceValue.currentSpace?.numberOfMembers} members
+              </Text>
+              <Icon as={RxDotFilled} />
+              <Text display={"flex"} alignItems={"center"}>
+                <Icon as={TiTime} mr={"0.5"} />
+                created:
+                {spaceValue.currentSpace &&
+                  moment(new Date(spacesData.createdAt!.seconds * 1000)).format(
+                    "MMM DD, YYYY"
+                  )}
+              </Text>
+            </Flex>
+
             <Flex
               width={{ base: "80%", md: "30%" }}
               justify={"space-between"}

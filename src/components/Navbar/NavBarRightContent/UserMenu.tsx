@@ -18,12 +18,23 @@ import {
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { AuthModal } from "../../modal/Auth/AuthModal";
+import { useSetRecoilState } from "recoil";
+import { authModalState } from "@/src/Atoms/AuthModalAtom";
 
 export const UserMenu: React.FC = () => {
+  const setAuthModalState = useSetRecoilState(authModalState);
   const [user] = useAuthState(auth);
   const logout = async () => {
     await signOut(auth);
   };
+  const handleProfileClick = () => {
+    setAuthModalState({
+      view: "profile",
+      open: true,
+    });
+  };
+
   return (
     <Menu>
       <MenuButton>
@@ -35,7 +46,7 @@ export const UserMenu: React.FC = () => {
         </Flex>
       </MenuButton>
       <MenuList zIndex={"9"}>
-        <MenuItem minH="48px">
+        <MenuItem minH="48px" onClick={handleProfileClick}>
           <Icon as={AiFillSmile} fontSize={"30px"} ml="2" color={"brand.700"} />
           <Text ml={"2"}>{user?.email} </Text>
           <span></span>

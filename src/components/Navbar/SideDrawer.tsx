@@ -41,11 +41,16 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
             justifyContent={"space-between"}
             mt={"20"}
           >
-            <Link href={`/`}>
+            <Link
+              href={`/`}
+              onClick={() => {
+                close();
+              }}
+            >
               <Image src="/yellow.ico" height="25px" alt={"logo"} />
             </Link>
 
-            <Text> your spaces</Text>
+            <Text fontWeight={"500"}> your spaces</Text>
           </DrawerHeader>
           <Flex
             align={"center"}
@@ -81,12 +86,21 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
               {spaceValue.mySpaces
                 .filter((space) => space.isModerator)
                 .map((space) => (
-                  <SpaceList
+                  <Link
+                    href={`/spaces/${space.spaceId}`}
                     key={space.spaceId}
-                    link={`/spaces/${space.spaceId}`}
-                    displayText={`${space.spaceId}`}
-                    imageUrl={`${space.imageUrl}`}
-                  />
+                    onClick={() => {
+                      close();
+                    }}
+                  >
+                    <SpaceList
+                      key={space.spaceId}
+                      link={`/spaces/${space.spaceId}`}
+                      displayText={`${space.spaceId}`}
+                      imageUrl={`${space.imageUrl}`}
+                    />
+                    <Divider my={"2"} />
+                  </Link>
                 ))}
             </List>
             <List>
@@ -106,12 +120,21 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
               {spaceValue.mySpaces
                 .filter((space) => !space.isModerator)
                 .map((space) => (
-                  <SpaceList
+                  <Link
+                    href={`/spaces/${space.spaceId}`}
                     key={space.spaceId}
-                    imageUrl={space.imageUrl!}
-                    link={`/spaces/${space.spaceId}`}
-                    displayText={`${space.spaceId}`}
-                  />
+                    onClick={() => {
+                      close();
+                    }}
+                  >
+                    <SpaceList
+                      key={space.spaceId}
+                      imageUrl={space.imageUrl!}
+                      link={`/spaces/${space.spaceId}`}
+                      displayText={`${space.spaceId}`}
+                    />
+                    <Divider my={"2"} />
+                  </Link>
                 ))}
             </List>
           </DrawerBody>

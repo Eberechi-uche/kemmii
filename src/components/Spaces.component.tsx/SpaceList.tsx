@@ -1,4 +1,4 @@
-import { Flex, Image, Text, Icon, ListItem } from "@chakra-ui/react";
+import { Flex, Image, Text, Icon, ListItem, Divider } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { RiUserSmileFill } from "react-icons/ri";
 import { useSpaceListState } from "../Hooks/useSpaceListState";
@@ -14,17 +14,11 @@ export const SpaceList: React.FC<SpaceListProp> = ({
   displayText,
   imageUrl,
 }) => {
-  const { onSpaceSelect } = useSpaceListState();
-  const route = useRouter();
-
   return (
     <ListItem
       display={"flex"}
       justifyContent={"space-between"}
       alignItems={"center"}
-      onClick={() => {
-        onSpaceSelect({ link, displayText, imageUrl });
-      }}
     >
       <Flex align={"center"}>
         {imageUrl ? (

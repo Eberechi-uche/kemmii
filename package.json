@@ -11,6 +11,8 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
+    "@dicebear/collection": "^6.0.2",
+    "@dicebear/core": "^6.0.2",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fontsource/open-sans": "^4.5.14",

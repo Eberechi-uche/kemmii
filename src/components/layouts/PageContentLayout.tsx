@@ -24,7 +24,7 @@ export const PageContentLayout: React.FC<PageContentProps> = ({ children }) => {
           >
             {children && children[0 as keyof typeof children]}
           </Flex>
-          <Flex flexGrow={"1"}>
+          <Flex flexGrow={"1"} display={{ base: "none", md: "unset" }}>
             {children && children[1 as keyof typeof children]}
           </Flex>
         </Flex>
