@@ -1,10 +1,20 @@
 import { Space, SpaceSnippet, spaceStateAtom } from "@/src/Atoms/spacesAtom";
 import { auth } from "@/src/firebase/clientApp";
-import { Flex, Box, Image, Text, Button, Icon } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Image,
+  Text,
+  Button,
+  Icon,
+  Heading,
+} from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RiUserSmileFill } from "react-icons/ri";
 import { useRecoilValue } from "recoil";
+import { BsPeople } from "react-icons/bs";
+import { TfiSharethis } from "react-icons/tfi";
 import { useSpaceDataFetch } from "../Hooks/useSpaceDataFetch";
 
 type HeaderProps = {
@@ -20,43 +30,70 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
 
   return (
     <>
-      <Flex direction={"column"} width={"100%"} height={"130px"}>
-        <Box height={"50%"} width={"100%"} bg={"brand.500"} />
-        <Flex width={"100%"} bg={"white"} flexGrow={"1"} justify={"center"}>
-          <Flex width={"70%"} maxWidth={"760px"} justify={"space-between"}>
-            <Box display={"flex"}>
-              {spacesData.imageUrl ? (
-                <Image
-                  boxSize="50px"
-                  objectFit="cover"
-                  src={spacesData.imageUrl}
-                  alt={spacesData.id}
-                  borderRadius={"5px"}
-                  border={"2px solid white"}
-                  position={"relative"}
-                  top={"-3"}
-                />
-              ) : (
-                <Icon as={RiUserSmileFill} width={"50px"} height={"50px"} />
-              )}
+      <Flex
+        direction={"column"}
+        width={"100%"}
+        height={"min-content"}
+        bg={"brand.500"}
+        justify={"center"}
+        align={"center"}
+        position={"relative"}
+      >
+        <Box height={"80px"} bg={"green"}></Box>
+        <Image
+          alt={spacesData.id}
+          boxSize={"60px"}
+          objectFit={"fill"}
+          borderRadius={"full"}
+          src={spaceValue.currentSpace?.imageUrl}
+          position={"absolute"}
+          top={"50px"}
+        />
+        <Flex width={"100%"} justify={"center"} bg={"brand.50"} pt={"8"}>
+          <Flex
+            width={"60%"}
+            flexDir={"column"}
+            justify={"center"}
+            align={"center"}
+            alignSelf={"center"}
+            textAlign={"center"}
+            height={"fit-content"}
+          >
+            <Text fontWeight={"800"} fontSize={"x-large"}>
+              {spaceValue.currentSpace?.id}
+            </Text>
+            <Text fontSize={"sm"} noOfLines={[4, 5]}>
+              this is where the group details would go in sdhsdbhksdkb
+            </Text>
 
-              <Flex direction={"column"}>
-                <Text ml={"3"} fontWeight={"extrabold"}>
-                  {spacesData.id}
-                </Text>
-              </Flex>
-            </Box>
-
-            <Button
-              variant={isMember ? "outline" : "solid"}
-              size={"xs"}
-              onClick={() => {
-                onSpaceJoinOrLeave(spacesData, isMember);
-              }}
-              isLoading={loading}
+            <Text
+              fontSize={{ base: "x-small", md: "small" }}
+              display={"flex"}
+              alignItems={"center"}
             >
-              {isMember ? "joined" : "join"}
-            </Button>
+              <Icon as={BsPeople} mr={"1"} />
+              {spaceValue.currentSpace?.numberOfMembers} members
+            </Text>
+            <Flex
+              width={{ base: "80%", md: "30%" }}
+              justify={"space-between"}
+              align={"center"}
+              alignSelf={"center"}
+              px={"3"}
+            >
+              <Icon as={TfiSharethis}> share Space</Icon>
+              <Button
+                size={{ base: "sm", md: "sm" }}
+                variant={isMember ? "outline" : "solid"}
+                isLoading={loading}
+                onClick={() => {
+                  onSpaceJoinOrLeave(spacesData, isMember);
+                }}
+                width={"fit-content"}
+              >
+                {isMember ? "joined" : "join"}
+              </Button>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>

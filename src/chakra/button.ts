@@ -6,18 +6,19 @@ export const Button: ComponentStyleConfig = {
   },
   sizes: {
     xs: {
+      fontSize: "xs",
       px: 5,
-      py: 5,
+      py: 2,
     },
     sm: {
-      fontSize: "sm",
-      px: 5, // <-- px is short for paddingLeft and paddingRight
-      py: 5, // <-- py is short for paddingTop and paddingBottom
+      fontSize: "xs",
+      px: 3, // <-- px is short for paddingLeft and paddingRight
+      py: 2, // <-- py is short for paddingTop and paddingBottom
     },
     md: {
       fontSize: "md",
       px: 5, // <-- these values are tokens from the design system
-      py: 5, // <-- these values are tokens from the design system
+      py: 2, // <-- these values are tokens from the design system
     },
     icon: {
       px: 3,
@@ -29,7 +30,7 @@ export const Button: ComponentStyleConfig = {
       border: "1px solid",
       borderColor: "#2C5282",
       colorScheme: "#2C5282",
-      color: "f.500",
+      color: "brand.700",
       outline: "none",
 
       _hover: {
@@ -50,21 +51,6 @@ export const Button: ComponentStyleConfig = {
         border: "1px solid",
         borderColor: "#2C5282",
         color: "#2C5282",
-      },
-      icons: {
-        border: "1px solid",
-        outline: "none",
-        borderColor: "#2C5282",
-        colorScheme: "whatsapp.500",
-        color: "teal.500",
-
-        _hover: {
-          bg: "whatsapp.200",
-          color: "white",
-        },
-      },
-      _active: {
-        bg: "#2C5282",
       },
     },
   },

@@ -13,8 +13,10 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-import { AiOutlineFire, AiTwotoneFire, AiFillSmile } from "react-icons/ai";
+import { AiFillSmile } from "react-icons/ai";
+import { MdEditLocationAlt } from "react-icons/md";
 import { HiChatBubbleBottomCenterText, HiOutlineXMark } from "react-icons/hi2";
+import { TbThumbUpFilled, TbThumbUp } from "react-icons/tb";
 import { RiUserSmileFill } from "react-icons/ri";
 import { HiRocketLaunch, HiOutlineRocketLaunch } from "react-icons/hi2";
 import moment from "moment";
@@ -54,7 +56,7 @@ export const PostItem: React.FC<PostItemProps> = ({
   const [error, setError] = useState("");
   const [loadingDelete, setLoadingDelete] = useState(false);
   const route = useRouter();
-  const { spaceid } = route.query;
+  const { spaceid, postID } = route.query;
 
   const handleSpaceRoute = (event: React.MouseEvent, to: string) => {
     event.stopPropagation();
@@ -76,6 +78,7 @@ export const PostItem: React.FC<PostItemProps> = ({
   return (
     <>
       <Flex
+        fontSize={"xs"}
         p={"3"}
         borderRadius={"5px"}
         flexDir={"column"}
@@ -86,49 +89,51 @@ export const PostItem: React.FC<PostItemProps> = ({
         }}
         cursor={"pointer"}
       >
-        <Flex align={"center"} justify={"space-between"}>
-          <Text fontWeight={"bold"} my={"1"}>
-            {post.title}
-          </Text>
-          {!spaceid && (
-            <>
-              <Text
-                fontSize={"x-small"}
-                fontWeight={"extrabold"}
-                onClick={(e) => {
-                  handleSpaceRoute(e, `/spaces/${post.spaceId}`);
-                }}
-                color={"white"}
-                bg={"brand.200"}
-                letterSpacing={"0.5px"}
-                _hover={{
-                  textDecoration: "underline",
-                }}
-                border={"0.5px solid"}
-                borderRadius={"full"}
-                px={"2"}
-              >
-                posted in: {post.spaceId}
-              </Text>
-            </>
-          )}
-        </Flex>
-
         <Flex justify={"flex-start"} align={"center"}>
           <Flex align={"center"} justify={"center"}>
-            <Icon as={AiFillSmile} width={"30px"} height={"30px"} />
+            <Icon as={AiFillSmile} width={"45px"} height={"45px"} />
             <Flex flexDir={"column"} ml={"1"}>
-              <Text pb={"none"} fontWeight={"bold"}>
+              <Text pb={"none"} fontWeight={"500"}>
                 {post.creatorDisplayName}
               </Text>
-              <Text pt={"none"} fontSize={{ base: "xx-small", md: "x-small" }}>
-                {moment(new Date(post.createdAt?.seconds * 1000)).fromNow()}
-              </Text>
+              <Flex
+                fontSize={{ base: "x-small", md: "small" }}
+                align={"center"}
+              >
+                {!spaceid && (
+                  <>
+                    <Text
+                      color={"brand.500"}
+                      fontWeight={"600"}
+                      mr={"2"}
+                      fontSize={"10pt"}
+                      display={"flex"}
+                      alignItems={"center"}
+                      onClick={(e) => {
+                        handleSpaceRoute(e, `/spaces/${post.spaceId}`);
+                      }}
+                    >
+                      <Icon as={MdEditLocationAlt} fontSize={"15"} />
+                      {post.spaceId}
+                    </Text>
+                  </>
+                )}
+                <Text pt={"none"}>
+                  {moment(new Date(post.createdAt?.seconds * 1000)).fromNow()}
+                </Text>
+              </Flex>
             </Flex>
           </Flex>
         </Flex>
-        <Stack my={"4"}>
-          <Text noOfLines={[5, 7]}>{post.body}</Text>
+        <Flex align={"center"} justify={"space-between"}>
+          <Text fontWeight={"600"}>{post.title}</Text>
+        </Flex>
+        <Stack my={"1"}>
+          {postID ? (
+            <Text>{post.body}</Text>
+          ) : (
+            <Text noOfLines={[3, 5]}>{post.body}</Text>
+          )}
         </Stack>
 
         {post.imageUrl && (
@@ -143,7 +148,7 @@ export const PostItem: React.FC<PostItemProps> = ({
             <Image
               src={post.imageUrl}
               alt={post.creatorDisplayName}
-              maxH={"200px"}
+              maxH={postID ? "fit-content" : "70px"}
               width={"100%"}
               objectFit={"cover"}
               borderRadius={"7px"}
@@ -162,18 +167,11 @@ export const PostItem: React.FC<PostItemProps> = ({
           justify={"flex-start"}
           color={"brand.500"}
         >
-          <Flex
-            align={"center"}
-            cursor={"pointer"}
-            mx={"3"}
-            _hover={{
-              color: "white",
-            }}
-            p={"3px 7px"}
-            borderRadius={"5px"}
-          >
+          <Flex align={"center"} cursor={"pointer"} mx={"3"}>
             <Icon as={HiChatBubbleBottomCenterText} />
-            <Text fontSize={"sm"}>{post.numberOfComments}</Text>
+            <Text ml={"1"} fontSize={"xs"}>
+              comments {post.numberOfComments}
+            </Text>
           </Flex>
           <Flex
             align={"center"}
@@ -183,15 +181,9 @@ export const PostItem: React.FC<PostItemProps> = ({
             }}
             cursor={"pointer"}
             mx={"3"}
-            _hover={{
-              backgroundColor: "brand.100",
-              color: "white",
-            }}
-            p={"3px 7px"}
-            borderRadius={"5px"}
           >
             <Flex
-              color="red.600"
+              color="brand.00"
               align={"center"}
               justify={"center"}
               maxW={"20px"}
@@ -202,15 +194,11 @@ export const PostItem: React.FC<PostItemProps> = ({
                   link={`https://assets3.lottiefiles.com/packages/lf20_nz9vz5ng.json`}
                   size={40}
                   display={"inline-block"}
-                  speed={2}
+                  speed={1}
                   loop={false}
                 />
               ) : (
-                <Icon
-                  as={
-                    userReaction === 1 ? HiRocketLaunch : HiOutlineRocketLaunch
-                  }
-                />
+                <Icon as={userReaction === 1 ? TbThumbUpFilled : TbThumbUp} />
               )}
               <Text fontSize={"md"}>{post.reactions}</Text>
             </Flex>
@@ -221,10 +209,6 @@ export const PostItem: React.FC<PostItemProps> = ({
               onClick={handlePostDelete}
               cursor={"pointer"}
               mx={"3"}
-              _hover={{
-                backgroundColor: "brand.100",
-                color: "white",
-              }}
               p={"3px 7px"}
               borderRadius={"5px"}
             >
