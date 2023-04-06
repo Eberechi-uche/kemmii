@@ -42,7 +42,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
     >
       {user ? (
         <>
-          <Flex width={"100%"} justify={"center"}>
+          <Flex maxW={"100%"} justify={"center"}>
             <Image
               src={user?.photoURL ? user.photoURL : "/images/default.png"}
               alt={"logo"}

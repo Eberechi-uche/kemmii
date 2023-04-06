@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 
 export const ResetPassword: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [emailSending, setEmailSending] = useState("tre");
+  const [emailSending, setEmailSending] = useState("");
   const setAuth = useSetRecoilState(authModalState);
   const [sendPasswordResetEmail, sending, error] =
     useSendPasswordResetEmail(auth);
