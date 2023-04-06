@@ -20,13 +20,24 @@ import { PostItem } from "../components/PostComponent/PostItem";
 import { CreatePostLink } from "../components/Spaces.component.tsx/CreatePostLink";
 import { auth, firestore } from "../firebase/clientApp";
 import { useSpaceDataFetch } from "../components/Hooks/useSpaceDataFetch";
-import { Button, Flex, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
 import { Loading } from "../components/animations/Loading";
 
 export default function Home() {
   const [user, loadingUser] = useAuthState(auth);
   const [loadingFeeds, setLoadingFeeds] = useState(true);
+  const [discoverSpaces, setDiscoverSpaces] = useState<Post[]>([]);
   const [error, setError] = useState("");
+  const [tab, setCurrentTab] = useState("home");
   const { spaceValue } = useSpaceDataFetch();
 
   const {
@@ -81,6 +92,7 @@ export default function Home() {
         ...prev,
         posts: posts as Post[],
       }));
+      setDiscoverSpaces(posts as Post[]);
     } catch (error: any) {
       console.log("no user feeds", error.message);
     }
@@ -112,7 +124,10 @@ export default function Home() {
     if (!user && !loadingUser) {
       getNoUserFeed();
     }
-  }, [user, loadingUser]);
+    if (tab === "discover" && !discoverSpaces.length) {
+      getNoUserFeed();
+    }
+  }, [user, loadingUser, tab]);
   useEffect(() => {
     if (spaceValue.snippetFetched) getLogggedIntUserFeed();
   }, [spaceValue]);
@@ -134,36 +149,82 @@ export default function Home() {
       </Head>
       <PageContentLayout>
         <>
-          <p> {loadingFeeds}</p>
-          <CreatePostLink />
-          {loadingFeeds ? (
-            <Loading
-              link={
-                "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
-              }
-            />
-          ) : (
-            postData.posts.map((post) => (
-              <PostItem
-                key={post.id}
-                post={post}
-                onDeletePost={onDeletePost}
-                onPostSelect={onPostSelect}
-                onReaction={onReaction}
-                userIsCreator={user?.uid === post.creatorId}
-                loading={reactionloading === post.id}
-                userReaction={
-                  postData.reactions.find(
-                    (reaction) => reaction.postId === post.id
-                  )?.reactionValue
-                }
-              />
-            ))
-          )}
+          <Tabs variant="soft-rounded" colorScheme="blue" size={"sm"}>
+            <TabList>
+              <Tab
+                onClick={() => {
+                  setCurrentTab("home");
+                }}
+              >
+                your feeds
+              </Tab>
+              <Tab
+                onClick={() => {
+                  setCurrentTab("discover");
+                }}
+              >
+                discover spaces
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <CreatePostLink />
+                {loadingFeeds ? (
+                  <Loading
+                    link={
+                      "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
+                    }
+                  />
+                ) : (
+                  postData.posts.map((post) => (
+                    <PostItem
+                      key={post.id}
+                      post={post}
+                      onDeletePost={onDeletePost}
+                      onPostSelect={onPostSelect}
+                      onReaction={onReaction}
+                      userIsCreator={user?.uid === post.creatorId}
+                      loading={reactionloading === post.id}
+                      userReaction={
+                        postData.reactions.find(
+                          (reaction) => reaction.postId === post.id
+                        )?.reactionValue
+                      }
+                    />
+                  ))
+                )}
+              </TabPanel>
+              <TabPanel>
+                <CreatePostLink />
+                {loadingFeeds ? (
+                  <Loading
+                    link={
+                      "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
+                    }
+                  />
+                ) : (
+                  discoverSpaces.map((post) => (
+                    <PostItem
+                      key={post.id}
+                      post={post}
+                      onDeletePost={onDeletePost}
+                      onPostSelect={onPostSelect}
+                      onReaction={onReaction}
+                      userIsCreator={user?.uid === post.creatorId}
+                      loading={reactionloading === post.id}
+                      userReaction={
+                        postData.reactions.find(
+                          (reaction) => reaction.postId === post.id
+                        )?.reactionValue
+                      }
+                    />
+                  ))
+                )}
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </>
-        <>
-          <HomePageSideBar />
-        </>
+        <>{/* <HomePageSideBar /> */}</>
       </PageContentLayout>
     </>
   );

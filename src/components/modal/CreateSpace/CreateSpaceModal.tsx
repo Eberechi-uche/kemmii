@@ -133,7 +133,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
           )}
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody display={"grid"} placeItems={"start"}>
+        <ModalBody display={"grid"} placeItems={"center"}>
           <CreateSpaceFlow
             handleCheckSelection={handleCheckSelection}
             handleInputChange={handleInputChange}
@@ -149,7 +149,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
             mr={3}
             onClick={setActive}
             variant={"outline"}
-            size={{ base: "xs", md: "sm" }}
+            size={{ base: "md" }}
           >
             cancel
           </Button>
@@ -157,7 +157,8 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
             width={"100%"}
             onClick={handleSpaceCreation}
             isLoading={loading}
-            size={{ base: "xs", md: "sm" }}
+            size={{ base: "md" }}
+            maxW={"40%"}
             isDisabled={spaceName.length < 3}
           >
             create space

@@ -11,7 +11,7 @@ export const PageContentLayout: React.FC<PageContentProps> = ({ children }) => {
       <Flex justify={"center"}>
         <Flex
           justify={"center"}
-          // width={{ base: "100%", md: "100%" }}
+          width={"100%"}
           maxWidth={"760"}
           direction={{ base: "column-reverse", md: "row" }}
           mt={"20px"}

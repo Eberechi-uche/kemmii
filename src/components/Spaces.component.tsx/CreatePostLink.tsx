@@ -1,5 +1,5 @@
-import { Flex, Input, Icon, Spacer } from "@chakra-ui/react";
-import { BsFillChatSquareDotsFill, BsImage } from "react-icons/bs";
+import { Flex, Input, Icon, Spacer, Image } from "@chakra-ui/react";
+import { CiImageOn, CiChat2 } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/src/firebase/clientApp";
@@ -39,6 +39,7 @@ export const CreatePostLink: React.FC = () => {
         pos={"sticky"}
         top={"1"}
         zIndex={4}
+        onClick={handleClick}
       >
         <Flex
           align={"center"}
@@ -46,21 +47,26 @@ export const CreatePostLink: React.FC = () => {
           width={"100%"}
           px={"10px"}
         >
+          <Image
+            src={user?.photoURL ? user.photoURL : "/images/default.png"}
+            alt={"logo"}
+            boxSize={"35px"}
+            mr={"2"}
+          />
           <Input
             bg={"brand.50"}
             borderRadius={"5px"}
             focusBorderColor={"brand.50"}
             color={"white"}
-            maxWidth={"80%"}
+            maxWidth={"100%"}
             height={"7"}
             borderColor={"none"}
-            onClick={handleClick}
             isDisabled
           />
           <Spacer />
-          <Flex justify={"space-around"} flexGrow={"1"}>
-            <Icon as={BsFillChatSquareDotsFill}></Icon>
-            <Icon as={BsImage} />
+          <Flex justify={"space-around"} flexGrow={"1"} px={"2"} width={"20%"}>
+            <Icon as={CiImageOn}></Icon>
+            <Icon as={CiChat2} />
           </Flex>
         </Flex>
       </Flex>
