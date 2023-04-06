@@ -1,11 +1,11 @@
 import { User } from "firebase/auth";
 import { Box, Flex, Stack } from "@chakra-ui/react";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CommentInput } from "./CommentInput";
 import { firestore } from "@/src/firebase/clientApp";
 import { Post, postState } from "@/src/Atoms/PostAtom";
-import { Comment, CommentItem } from "./CommentItem";
+import CommentItem, { Comment } from "./CommentItem";
 import {
   Timestamp,
   collection,
@@ -48,7 +48,7 @@ export const Comments: React.FC<CommentProps> = ({
       const newComment: Comment = {
         id: commentDocRef.id,
         creatorId: user.uid,
-        creatorDisplayText: user.email!.split("@")[0],
+        creatorDisplayText: user.displayName!,
         spaceId,
         postId: selectedPost?.id!,
         creatorImage: user.photoURL!,
@@ -120,6 +120,7 @@ export const Comments: React.FC<CommentProps> = ({
             ...doc.data(),
           } as Comment)
       );
+
       setComments(commentData);
     } catch (error: any) {
       console.log(error.message);
@@ -128,7 +129,7 @@ export const Comments: React.FC<CommentProps> = ({
   };
 
   useEffect(() => {
-    selectedPost && getPostComment();
+    !comments.length && selectedPost && getPostComment();
   }, [selectedPost]);
   return (
     <>

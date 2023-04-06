@@ -85,6 +85,8 @@ export const About: React.FC<AboutProps> = ({ spaceData }) => {
         flexDir={"column"}
         fontSize={{ base: "xx-small", md: "x-small" }}
         height={"fit-content"}
+        border={"1px solid"}
+        borderColor={"brand.500"}
       >
         <Flex justify={"space-around"}>
           <Text> About Space</Text>

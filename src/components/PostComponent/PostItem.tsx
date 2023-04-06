@@ -20,7 +20,7 @@ import { TbThumbUpFilled, TbThumbUp } from "react-icons/tb";
 import { RiUserSmileFill } from "react-icons/ri";
 import { HiRocketLaunch, HiOutlineRocketLaunch } from "react-icons/hi2";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loading } from "../animations/Loading";
 import { useRouter } from "next/router";
 

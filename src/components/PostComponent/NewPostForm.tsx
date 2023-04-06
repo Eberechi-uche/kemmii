@@ -66,7 +66,7 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
     const newPost: Post = {
       spaceId: spaceid as string,
       creatorId: user.uid,
-      creatorDisplayName: user.email!.split("@")[0],
+      creatorDisplayName: user.displayName!,
       title: input.title,
       body: input.body,
       numberOfComments: 0,

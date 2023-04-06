@@ -1,5 +1,5 @@
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
-import { Textarea, Flex, Button, Text, Box } from "@chakra-ui/react";
+import { Textarea, Flex, Button, Text, Box, Input } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { useSetRecoilState } from "recoil";
 
@@ -19,9 +19,6 @@ export const CommentInput: React.FC<CommentInputProp> = ({
   creatCommentLoading,
 }) => {
   const setAuthModalState = useSetRecoilState(authModalState);
-  const insertEmoji = (emoji: string) => {
-    setCommentText(commentText + emoji);
-  };
 
   return (
     <Flex
@@ -40,16 +37,15 @@ export const CommentInput: React.FC<CommentInputProp> = ({
             width={"100%"}
             align={"center"}
             justify={"center"}
-            p={"3"}
             flexDir={"column"}
           >
-            <Textarea
+            <Input
               focusBorderColor="white"
               outline={"none"}
               maxW={"100%"}
               size={"lg"}
               value={commentText}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 e.preventDefault();
                 setCommentText(e.target.value);
               }}
@@ -57,65 +53,11 @@ export const CommentInput: React.FC<CommentInputProp> = ({
                 color: "brand.500",
               }}
               placeholder={"comment"}
+              fontSize={{ base: "sm", md: "md" }}
             />
           </Flex>
 
-          <Flex justify={"space-between"} py={"2"} align={"center"}>
-            <Flex
-              //   bg={"white"}
-              width={"100%"}
-              justify={"space-around"}
-              height={"fit-content"}
-            >
-              <Text
-                onClick={() => {
-                  insertEmoji(" \uD83D\uDE02");
-                }}
-                cursor={"pointer"}
-              >
-                \uD83D\uDE02
-              </Text>
-              <Text
-                onClick={() => {
-                  insertEmoji(" 👊🏿");
-                }}
-                cursor={"pointer"}
-              >
-                👊🏿
-              </Text>
-              <Text
-                onClick={() => {
-                  insertEmoji(" \uD83D\uDD25");
-                }}
-                cursor={"pointer"}
-              >
-                \uD83D\uDD25
-              </Text>
-              <Text
-                onClick={() => {
-                  insertEmoji(" \uD83D\uDE22");
-                }}
-                cursor={"pointer"}
-              >
-                \uD83D\uDE22
-              </Text>
-              <Text
-                onClick={() => {
-                  insertEmoji(" 🤎");
-                }}
-                cursor={"pointer"}
-              >
-                🤎
-              </Text>
-              <Text
-                onClick={() => {
-                  insertEmoji(" 🤌🏿");
-                }}
-                cursor={"pointer"}
-              >
-                🤌🏿
-              </Text>
-            </Flex>
+          <Flex justify={"space-between"} py={"1"} align={"center"}>
             <Button
               size={{
                 base: "xs",

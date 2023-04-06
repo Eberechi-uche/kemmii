@@ -45,7 +45,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
         <Box height={"80px"} bg={"green"}></Box>
         <Image
           alt={spacesData.id}
-          boxSize={"90px"}
+          boxSize={"110px"}
           objectFit={"fill"}
           borderRadius={"full"}
           src={
@@ -62,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
           width={"100%"}
           justify={"center"}
           bg={"brand.50"}
-          pt={"30"}
+          pt={"50px"}
           mt={"6"}
         >
           <Flex

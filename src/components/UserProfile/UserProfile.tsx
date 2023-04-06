@@ -67,8 +67,9 @@ export const UserProfile: React.FC = () => {
       ...prev,
       open: false,
     }));
-    route.back();
+    route.push(`/`);
   };
+
   return (
     <>
       <Flex flexDir={"column"} textAlign={"center"}>
@@ -89,6 +90,15 @@ export const UserProfile: React.FC = () => {
               src={user?.photoURL ? user.photoURL : "/images/default.png"}
               alignSelf={"center"}
             />
+            {user?.displayName ? (
+              <Text> hello {user.displayName}</Text>
+            ) : (
+              <Text>
+                hello, lets get to know you, enter you display name and click
+                proceed to create your profile picture
+              </Text>
+            )}
+
             <Grid
               height={"70vh"}
               placeContent={"center"}

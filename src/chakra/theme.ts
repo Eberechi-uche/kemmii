@@ -19,7 +19,7 @@ const theme = extendTheme({
     global: () => ({
       "html, body": {
         bg: "#EBF8FF",
-        fontSize: { base: "md", md: "lg" },
+        fontSize: { base: "sm", md: "md" },
       },
     }),
   },

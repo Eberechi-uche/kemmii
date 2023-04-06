@@ -42,14 +42,14 @@ export const SignUp = () => {
       collection(firestore, "users"),
       JSON.parse(JSON.stringify(user))
     );
+    setAuthState({
+      open: true,
+      view: "profile",
+    });
   };
   useEffect(() => {
     if (userDetails) {
       createUser(userDetails.user);
-      setAuthState((prev) => ({
-        ...prev,
-        view: "profile",
-      }));
     }
   }, [userDetails]);
 

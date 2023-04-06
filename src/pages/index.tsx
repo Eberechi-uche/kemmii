@@ -118,13 +118,15 @@ export default function Home() {
   }, [spaceValue]);
   useEffect(() => {
     if (user && postData.posts) getUserReactedPost();
-    return () => {
+  }, [user, postData.posts]);
+  useEffect(() => {
+    if (!user) {
       setPostData((prev) => ({
         ...prev,
         reactions: [],
       }));
-    };
-  }, [user, postData.posts]);
+    }
+  }, [user]);
   return (
     <>
       <Head>

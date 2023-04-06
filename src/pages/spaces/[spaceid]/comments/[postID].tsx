@@ -6,7 +6,7 @@ import { Comments } from "@/src/components/PostComponent/CommentComponent/Commen
 import { PostItem } from "@/src/components/PostComponent/PostItem";
 import { About } from "@/src/components/Spaces.component.tsx/About";
 import { auth, firestore } from "@/src/firebase/clientApp";
-import { Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
@@ -38,7 +38,7 @@ const PostCommentPage: React.FC = () => {
     }
   }, [postData.selectedPost, route.query]);
   return (
-    <>
+    <Flex bg={"white"} justify={"center"}>
       <PageContentLayout>
         <>
           {postData.selectedPost && (
@@ -62,10 +62,13 @@ const PostCommentPage: React.FC = () => {
             user={user as User}
           />
         </>
-
-        <></>
+        <>
+          {spaceValue.currentSpace && (
+            <About spaceData={spaceValue.currentSpace} />
+          )}
+        </>
       </PageContentLayout>
-    </>
+    </Flex>
   );
 };
 export default PostCommentPage;

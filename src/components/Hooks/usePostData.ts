@@ -68,7 +68,7 @@ export const usePostData = () => {
         batch.set(reactionRef, newReaction);
         updatePost.reactions = reaction + 1;
         reactValue = reactions + 1;
-        updatedReaction = [...updatedReaction, newReaction];
+        updatedReaction = [...postData.reactions, newReaction];
       } else {
         setReactionLoading("");
         const reactionRef = doc(
@@ -92,7 +92,7 @@ export const usePostData = () => {
       batch.update(postRef, { reactions: reactValue });
 
       const postIndx = updatedPosts.findIndex(
-        (postItem) => postItem.id == post.id
+        (postItem) => postItem.id === post.id
       );
       updatedPosts[postIndx] = updatePost;
 
@@ -105,6 +105,7 @@ export const usePostData = () => {
         setPostData((prev) => ({
           ...prev,
           selectedPost: updatePost,
+          reactions: updatedReaction,
         }));
       }
       await batch.commit();

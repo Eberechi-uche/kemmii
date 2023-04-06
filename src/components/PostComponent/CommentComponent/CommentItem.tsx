@@ -1,9 +1,8 @@
-import { Flex, Text, Icon, Spinner, Image } from "@chakra-ui/react";
+import { Flex, Text, Icon, Spinner, Image, Divider } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 
 import moment from "moment";
-import { useState } from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
 
 type CommentItemProp = {
@@ -24,7 +23,7 @@ export type Comment = {
   text: string;
   createdAt: Timestamp;
 };
-export const CommentItem: React.FC<CommentItemProp> = ({
+const CommentItem: React.FC<CommentItemProp> = ({
   comment,
   onDeleteComment,
   isOwner,
@@ -38,7 +37,7 @@ export const CommentItem: React.FC<CommentItemProp> = ({
   };
   return (
     <>
-      <Flex key={comment.id} p={"4"} flexDir={"column"} bg={"facebook.100"}>
+      <Flex key={comment.id} py={"1"} flexDir={"column"} bg={"white"}>
         <Flex>
           <Image
             src={
@@ -52,7 +51,7 @@ export const CommentItem: React.FC<CommentItemProp> = ({
           <Text fontWeight={"bold"} ml={"1"}>
             {comment.creatorDisplayText}
           </Text>
-          <Text ml={"5"}>{date === "Invalid date" ? "now" : date}</Text>
+          <Text ml={"2"}>{date === "Invalid date" ? "now" : date}</Text>
         </Flex>
         <Text>{comment.text} </Text>
         {isOwner && isOwner.uid === comment.creatorId && (
@@ -71,6 +70,9 @@ export const CommentItem: React.FC<CommentItemProp> = ({
           </Flex>
         )}
       </Flex>
+      <Divider />
     </>
   );
 };
+
+export default CommentItem;

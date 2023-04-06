@@ -55,6 +55,7 @@ export const CreatePostLink: React.FC = () => {
             height={"7"}
             borderColor={"none"}
             onClick={handleClick}
+            isDisabled
           />
           <Spacer />
           <Flex justify={"space-around"} flexGrow={"1"}>
