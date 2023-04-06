@@ -42,7 +42,7 @@ export default function Home() {
   const [tab, setCurrentTab] = useState("home");
   const { spaceValue } = useSpaceDataFetch();
   const colors = useColorModeValue(
-    ["#EBF8FF", "#E6FFFA"],
+    ["#EBF8FF", "#FEB2B2"],
     ["red.900", "teal.900"]
   );
   const bg = colors[tabIndex];
@@ -58,7 +58,7 @@ export default function Home() {
   const getLogggedIntUserFeed = async () => {
     try {
       if (!spaceValue.mySpaces.length) {
-        getNoUserFeed();
+        setLoadingFeeds(false);
         return;
       }
       const mySpacesId = spaceValue.mySpaces.map((space) => space.spaceId);
@@ -94,10 +94,10 @@ export default function Home() {
         id: post.id,
         ...post.data(),
       }));
-      setPostData((prev) => ({
-        ...prev,
-        posts: posts as Post[],
-      }));
+      // setPostData((prev) => ({
+      //   ...prev,
+      //   posts: posts as Post[],
+      // }));
       setDiscoverSpaces(posts as Post[]);
     } catch (error: any) {
       console.log("no user feeds", error.message);
@@ -153,19 +153,27 @@ export default function Home() {
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <Flex bg={bg} width={"100%"} align={"center"} justify={"center"}>
+      <Flex
+        bg={bg}
+        align={"center"}
+        justify={"center"}
+        flexDir={"column"}
+        transition="all 1s ease-in-out"
+      >
         <PageContentLayout>
           <>
             <Tabs
               variant="soft-rounded"
-              size={"sm"}
+              size={"md"}
+              colorScheme={tab == "home" ? "blue" : "red"}
               onChange={(index) => setTabIndex(index)}
             >
-              <TabList>
+              <TabList transition={"all 1s"}>
                 <Tab
                   onClick={() => {
                     setCurrentTab("home");
                   }}
+                  transition="all 0.5s ease-in"
                 >
                   your feeds
                 </Tab>
@@ -173,11 +181,12 @@ export default function Home() {
                   onClick={() => {
                     setCurrentTab("discover");
                   }}
+                  transition="all 0.5s ease-in"
                 >
                   discover spaces
                 </Tab>
               </TabList>
-              <TabPanels>
+              <TabPanels transition="all 3s ease-in">
                 <TabPanel>
                   <CreatePostLink />
                   {loadingFeeds ? (

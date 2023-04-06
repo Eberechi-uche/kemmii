@@ -36,19 +36,21 @@ export const CreateSpaceFlow: React.FC<CreateSpaceFlowProps> = ({
   const [activeTab, setActiveTab] = useState("pickSpaceVibe");
   return (
     <>
-      {activeTab === "pickSpaceVibe" && (
-        <PickSpaceVibeTab setActiveTab={setActiveTab} />
-      )}
-      {activeTab === "createSpace" && (
-        <CreateSpaceTab
-          setActiveTab={setActiveTab}
-          handleCheckSelection={handleCheckSelection}
-          handleInputChange={handleInputChange}
-          spaceType={spaceType}
-          error={error}
-          loading={loading}
-        />
-      )}
+      <Flex>
+        {activeTab === "pickSpaceVibe" && (
+          <PickSpaceVibeTab setActiveTab={setActiveTab} />
+        )}
+        {activeTab === "createSpace" && (
+          <CreateSpaceTab
+            setActiveTab={setActiveTab}
+            handleCheckSelection={handleCheckSelection}
+            handleInputChange={handleInputChange}
+            spaceType={spaceType}
+            error={error}
+            loading={loading}
+          />
+        )}
+      </Flex>
     </>
   );
 };
@@ -60,7 +62,7 @@ export const PickSpaceVibeTab: React.FC<PickSpaceVibeTabProps> = ({
 }) => {
   return (
     <>
-      <Stack fontSize={{ base: "xs", md: "sm" }}>
+      <Flex fontSize={"sm"} flexDir={"column"}>
         <Text>comming soon...</Text>
         <Text>
           you would be able to pick a space vibe, this can be educational,
@@ -92,7 +94,7 @@ export const PickSpaceVibeTab: React.FC<PickSpaceVibeTabProps> = ({
             <Icon as={BsFillArrowRightSquareFill} />
           </Flex>
         </Flex>
-      </Stack>
+      </Flex>
     </>
   );
 };
@@ -118,93 +120,95 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
     <>
       {!loading ? (
         <>
-          <Text>Enter the name of the spaceType you want to create</Text>
-          <Input
-            mt={"5"}
-            borderRadius={"full"}
-            maxLength={30}
-            size={"lg"}
-            color={"brand.700"}
-            onChange={handleInputChange}
-          />
-          {error.length > 2 && (
-            <Text color={"red.500"} fontSize={"xs"}>
-              {error}
-            </Text>
-          )}
+          <Flex flexDir={"column"} height={"fit-content"}>
+            <Text>Enter the name of the spaceType you want to create</Text>
+            <Input
+              mt={"5"}
+              borderRadius={"full"}
+              maxLength={30}
+              size={"lg"}
+              color={"brand.700"}
+              onChange={handleInputChange}
+            />
+            {error.length > 2 && (
+              <Text color={"red.500"} fontSize={"xs"}>
+                {error}
+              </Text>
+            )}
 
-          <Box display={"flex"} flexDir={"column"} pt={"10"}>
-            <Checkbox
-              name="public"
-              isChecked={spaceType === "public"}
-              onChange={handleCheckSelection}
-              size={{ base: "sm", md: "md" }}
-              css={`
-                > span:first-of-type {
-                  box-shadow: unset;
-                }
-              `}
-            >
-              <Flex align={"center"}>
-                <Icon as={MdOutlinePublic} />
-                <Text ml={"2"}>Public</Text>
-                <Text fontSize={"x-small"} ml={"5"}>
-                  everyone can view and post
-                </Text>
-              </Flex>
-            </Checkbox>
+            <Box display={"flex"} flexDir={"column"} pt={"10"}>
+              <Checkbox
+                name="public"
+                isChecked={spaceType === "public"}
+                onChange={handleCheckSelection}
+                size={{ base: "sm", md: "md" }}
+                css={`
+                  > span:first-of-type {
+                    box-shadow: unset;
+                  }
+                `}
+              >
+                <Flex align={"center"}>
+                  <Icon as={MdOutlinePublic} />
+                  <Text ml={"2"}>Public</Text>
+                  <Text fontSize={"x-small"} ml={"5"}>
+                    everyone can view and post
+                  </Text>
+                </Flex>
+              </Checkbox>
 
-            <Checkbox
-              name="private"
-              isChecked={spaceType === "private"}
-              onChange={handleCheckSelection}
-              size={{ base: "sm", md: "md" }}
-              css={`
-                > span:first-of-type {
-                  box-shadow: unset;
-                }
-              `}
-            >
-              <Flex align={"center"}>
-                <Icon as={RiChatPrivateFill} />
-                <Text ml={"2"}>Private</Text>
-                <Text fontSize={"x-small"} ml={"5"}>
-                  everyone can view and comment but cannot post
-                </Text>
+              <Checkbox
+                name="private"
+                isChecked={spaceType === "private"}
+                onChange={handleCheckSelection}
+                size={{ base: "sm", md: "md" }}
+                css={`
+                  > span:first-of-type {
+                    box-shadow: unset;
+                  }
+                `}
+              >
+                <Flex align={"center"}>
+                  <Icon as={RiChatPrivateFill} />
+                  <Text ml={"2"}>Private</Text>
+                  <Text fontSize={"x-small"} ml={"5"}>
+                    everyone can view and comment but cannot post
+                  </Text>
+                </Flex>
+              </Checkbox>
+              <Checkbox
+                name="restricted"
+                isChecked={spaceType === "restricted"}
+                onChange={handleCheckSelection}
+                size={{ base: "sm", md: "md" }}
+                css={`
+                  > span:first-of-type {
+                    box-shadow: unset;
+                  }
+                `}
+              >
+                <Flex align={"center"}>
+                  <Icon as={BiHide} />
+                  <Text ml={"2"}>Restricted</Text>
+                  <Text fontSize={"x-small"} ml={"5"}>
+                    only approved users can view it and post
+                  </Text>
+                </Flex>
+              </Checkbox>
+              <Flex
+                my={"2"}
+                align={"center"}
+                justify={"flex-start"}
+                onClick={() => {
+                  setActiveTab("pickSpaceVibe");
+                }}
+                cursor={"pointer"}
+              >
+                <Icon as={BsFillArrowLeftSquareFill} />
+                <Text m={"2"}> back to pick vibe</Text>
               </Flex>
-            </Checkbox>
-            <Checkbox
-              name="restricted"
-              isChecked={spaceType === "restricted"}
-              onChange={handleCheckSelection}
-              size={{ base: "sm", md: "md" }}
-              css={`
-                > span:first-of-type {
-                  box-shadow: unset;
-                }
-              `}
-            >
-              <Flex align={"center"}>
-                <Icon as={BiHide} />
-                <Text ml={"2"}>Restricted</Text>
-                <Text fontSize={"x-small"} ml={"5"}>
-                  only approved users can view it and post
-                </Text>
-              </Flex>
-            </Checkbox>
-            <Flex
-              my={"2"}
-              align={"center"}
-              justify={"flex-start"}
-              onClick={() => {
-                setActiveTab("pickSpaceVibe");
-              }}
-              cursor={"pointer"}
-            >
-              <Icon as={BsFillArrowLeftSquareFill} />
-              <Text m={"2"}> back to pick vibe</Text>
-            </Flex>
-          </Box>
+            </Box>
+          </Flex>
         </>
       ) : (
         <Stack align={"center"} justify={"center"}>

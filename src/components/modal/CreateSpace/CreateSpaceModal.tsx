@@ -149,7 +149,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
             mr={3}
             onClick={setActive}
             variant={"outline"}
-            size={{ base: "md" }}
+            size={"lg"}
           >
             cancel
           </Button>
@@ -157,7 +157,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
             width={"100%"}
             onClick={handleSpaceCreation}
             isLoading={loading}
-            size={{ base: "md" }}
+            size={"lg"}
             maxW={"40%"}
             isDisabled={spaceName.length < 3}
           >
