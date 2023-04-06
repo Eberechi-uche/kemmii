@@ -9,16 +9,19 @@ export const Button: ComponentStyleConfig = {
       fontSize: "xs",
       px: 5,
       py: 2,
+      fontWeight: "400",
     },
     sm: {
       fontSize: "xs",
       px: 3, // <-- px is short for paddingLeft and paddingRight
       py: 2, // <-- py is short for paddingTop and paddingBottom
+      fontWeight: "400",
     },
     md: {
       fontSize: "md",
       px: 5, // <-- these values are tokens from the design system
       py: 2, // <-- these values are tokens from the design system
+      fontWeight: "400",
     },
     icon: {
       px: 3,

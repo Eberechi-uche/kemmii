@@ -55,10 +55,31 @@ export default function Home() {
     reactionloading,
   } = usePostData();
 
+  const discoverFeeds = async () => {
+    setLoadingFeeds(true);
+    try {
+      const feedsQuerry = query(
+        collection(firestore, "posts"),
+        orderBy("reactions", "desc"),
+        limit(20)
+      );
+      const postFeedsDocs = await getDocs(feedsQuerry);
+      const posts = postFeedsDocs.docs.map((post) => ({
+        id: post.id,
+        ...post.data(),
+      }));
+      setDiscoverSpaces(posts as Post[]);
+    } catch (error: any) {
+      console.log("no user feeds", error.message);
+    }
+    setLoadingFeeds(false);
+  };
+
   const getLogggedIntUserFeed = async () => {
     try {
       if (!spaceValue.mySpaces.length) {
-        setLoadingFeeds(false);
+        getNoUserFeed();
+        console.log(spaceValue.mySpaces);
         return;
       }
       const mySpacesId = spaceValue.mySpaces.map((space) => space.spaceId);
@@ -80,6 +101,7 @@ export default function Home() {
       console.log("getLoggedInUser", error.message);
     }
     setLoadingFeeds(false);
+    console.log("runing feeds");
   };
 
   const getNoUserFeed = async () => {
@@ -94,16 +116,17 @@ export default function Home() {
         id: post.id,
         ...post.data(),
       }));
-      // setPostData((prev) => ({
-      //   ...prev,
-      //   posts: posts as Post[],
-      // }));
-      setDiscoverSpaces(posts as Post[]);
+      setPostData((prev) => ({
+        ...prev,
+        posts: posts as Post[],
+      }));
     } catch (error: any) {
       console.log("no user feeds", error.message);
     }
     setLoadingFeeds(false);
+    console.log("i ran from getNOlongedIn user");
   };
+
   const getUserReactedPost = async () => {
     try {
       const postReactions = postData.posts.map((post) => post.id);
@@ -130,16 +153,15 @@ export default function Home() {
     if (!user && !loadingUser) {
       getNoUserFeed();
     }
-    if (tab === "discover" && !discoverSpaces.length) {
-      getNoUserFeed();
-    }
-  }, [user, loadingUser, tab]);
+  }, [user, loadingUser]);
   useEffect(() => {
     if (spaceValue.snippetFetched) getLogggedIntUserFeed();
   }, [spaceValue]);
+
   useEffect(() => {
     if (user && postData.posts) getUserReactedPost();
   }, [user, postData.posts]);
+
   useEffect(() => {
     if (!user) {
       setPostData((prev) => ({
@@ -148,6 +170,11 @@ export default function Home() {
       }));
     }
   }, [user]);
+  useEffect(() => {
+    if (discoverSpaces.length < 1) {
+      discoverFeeds();
+    }
+  }, [tab]);
   return (
     <>
       <Head>
@@ -159,93 +186,89 @@ export default function Home() {
         justify={"center"}
         flexDir={"column"}
         transition="all 1s ease-in-out"
+        width={"100%"}
+        py={"10"}
+        px={"1"}
       >
-        <PageContentLayout>
-          <>
-            <Tabs
-              variant="soft-rounded"
-              size={"md"}
-              colorScheme={tab == "home" ? "blue" : "red"}
-              onChange={(index) => setTabIndex(index)}
-            >
-              <TabList transition={"all 1s"}>
-                <Tab
-                  onClick={() => {
-                    setCurrentTab("home");
-                  }}
-                  transition="all 0.5s ease-in"
-                >
-                  your feeds
-                </Tab>
-                <Tab
-                  onClick={() => {
-                    setCurrentTab("discover");
-                  }}
-                  transition="all 0.5s ease-in"
-                >
-                  discover spaces
-                </Tab>
-              </TabList>
-              <TabPanels transition="all 3s ease-in">
-                <TabPanel>
-                  <CreatePostLink />
-                  {loadingFeeds ? (
-                    <Loading
-                      link={
-                        "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
+        <>
+          <Tabs
+            variant="soft-rounded"
+            size={"md"}
+            colorScheme={tab == "home" ? "blue" : "red"}
+            onChange={(index) => setTabIndex(index)}
+            width={{ base: "100%", md: "65%" }}
+          >
+            <TabList ml={"4"}>
+              <Tab
+                onClick={() => {
+                  setCurrentTab("home");
+                }}
+                transition="all 0.5s ease-in"
+                fontWeight="400"
+              >
+                your feeds
+              </Tab>
+              <Tab
+                onClick={() => {
+                  setCurrentTab("discover");
+                }}
+                transition="all 0.5s ease-in"
+                fontWeight="400"
+              >
+                discover spaces
+              </Tab>
+            </TabList>
+            <TabPanels transition="all 3s ease-in">
+              <TabPanel>
+                <CreatePostLink />
+                {loadingFeeds ? (
+                  <Loading
+                    link={
+                      "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
+                    }
+                  />
+                ) : (
+                  postData.posts.map((post) => (
+                    <PostItem
+                      key={post.id}
+                      post={post}
+                      onDeletePost={onDeletePost}
+                      onPostSelect={onPostSelect}
+                      onReaction={onReaction}
+                      userIsCreator={user?.uid === post.creatorId}
+                      loading={reactionloading === post.id}
+                      userReaction={
+                        postData.reactions.find(
+                          (reaction) => reaction.postId === post.id
+                        )?.reactionValue
                       }
                     />
-                  ) : (
-                    postData.posts.map((post) => (
-                      <PostItem
-                        key={post.id}
-                        post={post}
-                        onDeletePost={onDeletePost}
-                        onPostSelect={onPostSelect}
-                        onReaction={onReaction}
-                        userIsCreator={user?.uid === post.creatorId}
-                        loading={reactionloading === post.id}
-                        userReaction={
-                          postData.reactions.find(
-                            (reaction) => reaction.postId === post.id
-                          )?.reactionValue
-                        }
-                      />
-                    ))
-                  )}
-                </TabPanel>
-                <TabPanel>
-                  <CreatePostLink />
-                  {loadingFeeds ? (
-                    <Loading
-                      link={
-                        "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
-                      }
-                    />
-                  ) : (
-                    discoverSpaces.map((post) => (
-                      <PostItem
-                        key={post.id}
-                        post={post}
-                        onDeletePost={onDeletePost}
-                        onPostSelect={onPostSelect}
-                        onReaction={onReaction}
-                        userIsCreator={user?.uid === post.creatorId}
-                        loading={reactionloading === post.id}
-                        userReaction={
-                          postData.reactions.find(
-                            (reaction) => reaction.postId === post.id
-                          )?.reactionValue
-                        }
-                      />
-                    ))
-                  )}
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </>
-          <>{/* <HomePageSideBar /> */}</>
-        </PageContentLayout>
+                  ))
+                )}
+              </TabPanel>
+              <TabPanel>
+                <CreatePostLink />
+                {discoverSpaces.map((post) => (
+                  <PostItem
+                    key={post.id}
+                    post={post}
+                    onDeletePost={onDeletePost}
+                    onPostSelect={onPostSelect}
+                    onReaction={onReaction}
+                    userIsCreator={user?.uid === post.creatorId}
+                    loading={reactionloading === post.id}
+                    userReaction={
+                      postData.reactions.find(
+                        (reaction) => reaction.postId === post.id
+                      )?.reactionValue
+                    }
+                  />
+                ))}
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </>
+        <>{/* <HomePageSideBar /> */}</>
       </Flex>
     </>
   );

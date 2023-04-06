@@ -57,7 +57,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
             <Input
               focusBorderColor="white"
               outline={"none"}
-              maxW={"100%"}
+              maxW={"80%"}
               value={commentText}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 e.preventDefault();
@@ -88,10 +88,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
             <Flex justify={"space-between"}>
               <Button
                 variant={"outline"}
-                size={{
-                  base: "xs",
-                  md: "sm",
-                }}
+                size={"md"}
                 onClick={() => {
                   setAuthModalState({
                     view: "log in",
@@ -102,10 +99,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
                 login
               </Button>
               <Button
-                size={{
-                  base: "xs",
-                  md: "sm",
-                }}
+                size={"md"}
                 onClick={() => {
                   setAuthModalState({
                     view: "sign up",
