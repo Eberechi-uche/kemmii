@@ -81,7 +81,11 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
             ml={"15"}
           >
             <Image
-              src={spaceListState.selectedSpace.imageUrl}
+              src={
+                spaceListState.selectedSpace.imageUrl
+                  ? spaceListState.selectedSpace.imageUrl
+                  : "/images/spaceDefault.png"
+              }
               objectFit={"cover"}
               width={"15px"}
               height={"15px"}

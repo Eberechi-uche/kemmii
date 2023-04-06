@@ -59,7 +59,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
 
   const handleSpaceCreation = async () => {
     setError("");
-    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?/\s/]+/;
     if (format.test(spaceName) || spaceName.length < 3) {
       setError(
         "spaceType should be have more than 3 characters and can only have numbers, letters, and hyphens"

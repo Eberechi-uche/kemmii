@@ -79,7 +79,6 @@ export default function Home() {
     try {
       if (!spaceValue.mySpaces.length) {
         getNoUserFeed();
-        console.log(spaceValue.mySpaces);
         return;
       }
       const mySpacesId = spaceValue.mySpaces.map((space) => space.spaceId);
@@ -101,10 +100,10 @@ export default function Home() {
       console.log("getLoggedInUser", error.message);
     }
     setLoadingFeeds(false);
-    console.log("runing feeds");
   };
 
   const getNoUserFeed = async () => {
+    setError("");
     try {
       const feedsQuerry = query(
         collection(firestore, "posts"),
@@ -121,10 +120,9 @@ export default function Home() {
         posts: posts as Post[],
       }));
     } catch (error: any) {
-      console.log("no user feeds", error.message);
+      setError(error.message);
     }
     setLoadingFeeds(false);
-    console.log("i ran from getNOlongedIn user");
   };
 
   const getUserReactedPost = async () => {

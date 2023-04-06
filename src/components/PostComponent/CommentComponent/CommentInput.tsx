@@ -43,12 +43,13 @@ export const CommentInput: React.FC<CommentInputProp> = ({
     >
       {user ? (
         <>
-          <Flex maxW={"100%"} justify={"center"} flexGrow={"1"}>
+          <Flex flexGrow={"1"}>
             <Image
               src={user?.photoURL ? user.photoURL : "/images/default.png"}
               alt={"logo"}
               boxSize={"30px"}
               mr={"2"}
+              mt={"1"}
             />
             <Textarea
               resize={"none"}
@@ -57,7 +58,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
               border={"none"}
               focusBorderColor="white"
               outline={"none"}
-              maxW={"100%"}
+              maxW={"80%"}
               value={commentText}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 e.preventDefault();

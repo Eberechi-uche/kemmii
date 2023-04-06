@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
         align={"center"}
         position={"relative"}
       >
-        <Box height={"80px"} bg={"green"}></Box>
+        <Box height={"90px"} />
         <Image
           alt={spacesData.id}
           boxSize={"110px"}
