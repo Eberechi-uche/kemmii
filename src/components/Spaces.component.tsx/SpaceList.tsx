@@ -21,18 +21,14 @@ export const SpaceList: React.FC<SpaceListProp> = ({
       alignItems={"center"}
     >
       <Flex align={"center"}>
-        {imageUrl ? (
-          <Image
-            objectFit={"cover"}
-            src={imageUrl}
-            width={"30px"}
-            height={"30px"}
-            borderRadius={"full"}
-            alt={displayText}
-          />
-        ) : (
-          <Icon as={RiUserSmileFill} fontSize={"30px"} color={"brand.700"} />
-        )}
+        <Image
+          objectFit={"cover"}
+          src={imageUrl ? imageUrl : "/images/spaceDefault.png"}
+          width={"30px"}
+          height={"30px"}
+          borderRadius={"full"}
+          alt={displayText}
+        />
         <Text ml={"2"}>{displayText}</Text>
       </Flex>
     </ListItem>

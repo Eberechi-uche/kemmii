@@ -8,7 +8,7 @@ const AuthButtons: React.FC = () => {
   return (
     <>
       <Button
-        size={{ base: "xs", md: "md" }}
+        size={{ base: "sm", md: "sm" }}
         onClick={() => {
           setmodalState(() => ({
             open: true,
@@ -19,6 +19,7 @@ const AuthButtons: React.FC = () => {
         login in
       </Button>
       <Button
+        size={{ base: "sm", md: "sm" }}
         variant={"outline"}
         display={{ base: "none", sm: "flex" }}
         mr={"2px"}
