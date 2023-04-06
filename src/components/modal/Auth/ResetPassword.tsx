@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 
 export const ResetPassword: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [emailSending, setEmailSending] = useState("");
+  const [emailSending, setEmailSending] = useState("tre");
   const setAuth = useSetRecoilState(authModalState);
   const [sendPasswordResetEmail, sending, error] =
     useSendPasswordResetEmail(auth);
@@ -17,26 +17,31 @@ export const ResetPassword: React.FC = () => {
   };
 
   // ! add the actionCodeSettings = {url:" your email goes here"}
-  // const HandleReset = async () => {
-  //   const success = await sendPasswordResetEmail(email, actionCodeSettings);
-  //   if (success) {
-  //     setEmailSending("mail sent check your email");
-  //     return;
-  //   } else if (error) {
-  //     setEmailSending(error.message);
-  //     return;
-  //   }
-  // };
+  const HandleReset = async () => {
+    const success = await sendPasswordResetEmail(email);
+    if (success) {
+      setEmailSending("mail sent check your email");
+      return;
+    } else if (error) {
+      setEmailSending(error.message);
+      return;
+    }
+  };
   return (
-    <Flex flexDir={"column"} align={"center"} justify={"space-between"}>
+    <Flex
+      flexDir={"column"}
+      align={"center"}
+      justify={"space-between"}
+      color={"brand.100"}
+    >
       {emailSending == "" && (
         <>
           <Input
             placeholder="Email"
             type={email}
             onChange={handleChange}
-            borderColor={"whatsapp.600"}
-            focusBorderColor={"whatsapp.600"}
+            borderColor={"brand.500"}
+            focusBorderColor={"brand.500"}
           />
           <Text textAlign={"center"} fontSize={"xs"} color={"whatsapp.500"}>
             Enter the Email associated with your account, and we would send you
@@ -46,13 +51,18 @@ export const ResetPassword: React.FC = () => {
       )}
 
       {emailSending.length > 2 && (
-        <Text color={"whatsapp.600"}>{emailSending}</Text>
+        <Text color={"brand.500"}>{emailSending}</Text>
       )}
 
-      <Button w={"50%"} isLoading={sending}>
+      <Button
+        w={"50%"}
+        isLoading={sending}
+        onClick={HandleReset}
+        isDisabled={emailSending ? true : false}
+      >
         Reset
       </Button>
-      <Flex width={"50%"} justify={"space-evenly"} color={"whatsapp.200"}>
+      <Flex width={"100%"} justify={"space-evenly"}>
         <Text
           onClick={() => {
             setAuth((prev) => ({
@@ -62,8 +72,9 @@ export const ResetPassword: React.FC = () => {
           }}
           _hover={{
             cursor: "pointer",
-            color: "whatsapp.600",
+            color: "brand.500",
           }}
+          mr={"10"}
         >
           Login
         </Text>
@@ -76,7 +87,7 @@ export const ResetPassword: React.FC = () => {
           }}
           _hover={{
             cursor: "pointer",
-            color: "whatsapp.600",
+            color: "brand.500",
           }}
         >
           Signup

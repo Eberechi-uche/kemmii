@@ -78,12 +78,12 @@ export const PostItem: React.FC<PostItemProps> = ({
   return (
     <>
       <Flex
-        fontSize={"xs"}
+        fontSize={"sm"}
         p={"3"}
-        borderRadius={"5px"}
+        borderRadius={"3px"}
         flexDir={"column"}
         bg={"white"}
-        my={"2"}
+        my={"0.5"}
         onClick={() => {
           onPostSelect && onPostSelect(post);
         }}
@@ -91,8 +91,6 @@ export const PostItem: React.FC<PostItemProps> = ({
       >
         <Flex justify={"flex-start"} align={"center"}>
           <Flex align={"center"} justify={"center"}>
-            {/* <Icon as={AiFillSmile} width={"45px"} height={"45px"} /> */}
-            <Image />
             <Flex flexDir={"column"} ml={"1"}>
               <Text pb={"none"} fontWeight={"500"}>
                 {post.creatorDisplayName}
@@ -149,7 +147,7 @@ export const PostItem: React.FC<PostItemProps> = ({
             <Image
               src={post.imageUrl}
               alt={post.creatorDisplayName}
-              maxH={postID ? "fit-content" : "70px"}
+              maxH={postID ? "fit-content" : "300px"}
               width={"100%"}
               objectFit={"cover"}
               borderRadius={"7px"}

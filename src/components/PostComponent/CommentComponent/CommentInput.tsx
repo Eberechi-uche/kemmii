@@ -42,24 +42,22 @@ export const CommentInput: React.FC<CommentInputProp> = ({
     >
       {user ? (
         <>
-          <Image
-            src={user?.photoURL ? user.photoURL : "/images/default.png"}
-            alt={"logo"}
-            boxSize={"30px"}
-            mr={"2"}
-          />
-          <Flex
-            width={"100%"}
-            align={"center"}
-            justify={"center"}
-            flexDir={"column"}
-          >
-            <Input
+          <Flex width={"100%"} justify={"center"}>
+            <Image
+              src={user?.photoURL ? user.photoURL : "/images/default.png"}
+              alt={"logo"}
+              boxSize={"30px"}
+              mr={"2"}
+            />
+            <Textarea
+              variant={"flushed"}
+              size={"lg"}
+              border={"none"}
               focusBorderColor="white"
               outline={"none"}
-              maxW={"80%"}
+              maxW={"100%"}
               value={commentText}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 e.preventDefault();
                 setCommentText(e.target.value);
               }}

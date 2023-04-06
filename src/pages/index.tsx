@@ -187,8 +187,7 @@ export default function Home() {
         flexDir={"column"}
         transition="all 1s ease-in-out"
         width={"100%"}
-        py={"10"}
-        px={"1"}
+        py={"5"}
       >
         <>
           <Tabs
@@ -196,7 +195,7 @@ export default function Home() {
             size={"md"}
             colorScheme={tab == "home" ? "blue" : "red"}
             onChange={(index) => setTabIndex(index)}
-            width={{ base: "100%", md: "65%" }}
+            width={{ base: "100%", md: "45%" }}
           >
             <TabList ml={"4"}>
               <Tab

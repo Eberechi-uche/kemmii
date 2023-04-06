@@ -79,7 +79,7 @@ export const UserProfile: React.FC = () => {
               "https://assets4.lottiefiles.com/private_files/lf30_amhtk28o.json"
             }
             speed={2}
-            size={500}
+            size={200}
           />
         )}
         {!loading && activeTab === "input" && (

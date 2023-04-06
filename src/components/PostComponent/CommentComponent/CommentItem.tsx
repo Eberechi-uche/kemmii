@@ -37,7 +37,7 @@ const CommentItem: React.FC<CommentItemProp> = ({
   };
   return (
     <>
-      <Flex key={comment.id} py={"1"} flexDir={"column"} bg={"white"}>
+      <Flex key={comment.id} py={"3"} flexDir={"column"} bg={"white"} my={"2"}>
         <Flex>
           <Image
             src={
@@ -53,7 +53,7 @@ const CommentItem: React.FC<CommentItemProp> = ({
           </Text>
           <Text ml={"2"}>{date === "Invalid date" ? "now" : date}</Text>
         </Flex>
-        <Text>{comment.text} </Text>
+        <Text pt={"3"}>{comment.text} </Text>
         {isOwner && isOwner.uid === comment.creatorId && (
           <Flex justify={"flex-end"}>
             {!isDeleting ? (

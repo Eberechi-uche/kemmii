@@ -146,14 +146,6 @@ export const Comments: React.FC<CommentProps> = ({
         flexDir={"column"}
         pb={"20px"}
       >
-        <CommentInput
-          creatCommentLoading={isCreatingComment}
-          user={user as User}
-          commentText={commentText}
-          setCommentText={setCommentText}
-          onCreateComment={onCreateComment}
-        />
-
         <Stack
           maxH={"75vh"}
           overflow={"scroll"}
@@ -185,6 +177,13 @@ export const Comments: React.FC<CommentProps> = ({
               </Box>
             ))}
         </Stack>
+        <CommentInput
+          creatCommentLoading={isCreatingComment}
+          user={user as User}
+          commentText={commentText}
+          setCommentText={setCommentText}
+          onCreateComment={onCreateComment}
+        />
       </Flex>
     </>
   );
