@@ -29,17 +29,23 @@ import {
   TabPanels,
   Tabs,
   Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Loading } from "../components/animations/Loading";
 
 export default function Home() {
   const [user, loadingUser] = useAuthState(auth);
+  const [tabIndex, setTabIndex] = useState(0);
   const [loadingFeeds, setLoadingFeeds] = useState(true);
   const [discoverSpaces, setDiscoverSpaces] = useState<Post[]>([]);
   const [error, setError] = useState("");
   const [tab, setCurrentTab] = useState("home");
   const { spaceValue } = useSpaceDataFetch();
-
+  const colors = useColorModeValue(
+    ["#EBF8FF", "#E6FFFA"],
+    ["red.900", "teal.900"]
+  );
+  const bg = colors[tabIndex];
   const {
     setPostData,
     postData,
@@ -147,85 +153,91 @@ export default function Home() {
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <PageContentLayout>
-        <>
-          <Tabs variant="soft-rounded" colorScheme="blue" size={"sm"}>
-            <TabList>
-              <Tab
-                onClick={() => {
-                  setCurrentTab("home");
-                }}
-              >
-                your feeds
-              </Tab>
-              <Tab
-                onClick={() => {
-                  setCurrentTab("discover");
-                }}
-              >
-                discover spaces
-              </Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <CreatePostLink />
-                {loadingFeeds ? (
-                  <Loading
-                    link={
-                      "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
-                    }
-                  />
-                ) : (
-                  postData.posts.map((post) => (
-                    <PostItem
-                      key={post.id}
-                      post={post}
-                      onDeletePost={onDeletePost}
-                      onPostSelect={onPostSelect}
-                      onReaction={onReaction}
-                      userIsCreator={user?.uid === post.creatorId}
-                      loading={reactionloading === post.id}
-                      userReaction={
-                        postData.reactions.find(
-                          (reaction) => reaction.postId === post.id
-                        )?.reactionValue
+      <Flex bg={bg} width={"100%"} align={"center"} justify={"center"}>
+        <PageContentLayout>
+          <>
+            <Tabs
+              variant="soft-rounded"
+              size={"sm"}
+              onChange={(index) => setTabIndex(index)}
+            >
+              <TabList>
+                <Tab
+                  onClick={() => {
+                    setCurrentTab("home");
+                  }}
+                >
+                  your feeds
+                </Tab>
+                <Tab
+                  onClick={() => {
+                    setCurrentTab("discover");
+                  }}
+                >
+                  discover spaces
+                </Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <CreatePostLink />
+                  {loadingFeeds ? (
+                    <Loading
+                      link={
+                        "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
                       }
                     />
-                  ))
-                )}
-              </TabPanel>
-              <TabPanel>
-                <CreatePostLink />
-                {loadingFeeds ? (
-                  <Loading
-                    link={
-                      "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
-                    }
-                  />
-                ) : (
-                  discoverSpaces.map((post) => (
-                    <PostItem
-                      key={post.id}
-                      post={post}
-                      onDeletePost={onDeletePost}
-                      onPostSelect={onPostSelect}
-                      onReaction={onReaction}
-                      userIsCreator={user?.uid === post.creatorId}
-                      loading={reactionloading === post.id}
-                      userReaction={
-                        postData.reactions.find(
-                          (reaction) => reaction.postId === post.id
-                        )?.reactionValue
+                  ) : (
+                    postData.posts.map((post) => (
+                      <PostItem
+                        key={post.id}
+                        post={post}
+                        onDeletePost={onDeletePost}
+                        onPostSelect={onPostSelect}
+                        onReaction={onReaction}
+                        userIsCreator={user?.uid === post.creatorId}
+                        loading={reactionloading === post.id}
+                        userReaction={
+                          postData.reactions.find(
+                            (reaction) => reaction.postId === post.id
+                          )?.reactionValue
+                        }
+                      />
+                    ))
+                  )}
+                </TabPanel>
+                <TabPanel>
+                  <CreatePostLink />
+                  {loadingFeeds ? (
+                    <Loading
+                      link={
+                        "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
                       }
                     />
-                  ))
-                )}
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </>
-        <>{/* <HomePageSideBar /> */}</>
-      </PageContentLayout>
+                  ) : (
+                    discoverSpaces.map((post) => (
+                      <PostItem
+                        key={post.id}
+                        post={post}
+                        onDeletePost={onDeletePost}
+                        onPostSelect={onPostSelect}
+                        onReaction={onReaction}
+                        userIsCreator={user?.uid === post.creatorId}
+                        loading={reactionloading === post.id}
+                        userReaction={
+                          postData.reactions.find(
+                            (reaction) => reaction.postId === post.id
+                          )?.reactionValue
+                        }
+                      />
+                    ))
+                  )}
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </>
+          <>{/* <HomePageSideBar /> */}</>
+        </PageContentLayout>
+      </Flex>
     </>
   );
 }
