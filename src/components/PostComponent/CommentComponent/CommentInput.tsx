@@ -1,6 +1,15 @@
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
-import { Textarea, Flex, Button, Text, Box, Input } from "@chakra-ui/react";
+import {
+  Textarea,
+  Flex,
+  Button,
+  Text,
+  Icon,
+  Input,
+  Image,
+} from "@chakra-ui/react";
 import { User } from "firebase/auth";
+import { BsFillSendFill } from "react-icons/bs";
 import { useSetRecoilState } from "recoil";
 
 type CommentInputProp = {
@@ -23,16 +32,22 @@ export const CommentInput: React.FC<CommentInputProp> = ({
   return (
     <Flex
       pos="sticky"
-      top="4"
+      bottom="0"
       left="0"
-      flexDir={"column"}
       width={"100%"}
       height={"fit-content"}
       bg="white"
       borderRadius={" 5px 5px 0 0"}
+      align={"center"}
     >
       {user ? (
         <>
+          <Image
+            src={user?.photoURL ? user.photoURL : "/images/default.png"}
+            alt={"logo"}
+            boxSize={"30px"}
+            mr={"2"}
+          />
           <Flex
             width={"100%"}
             align={"center"}
@@ -43,7 +58,6 @@ export const CommentInput: React.FC<CommentInputProp> = ({
               focusBorderColor="white"
               outline={"none"}
               maxW={"100%"}
-              size={"lg"}
               value={commentText}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 e.preventDefault();
@@ -57,19 +71,15 @@ export const CommentInput: React.FC<CommentInputProp> = ({
             />
           </Flex>
 
-          <Flex justify={"space-between"} py={"1"} align={"center"}>
-            <Button
-              size={{
-                base: "xs",
-                md: "sm",
-              }}
-              isDisabled={!commentText.length}
-              onClick={onCreateComment}
-              isLoading={creatCommentLoading}
-            >
-              comment
-            </Button>
-          </Flex>
+          <Button
+            size={"md"}
+            isDisabled={!commentText.length}
+            onClick={onCreateComment}
+            isLoading={creatCommentLoading}
+            width={"10%"}
+          >
+            <Icon as={BsFillSendFill} />
+          </Button>
         </>
       ) : (
         <>

@@ -63,7 +63,7 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
                 close();
               }}
             >
-              <Image src="/yellow.ico" height="25px" alt={"logo"} />
+              <Image src="/yellow.ico" height="30px" alt={"logo"} />
             </Link>
 
             <Text fontWeight={"500"}> your spaces</Text>

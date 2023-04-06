@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { Box, Flex, Stack } from "@chakra-ui/react";
+import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 
 import { useEffect, useMemo, useState } from "react";
 import { CommentInput } from "./CommentInput";
@@ -38,11 +38,16 @@ export const Comments: React.FC<CommentProps> = ({
   const [fetchloading, setFetchLoading] = useState(false);
   const [isCreatingComment, setIsCreatingComment] = useState(false);
   const [deleteId, setDeleteId] = useState("");
+  const [error, setError] = useState("");
 
   const setPostAtomState = useSetRecoilState(postState);
   const onCreateComment = async () => {
+    setError("");
+    const comentFallBack = comments;
+
     try {
       setIsCreatingComment(true);
+
       const batch = writeBatch(firestore);
       const commentDocRef = doc(collection(firestore, "comments"));
       const newComment: Comment = {
@@ -62,9 +67,6 @@ export const Comments: React.FC<CommentProps> = ({
       batch.update(postDocRef, {
         numberOfComments: increment(1),
       });
-      await batch.commit();
-      setCommentText("");
-      setComments((prev) => [newComment, ...prev]);
       setPostAtomState((prev) => ({
         ...prev,
         selectedPost: {
@@ -72,8 +74,13 @@ export const Comments: React.FC<CommentProps> = ({
           numberOfComments: prev.selectedPost?.numberOfComments! + 1,
         } as Post,
       }));
+      setComments((prev) => [newComment, ...prev]);
+      setCommentText("");
+      await batch.commit();
     } catch (error: any) {
       console.log("creating comment", error.message);
+      setError("there was a problem sending comment");
+      setComments(comentFallBack);
     }
     setIsCreatingComment(false);
   };
@@ -147,12 +154,22 @@ export const Comments: React.FC<CommentProps> = ({
           onCreateComment={onCreateComment}
         />
 
-        <Stack maxH={"75vh"} overflow={"scroll"} pt={"2"}>
+        <Stack
+          maxH={"75vh"}
+          overflow={"scroll"}
+          pt={"2"}
+          sx={{
+            "::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
+        >
           {fetchloading && (
             <Loading
               link={"https://assets6.lottiefiles.com/temp/lf20_6Xbo3i.json"}
             />
           )}
+          {error && <Text color={"red.600"}> {error}</Text>}
 
           {!fetchloading &&
             comments &&
