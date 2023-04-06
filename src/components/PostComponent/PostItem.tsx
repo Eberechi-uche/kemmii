@@ -78,7 +78,7 @@ export const PostItem: React.FC<PostItemProps> = ({
   return (
     <>
       <Flex
-        fontSize={"sm"}
+        fontSize={"md"}
         p={"3"}
         borderRadius={"3px"}
         flexDir={"column"}
