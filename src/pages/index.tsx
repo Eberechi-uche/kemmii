@@ -186,7 +186,6 @@ export default function Home() {
         justify={"center"}
         flexDir={"column"}
         transition="all 1s ease-in-out"
-        width={"100%"}
         py={"5"}
       >
         <>
@@ -204,6 +203,7 @@ export default function Home() {
                 }}
                 transition="all 0.5s ease-in"
                 fontWeight="400"
+                p={"9px"}
               >
                 your feeds
               </Tab>

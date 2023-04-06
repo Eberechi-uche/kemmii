@@ -37,7 +37,14 @@ const CommentItem: React.FC<CommentItemProp> = ({
   };
   return (
     <>
-      <Flex key={comment.id} py={"3"} flexDir={"column"} bg={"white"} my={"2"}>
+      <Flex
+        key={comment.id}
+        py={"3"}
+        flexDir={"column"}
+        bg={"white"}
+        my={"2"}
+        fontSize={"md"}
+      >
         <Flex>
           <Image
             src={

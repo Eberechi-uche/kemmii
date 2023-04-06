@@ -20,7 +20,7 @@ export const CreateSpace: React.FC = () => {
         alignItems={"center"}
       >
         <Icon as={AiOutlineAppstoreAdd} fontSize={"30px"} color={"brand.700"} />
-        <Text fontWeight={"extrabold"}>create space</Text>
+        <Text fontSize={"lg"}>create space</Text>
       </ListItem>
     </>
   );

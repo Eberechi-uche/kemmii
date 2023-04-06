@@ -66,7 +66,7 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
               <Image src="/yellow.ico" height="30px" alt={"logo"} />
             </Link>
 
-            <Text fontWeight={"500"}> your spaces</Text>
+            <Text fontWeight={"300"}> your spaces</Text>
           </DrawerHeader>
           <Flex
             align={"center"}
@@ -80,19 +80,15 @@ export const SideDrawer: React.FC<SideDrawerProp> = ({
             fontSize={"small"}
             ml={"15"}
           >
-            {spaceListState.selectedSpace.imageUrl ? (
-              <Image
-                src={spaceListState.selectedSpace.imageUrl}
-                objectFit={"cover"}
-                width={"15px"}
-                height={"15px"}
-                borderRadius={"full"}
-                alt={"spaces icons"}
-              />
-            ) : (
-              <Icon as={RiUserSmileFill} width={"15px"} />
-            )}
-            <Text ml={"1"} fontWeight={"extrabold"} isTruncated>
+            <Image
+              src={spaceListState.selectedSpace.imageUrl}
+              objectFit={"cover"}
+              width={"15px"}
+              height={"15px"}
+              borderRadius={"full"}
+              alt={"spaces icons"}
+            />
+            <Text ml={"1"} fontWeight={"extrabold"} isTruncated p={"1"}>
               {spaceListState.selectedSpace.displayText}
             </Text>
           </Flex>

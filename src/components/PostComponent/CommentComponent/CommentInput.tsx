@@ -39,10 +39,11 @@ export const CommentInput: React.FC<CommentInputProp> = ({
       bg="white"
       borderRadius={" 5px 5px 0 0"}
       align={"center"}
+      pb={"2"}
     >
       {user ? (
         <>
-          <Flex maxW={"100%"} justify={"center"}>
+          <Flex maxW={"100%"} justify={"center"} flexGrow={"1"}>
             <Image
               src={user?.photoURL ? user.photoURL : "/images/default.png"}
               alt={"logo"}
@@ -50,8 +51,9 @@ export const CommentInput: React.FC<CommentInputProp> = ({
               mr={"2"}
             />
             <Textarea
+              resize={"none"}
               variant={"flushed"}
-              size={"lg"}
+              size={"md"}
               border={"none"}
               focusBorderColor="white"
               outline={"none"}
@@ -65,7 +67,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
                 color: "brand.500",
               }}
               placeholder={"comment"}
-              fontSize={{ base: "sm", md: "md" }}
+              fontSize={"md"}
             />
           </Flex>
 
