@@ -44,35 +44,35 @@ export const CommentInput: React.FC<CommentInputProp> = ({
       justify={"space-between"}
     >
       {user ? (
-        <Flex width={"100%"}>
+        <Flex width={"100%"} mx={"5"}>
           <Image
             src={user?.photoURL ? user.photoURL : "/images/default.png"}
             alt={"logo"}
             boxSize={"30px"}
-            mr={"2"}
-            mt={"1"}
+            position={"absolute"}
+            left={"0"}
           />
-          <Box w={"100%"}>
-            <Textarea
-              variant={"flushed"}
-              _focus={{
-                resize: "none",
-              }}
-              border={"none"}
-              focusBorderColor="white"
-              outline={"none"}
-              value={commentText}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                e.preventDefault();
-                setCommentText(e.target.value);
-              }}
-              _placeholder={{
-                color: "brand.500",
-              }}
-              placeholder={"comment"}
-              fontSize={"md"}
-            />
-          </Box>
+
+          <Textarea
+            ml={"5"}
+            variant={"flushed"}
+            _focus={{
+              resize: "none",
+            }}
+            border={"none"}
+            focusBorderColor="white"
+            outline={"none"}
+            value={commentText}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              e.preventDefault();
+              setCommentText(e.target.value);
+            }}
+            _placeholder={{
+              color: "brand.500",
+            }}
+            placeholder={"comment"}
+            fontSize={"sm"}
+          />
 
           <Button
             size={"md"}
