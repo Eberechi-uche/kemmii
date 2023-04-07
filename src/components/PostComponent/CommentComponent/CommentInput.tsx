@@ -7,6 +7,7 @@ import {
   Icon,
   Input,
   Image,
+  Box,
 } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { BsFillSendFill } from "react-icons/bs";
@@ -40,17 +41,18 @@ export const CommentInput: React.FC<CommentInputProp> = ({
       borderRadius={" 5px 5px 0 0"}
       align={"center"}
       pb={"2"}
+      justify={"space-between"}
     >
       {user ? (
-        <>
-          <Flex flexGrow={"1"}>
-            <Image
-              src={user?.photoURL ? user.photoURL : "/images/default.png"}
-              alt={"logo"}
-              boxSize={"30px"}
-              mr={"2"}
-              mt={"1"}
-            />
+        <Flex w={"inherit"}>
+          <Image
+            src={user?.photoURL ? user.photoURL : "/images/default.png"}
+            alt={"logo"}
+            boxSize={"30px"}
+            mr={"2"}
+            mt={"1"}
+          />
+          <Box w={"100%"}>
             <Textarea
               resize={"none"}
               variant={"flushed"}
@@ -58,7 +60,6 @@ export const CommentInput: React.FC<CommentInputProp> = ({
               border={"none"}
               focusBorderColor="white"
               outline={"none"}
-              maxW={"80%"}
               value={commentText}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 e.preventDefault();
@@ -70,7 +71,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
               placeholder={"comment"}
               fontSize={"md"}
             />
-          </Flex>
+          </Box>
 
           <Button
             size={"md"}
@@ -81,7 +82,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
           >
             <Icon as={BsFillSendFill} />
           </Button>
-        </>
+        </Flex>
       ) : (
         <>
           <Flex align={"center"} justify={"space-between"} px="4">

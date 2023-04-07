@@ -66,7 +66,7 @@ export const UserMenu: React.FC = () => {
           <Icon as={GrBraille} fontSize={"30px"} ml="2" color={"brand.700"} />
         </Flex>
       </MenuButton>
-      <MenuList zIndex={"9"}>
+      <MenuList zIndex={"9"} fontSize={"md"}>
         <MenuItem minH="48px" onClick={handleProfileClick}>
           <Image
             src={user?.photoURL ? `${user.photoURL}` : "images/default.png"}

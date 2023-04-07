@@ -185,6 +185,7 @@ export default function Home() {
         flexDir={"column"}
         transition="all 1s ease-in-out"
         py={"5"}
+        maxW={"100%"}
       >
         <>
           <Tabs
@@ -192,14 +193,14 @@ export default function Home() {
             size={"md"}
             colorScheme={tab == "home" ? "blue" : "red"}
             onChange={(index) => setTabIndex(index)}
-            width={{ base: "100%", md: "45%" }}
+            w={{ base: "100%", md: "45%" }}
           >
             <TabList ml={"4"}>
               <Tab
                 onClick={() => {
                   setCurrentTab("home");
                 }}
-                transition="all 0.5s ease-in"
+                transition="all 0.3s ease-in"
                 fontWeight="400"
                 p={"9px"}
               >
@@ -209,14 +210,14 @@ export default function Home() {
                 onClick={() => {
                   setCurrentTab("discover");
                 }}
-                transition="all 0.5s ease-in"
+                transition="all 0.5s ease-in-out"
                 fontWeight="400"
               >
                 discover spaces
               </Tab>
             </TabList>
             <TabPanels transition="all 3s ease-in">
-              <TabPanel>
+              <TabPanel px={"1"}>
                 <CreatePostLink />
                 {loadingFeeds ? (
                   <Loading
@@ -243,7 +244,7 @@ export default function Home() {
                   ))
                 )}
               </TabPanel>
-              <TabPanel>
+              <TabPanel px={"1"}>
                 <CreatePostLink />
                 {discoverSpaces.map((post) => (
                   <PostItem
@@ -265,7 +266,6 @@ export default function Home() {
             </TabPanels>
           </Tabs>
         </>
-        <>{/* <HomePageSideBar /> */}</>
       </Flex>
     </>
   );

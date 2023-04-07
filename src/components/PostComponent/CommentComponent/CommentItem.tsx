@@ -62,7 +62,7 @@ const CommentItem: React.FC<CommentItemProp> = ({
         </Flex>
         <Text pt={"3"}>{comment.text} </Text>
         {isOwner && isOwner.uid === comment.creatorId && (
-          <Flex justify={"flex-end"}>
+          <Flex justify={"flex-end"} color="#822727" fontSize={"lg"}>
             {!isDeleting ? (
               <Icon
                 as={MdOutlineDeleteForever}
@@ -72,7 +72,7 @@ const CommentItem: React.FC<CommentItemProp> = ({
                 cursor={"pointer"}
               />
             ) : (
-              <Spinner size={{ base: "xs", md: "sm" }} color="#822727" />
+              <Spinner size={"sm"} />
             )}
           </Flex>
         )}

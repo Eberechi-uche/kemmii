@@ -13,14 +13,14 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-import { AiFillSmile } from "react-icons/ai";
+import { BsChat } from "react-icons/bs";
+import { RiThumbUpLine, RiThumbUpFill } from "react-icons/ri";
+
 import { MdEditLocationAlt } from "react-icons/md";
-import { HiChatBubbleBottomCenterText, HiOutlineXMark } from "react-icons/hi2";
-import { TbThumbUpFilled, TbThumbUp } from "react-icons/tb";
-import { RiUserSmileFill } from "react-icons/ri";
-import { HiRocketLaunch, HiOutlineRocketLaunch } from "react-icons/hi2";
+import { HiOutlineXMark } from "react-icons/hi2";
+
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Loading } from "../animations/Loading";
 import { useRouter } from "next/router";
 
@@ -83,7 +83,7 @@ export const PostItem: React.FC<PostItemProps> = ({
         borderRadius={"3px"}
         flexDir={"column"}
         bg={"white"}
-        my={"0.5"}
+        my={"1"}
         onClick={() => {
           onPostSelect && onPostSelect(post);
         }}
@@ -163,13 +163,14 @@ export const PostItem: React.FC<PostItemProps> = ({
           py={"2"}
           width={"100%"}
           align={"center"}
-          justify={"flex-start"}
+          justify={"space-evenly"}
           color={"brand.500"}
+          fontSize={"lg"}
         >
           <Flex align={"center"} cursor={"pointer"} mx={"3"}>
-            <Icon as={HiChatBubbleBottomCenterText} />
-            <Text ml={"1"} fontSize={"xs"}>
-              comments {post.numberOfComments}
+            <Icon as={BsChat} />
+            <Text ml={"1"} fontSize={"md"}>
+              {post.numberOfComments}
             </Text>
           </Flex>
           <Flex
@@ -182,7 +183,6 @@ export const PostItem: React.FC<PostItemProps> = ({
             mx={"3"}
           >
             <Flex
-              color="brand.00"
               align={"center"}
               justify={"center"}
               maxW={"20px"}
@@ -197,7 +197,7 @@ export const PostItem: React.FC<PostItemProps> = ({
                   loop={false}
                 />
               ) : (
-                <Icon as={userReaction === 1 ? TbThumbUpFilled : TbThumbUp} />
+                <Icon as={userReaction === 1 ? RiThumbUpFill : RiThumbUpLine} />
               )}
               <Text fontSize={"md"}>{post.reactions}</Text>
             </Flex>
@@ -217,7 +217,7 @@ export const PostItem: React.FC<PostItemProps> = ({
                   <Text fontSize={"sm"}>delete</Text>
                 </>
               ) : (
-                <Spinner size={{ base: "xs", md: "sm" }} />
+                <Spinner size={"md"} />
               )}
             </Flex>
           )}
