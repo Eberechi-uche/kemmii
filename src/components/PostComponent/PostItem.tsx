@@ -177,7 +177,6 @@ export const PostItem: React.FC<PostItemProps> = ({
             align={"center"}
             onClick={(event: React.MouseEvent<HTMLDivElement>) => {
               onReaction!(event, post, post.reactions, post.spaceId);
-              console.log(post.spaceId);
             }}
             cursor={"pointer"}
             mx={"3"}

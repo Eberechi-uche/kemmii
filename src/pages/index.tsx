@@ -145,7 +145,6 @@ export default function Home() {
     } catch (error: any) {
       setError(error.message);
     }
-    console.log(postData.reactions);
   };
 
   useEffect(() => {

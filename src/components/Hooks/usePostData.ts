@@ -96,6 +96,8 @@ export const usePostData = () => {
       );
       updatedPosts[postIndx] = updatePost;
 
+      setReactionLoading("");
+      await batch.commit();
       setPostData((prev) => ({
         ...prev,
         posts: updatedPosts,
@@ -108,13 +110,9 @@ export const usePostData = () => {
           reactions: updatedReaction,
         }));
       }
-      setReactionLoading("");
-      await batch.commit();
     } catch (error: any) {
       setError(error.message);
     }
-
-    console.log(postData.reactions);
   };
   const onDeletePost = async (
     event: React.MouseEvent<HTMLDivElement>,

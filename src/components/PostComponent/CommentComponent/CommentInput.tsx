@@ -44,7 +44,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
       justify={"space-between"}
     >
       {user ? (
-        <Flex width={"90vw"}>
+        <Flex width={"100%"}>
           <Image
             src={user?.photoURL ? user.photoURL : "/images/default.png"}
             alt={"logo"}
@@ -54,9 +54,10 @@ export const CommentInput: React.FC<CommentInputProp> = ({
           />
           <Box w={"100%"}>
             <Textarea
-              resize={"none"}
               variant={"flushed"}
-              size={"xs"}
+              _focus={{
+                resize: "none",
+              }}
               border={"none"}
               focusBorderColor="white"
               outline={"none"}

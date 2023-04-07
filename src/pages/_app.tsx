@@ -1,5 +1,4 @@
-import "@/styles/globals.css";
-import "@fontsource/raleway/400.css";
+import "@fontsource/quicksand";
 import "@fontsource/open-sans/700.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";

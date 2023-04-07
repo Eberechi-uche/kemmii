@@ -81,14 +81,6 @@ export const PickSpaceVibeTab: React.FC<PickSpaceVibeTabProps> = ({
           }}
           flexDir={"column"}
         >
-          <Stack>
-            <Loading
-              link={
-                "https://assets9.lottiefiles.com/packages/lf20_osdxlbqq.json"
-              }
-              size={150}
-            />
-          </Stack>
           <Flex align={"center"}>
             <Text m={"2"}> proceed</Text>
             <Icon as={BsFillArrowRightSquareFill} />
