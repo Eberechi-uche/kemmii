@@ -176,8 +176,8 @@ export const PostItem: React.FC<PostItemProps> = ({
           <Flex
             align={"center"}
             onClick={(event: React.MouseEvent<HTMLDivElement>) => {
-              onReaction &&
-                onReaction(event, post, post.reactions, post.spaceId);
+              onReaction!(event, post, post.reactions, post.spaceId);
+              console.log(post.spaceId);
             }}
             cursor={"pointer"}
             mx={"3"}

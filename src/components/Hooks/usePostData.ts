@@ -108,11 +108,13 @@ export const usePostData = () => {
           reactions: updatedReaction,
         }));
       }
+      setReactionLoading("");
       await batch.commit();
     } catch (error: any) {
       setError(error.message);
     }
-    setReactionLoading("");
+
+    console.log(postData.reactions);
   };
   const onDeletePost = async (
     event: React.MouseEvent<HTMLDivElement>,
