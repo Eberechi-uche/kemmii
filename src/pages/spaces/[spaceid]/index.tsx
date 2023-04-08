@@ -16,7 +16,6 @@ import NotFound from "@/src/components/Spaces.component.tsx/NotFound";
 import { Header } from "@/src/components/Spaces.component.tsx/Header.spaces";
 import { PageContentLayout } from "@/src/components/layouts/PageContentLayout";
 import { CreatePostLink } from "@/src/components/Spaces.component.tsx/CreatePostLink";
-import { useSpaceDataFetch } from "@/src/components/Hooks/useSpaceDataFetch";
 import { About } from "@/src/components/Spaces.component.tsx/About";
 import { Posts } from "@/src/components/PostComponent/Posts";
 import { useEffect } from "react";

@@ -152,7 +152,7 @@ type DropDownProps = {
   children: React.ReactNode;
   title: string;
 };
-const DropDown: React.FC<DropDownProps> = ({ children, title }) => {
+export const DropDown: React.FC<DropDownProps> = ({ children, title }) => {
   return (
     <>
       <Accordion allowToggle>
