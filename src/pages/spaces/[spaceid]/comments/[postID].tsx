@@ -6,7 +6,7 @@ import { Comments } from "@/src/components/PostComponent/CommentComponent/Commen
 import { PostItem } from "@/src/components/PostComponent/PostItem";
 import { About } from "@/src/components/Spaces.component.tsx/About";
 import { auth, firestore } from "@/src/firebase/clientApp";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Grid, Text } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
@@ -38,37 +38,41 @@ const PostCommentPage: React.FC = () => {
     }
   }, [postData.selectedPost, route.query]);
   return (
-    <Flex bg={"white"} justify={"center"}>
-      <PageContentLayout>
-        <>
-          {postData.selectedPost && (
-            <PostItem
-              onDeletePost={onDeletePost}
-              post={postData.selectedPost}
-              userIsCreator={postData.selectedPost?.creatorId === user?.uid}
-              onReaction={onReaction}
-              userReaction={
-                postData.reactions.find(
-                  (reaction) => reaction.postId === postData.selectedPost?.id
-                )?.reactionValue
-              }
-              actionError={error}
-            />
-          )}
-
+    <>
+      <Grid placeContent={"center"} mt={"1"}>
+        <Flex
+          flexDir={"column"}
+          px={"1"}
+          bg={"white"}
+          width={{
+            base: "100vw",
+            md: "45vw",
+          }}
+        >
+          <>
+            {postData.selectedPost && (
+              <PostItem
+                onDeletePost={onDeletePost}
+                post={postData.selectedPost}
+                userIsCreator={postData.selectedPost?.creatorId === user?.uid}
+                onReaction={onReaction}
+                userReaction={
+                  postData.reactions.find(
+                    (reaction) => reaction.postId === postData.selectedPost?.id
+                  )?.reactionValue
+                }
+                actionError={error}
+              />
+            )}
+          </>
           <Comments
             selectedPost={postData.selectedPost}
             spaceId={spaceValue.currentSpace?.id!}
             user={user as User}
           />
-        </>
-        <>
-          {spaceValue.currentSpace && (
-            <About spaceData={spaceValue.currentSpace} />
-          )}
-        </>
-      </PageContentLayout>
-    </Flex>
+        </Flex>
+      </Grid>
+    </>
   );
 };
 export default PostCommentPage;

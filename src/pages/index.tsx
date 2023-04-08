@@ -32,17 +32,20 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Loading } from "../components/animations/Loading";
+import NewSpace from "../components/DiscoverSpace/NewSpace";
+import { Space } from "../Atoms/spacesAtom";
+import Link from "next/link";
 
 export default function Home() {
   const [user, loadingUser] = useAuthState(auth);
   const [tabIndex, setTabIndex] = useState(0);
   const [loadingFeeds, setLoadingFeeds] = useState(true);
-  const [discoverSpaces, setDiscoverSpaces] = useState<Post[]>([]);
+  const [discoverSpaces, setDiscoverSpaces] = useState<Space[]>([]);
   const [error, setError] = useState("");
   const [tab, setCurrentTab] = useState("home");
-  const { spaceValue } = useSpaceDataFetch();
+  const { spaceValue, onSpaceJoinOrLeave, loading } = useSpaceDataFetch();
   const colors = useColorModeValue(
-    ["#EBF8FF", "#FEB2B2"],
+    ["#EBF8FF", "#E53E3E"],
     ["red.900", "teal.900"]
   );
   const bg = colors[tabIndex];
@@ -59,16 +62,16 @@ export default function Home() {
     setLoadingFeeds(true);
     try {
       const feedsQuerry = query(
-        collection(firestore, "posts"),
-        orderBy("reactions", "desc"),
+        collection(firestore, "spaces"),
+        where("privacyType", "!=", "private"),
         limit(20)
       );
-      const postFeedsDocs = await getDocs(feedsQuerry);
-      const posts = postFeedsDocs.docs.map((post) => ({
-        id: post.id,
-        ...post.data(),
+      const spaceDoc = await getDocs(feedsQuerry);
+      const spaces = spaceDoc.docs.map((space) => ({
+        id: space.id,
+        ...space.data(),
       }));
-      setDiscoverSpaces(posts as Post[]);
+      setDiscoverSpaces(spaces as Space[]);
     } catch (error: any) {
       console.log("no user feeds", error.message);
     }
@@ -85,7 +88,7 @@ export default function Home() {
       const postsQuerry = query(
         collection(firestore, "posts"),
         where("spaceId", "in", mySpacesId),
-        limit(15)
+        limit(7)
       );
       const postDoc = await getDocs(postsQuerry);
       const posts = postDoc.docs.map((post) => ({
@@ -172,12 +175,13 @@ export default function Home() {
     if (discoverSpaces.length < 1) {
       discoverFeeds();
     }
-  }, [tab]);
+  }, []);
   return (
     <>
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
+
       <Flex
         bg={bg}
         align={"center"}
@@ -246,20 +250,17 @@ export default function Home() {
               </TabPanel>
               <TabPanel px={"1"}>
                 <CreatePostLink />
-                {discoverSpaces.map((post) => (
-                  <PostItem
-                    key={post.id}
-                    post={post}
-                    onDeletePost={onDeletePost}
-                    onPostSelect={onPostSelect}
-                    onReaction={onReaction}
-                    userIsCreator={user?.uid === post.creatorId}
-                    loading={reactionloading === post.id}
-                    userReaction={
-                      postData.reactions.find(
-                        (reaction) => reaction.postId === post.id
-                      )?.reactionValue
+                {discoverSpaces.map((space) => (
+                  <NewSpace
+                    space={space}
+                    key={space.id}
+                    spaceAction={onSpaceJoinOrLeave}
+                    isMember={
+                      !!spaceValue.mySpaces.find(
+                        (spaceItem) => spaceItem.spaceId === space.id
+                      )
                     }
+                    loading={loading}
                   />
                 ))}
               </TabPanel>

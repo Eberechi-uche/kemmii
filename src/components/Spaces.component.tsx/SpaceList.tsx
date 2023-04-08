@@ -1,7 +1,4 @@
 import { Flex, Image, Text, Icon, ListItem, Divider } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { RiUserSmileFill } from "react-icons/ri";
-import { useSpaceListState } from "../Hooks/useSpaceListState";
 
 type SpaceListProp = {
   link: string;

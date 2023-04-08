@@ -89,7 +89,7 @@ export const PostItem: React.FC<PostItemProps> = ({
         }}
         cursor={"pointer"}
       >
-        <Flex justify={"flex-start"} align={"center"}>
+        <Flex justify={"flex-start"} align={"center"} width={"100%"}>
           <Flex align={"center"} justify={"center"}>
             <Flex flexDir={"column"} ml={"1"}>
               <Text pb={"none"} fontWeight={"500"}>
@@ -150,7 +150,7 @@ export const PostItem: React.FC<PostItemProps> = ({
               maxH={postID ? "fit-content" : "300px"}
               width={"100%"}
               objectFit={"cover"}
-              borderRadius={"7px"}
+              borderRadius={"3px"}
               onLoad={() => {
                 setLoadingImage(false);
               }}

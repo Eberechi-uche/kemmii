@@ -20,18 +20,18 @@ export const useSpaceListState = () => {
     }));
     return;
   };
-  useEffect(() => {
-    if (spaceValue.currentSpace) {
-      setSpaceListState((prev) => ({
-        ...prev,
-        selectedSpace: {
-          imageUrl: spaceValue.currentSpace?.imageUrl,
-          link: `/spaces/${spaceValue.currentSpace?.id}`,
-          displayText: spaceValue.currentSpace!.id,
-        },
-      }));
-    }
-  }, [spaceValue.currentSpace, setSpaceListState]);
+  // useEffect(() => {
+  //   if (spaceValue.currentSpace) {
+  //     setSpaceListState((prev) => ({
+  //       ...prev,
+  //       selectedSpace: {
+  //         imageUrl: spaceValue.currentSpace?.imageUrl,
+  //         link: `/spaces/${spaceValue.currentSpace?.id}`,
+  //         displayText: spaceValue.currentSpace!.id,
+  //       },
+  //     }));
+  //   }
+  // }, [spaceValue.currentSpace, setSpaceListState]);
 
   return {
     spaceListState,
