@@ -33,6 +33,7 @@ const NewSpace: React.FC<NewSpaceProp> = ({
               src={space.imageUrl ? space.imageUrl : "/images/spaceDefault.png"}
               border={"4px solid"}
               borderColor={"brand.500"}
+              alt={"space image"}
             />
             <Flex ml={"2"} flexDir={"column"}>
               <Text>{space.id}</Text>

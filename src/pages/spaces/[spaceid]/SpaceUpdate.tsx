@@ -151,7 +151,12 @@ export const UpdateSpace: React.FC<UpdateSpaceProps> = ({ spaceData }) => {
 
         {file && (
           <Flex flexDir={"column"} align={"center"}>
-            <Image src={file} boxSize={"140px"} borderRadius={"full"} />
+            <Image
+              src={file}
+              boxSize={"140px"}
+              borderRadius={"full"}
+              alt={"image preview"}
+            />
             <Flex
               align={"center"}
               justify={"center"}
