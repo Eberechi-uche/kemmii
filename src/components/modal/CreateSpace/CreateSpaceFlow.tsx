@@ -63,15 +63,11 @@ export const PickSpaceVibeTab: React.FC<PickSpaceVibeTabProps> = ({
   return (
     <>
       <Flex fontSize={"sm"} flexDir={"column"}>
-        <Text>comming soon...</Text>
         <Text>
-          you would be able to pick a space vibe, this can be educational,
-          entertainment, football ... this would help users to discover your
-          space based on interest
+          wellcome spaces; your space name should be unique, with you can use
+          hyphen, numbers but cannot have space
         </Text>
-        <Text>
-          for now click proceed to go ahead and create a general space
-        </Text>
+
         <Flex
           cursor={"pointer"}
           align={"center"}
@@ -82,7 +78,7 @@ export const PickSpaceVibeTab: React.FC<PickSpaceVibeTabProps> = ({
           flexDir={"column"}
         >
           <Flex align={"center"}>
-            <Text m={"2"}> proceed</Text>
+            <Text m={"2"}> create space</Text>
             <Icon as={BsFillArrowRightSquareFill} />
           </Flex>
         </Flex>
@@ -113,7 +109,7 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
       {!loading ? (
         <>
           <Flex flexDir={"column"} height={"fit-content"}>
-            <Text>Enter the name of the spaceType you want to create</Text>
+            <Text>Enter the name of the space you want to create</Text>
             <Input
               mt={"5"}
               borderRadius={"full"}

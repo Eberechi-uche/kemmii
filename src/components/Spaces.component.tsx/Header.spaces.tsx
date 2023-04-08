@@ -37,24 +37,27 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
         direction={"column"}
         width={"100%"}
         height={"min-content"}
-        bg={"brand.500"}
+        backgroundImage={"/createSpace.jpg"}
+        backgroundSize={"cover"}
+        backgroundRepeat={"no-repeat"}
+        bgPosition={"bottom"}
         justify={"center"}
         align={"center"}
         position={"relative"}
       >
-        <Box height={"90px"} />
+        <Box height={"100px"} />
         <Image
           alt={spacesData.id}
-          boxSize={"110px"}
+          boxSize={"140px"}
           objectFit={"fill"}
           borderRadius={"full"}
           src={
-            spacesData.imageUrl
-              ? spacesData.imageUrl
+            spaceValue.currentSpace!.imageUrl
+              ? spaceValue.currentSpace!.imageUrl
               : "/images/spaceDefault.png"
           }
           position={"absolute"}
-          top={"48px"}
+          top={"25px"}
           border={"4px solid"}
           borderColor={"brand.500"}
         />
@@ -78,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
               {spaceValue.currentSpace?.id}
             </Text>
             <Text fontSize={"sm"} noOfLines={[4, 5]}>
-              this is where the group details would go in sdhsdbhksdkb
+              {spaceValue.currentSpace?.desc}
             </Text>
             <Flex
               align={"center"}

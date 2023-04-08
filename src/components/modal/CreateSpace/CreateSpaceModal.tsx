@@ -25,7 +25,7 @@ import {
 } from "firebase/firestore";
 import { auth, firestore } from "@/src/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useSpaceListState } from "../../Hooks/useSpaceListState";
+// import { useSpaceListState } from "../../Hooks/useSpaceListState";
 import { CreateSpaceFlow } from "./CreateSpaceFlow";
 import { useRouter } from "next/router";
 
@@ -43,7 +43,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [user] = useAuthState(auth);
-  const { toggleSpaceListMenu, onSpaceSelect } = useSpaceListState();
+  // const { toggleSpaceListMenu, onSpaceSelect } = useSpaceListState();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -62,14 +62,13 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
     const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?/\s/]+/;
     if (format.test(spaceName) || spaceName.length < 3) {
       setError(
-        "spaceType should be have more than 3 characters and can only have numbers, letters, and hyphens"
+        "space name should have more than 3 characters and can only contain numbers, letters, and hyphens with no space"
       );
       return;
     }
 
     try {
       setLoading(true);
-      const imagUrl = fetch("https://api.dicebear.com/6.x/shapes/svg");
 
       const spaceDocRef = doc(firestore, "spaces", spaceName);
 
@@ -106,11 +105,6 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
 
     setActive();
     router.push(`/spaces/${spaceName}`);
-    onSpaceSelect({
-      imageUrl: "",
-      link: `/spaces/${spaceName}`,
-      displayText: spaceName,
-    });
   };
 
   return (

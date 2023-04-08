@@ -222,7 +222,6 @@ export default function Home() {
             </TabList>
             <TabPanels transition="all 3s ease-in">
               <TabPanel px={"1"}>
-                <CreatePostLink />
                 {loadingFeeds ? (
                   <Loading
                     link={
@@ -249,7 +248,6 @@ export default function Home() {
                 )}
               </TabPanel>
               <TabPanel px={"1"}>
-                <CreatePostLink />
                 {discoverSpaces.map((space) => (
                   <NewSpace
                     space={space}
@@ -271,26 +269,3 @@ export default function Home() {
     </>
   );
 }
-
-const HomePageSideBar: React.FC = () => {
-  return (
-    <>
-      <Flex
-        width={"100%"}
-        p={"5px"}
-        borderRadius={"5px"}
-        mb={"2"}
-        bg={"white"}
-        flexDir={"column"}
-        fontSize={{ base: "xx-small", md: "x-small" }}
-        height={"fit-content"}
-      >
-        <Text>
-          Discover top Space: this would be available as more users sign in and
-          create spaces and join spaces
-        </Text>
-        <Button size={{ base: "xs", md: "sm" }}> discover top spaces</Button>
-      </Flex>
-    </>
-  );
-};

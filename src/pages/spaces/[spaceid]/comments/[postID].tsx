@@ -1,17 +1,18 @@
 import { Post } from "@/src/Atoms/PostAtom";
 import { usePostData } from "@/src/components/Hooks/usePostData";
 import { useSpaceDataFetch } from "@/src/components/Hooks/useSpaceDataFetch";
-import { PageContentLayout } from "@/src/components/layouts/PageContentLayout";
+
 import { Comments } from "@/src/components/PostComponent/CommentComponent/Comments";
 import { PostItem } from "@/src/components/PostComponent/PostItem";
-import { About } from "@/src/components/Spaces.component.tsx/About";
+
 import { auth, firestore } from "@/src/firebase/clientApp";
-import { Flex, Grid, Text } from "@chakra-ui/react";
+import { Flex, Grid, Text, Icon } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const PostCommentPage: React.FC = () => {
   const [user] = useAuthState(auth);
@@ -49,6 +50,15 @@ const PostCommentPage: React.FC = () => {
             md: "45vw",
           }}
         >
+          <Icon
+            as={IoMdArrowRoundBack}
+            fontSize={"x-large"}
+            p={"2px"}
+            cursor={"pointer"}
+            onClick={() => {
+              route.back();
+            }}
+          />
           <>
             {postData.selectedPost && (
               <PostItem

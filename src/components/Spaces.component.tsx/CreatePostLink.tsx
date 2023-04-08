@@ -1,45 +1,37 @@
-import { Flex, Input, Icon, Spacer, Image } from "@chakra-ui/react";
-import { CiImageOn, CiChat2 } from "react-icons/ci";
+import { Flex, Input, Spacer, Image, Text } from "@chakra-ui/react";
+
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/src/firebase/clientApp";
 import { useSetRecoilState } from "recoil";
-import { useSpaceListState } from "../Hooks/useSpaceListState";
+// import { useSpaceListState } from "../Hooks/useSpaceListState";
 import { authModalState } from "@/src/Atoms/AuthModalAtom";
 
 export const CreatePostLink: React.FC = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
-  const toggleSpaceListMenu = useSpaceListState().toggleSpaceListMenu;
+  // const toggleSpaceListMenu = useSpaceListState().toggleSpaceListMenu;
   const setAuthModalView = useSetRecoilState(authModalState);
   const handleClick = () => {
     const { spaceid } = router.query;
-
-    if (!user) {
-      setAuthModalView((prev) => ({
-        open: true,
-        view: "log in",
-      }));
-      return;
-    }
-    if (spaceid) {
-      router.push(`/spaces/${spaceid}/submit`);
-      return;
-    }
-    toggleSpaceListMenu();
+    router.push(`/spaces/${spaceid}/submit`);
+    return;
   };
 
   return (
     <>
       <Flex
         width={"100%"}
-        bg={"white"}
+        bg={"brand.500"}
         py={"2"}
         borderRadius={"4px"}
         pos={"sticky"}
         top={"1"}
+        mb={"1"}
         zIndex={4}
+        cursor={"pointer"}
         onClick={handleClick}
+        color={"white"}
       >
         <Flex
           align={"center"}
@@ -50,23 +42,22 @@ export const CreatePostLink: React.FC = () => {
           <Image
             src={user?.photoURL ? user.photoURL : "/images/default.png"}
             alt={"logo"}
-            boxSize={"35px"}
+            boxSize={"45px"}
             mr={"2"}
+            borderRadius={"full"}
           />
           <Input
-            bg={"brand.50"}
+            bg={"white"}
             borderRadius={"5px"}
             focusBorderColor={"brand.50"}
-            color={"white"}
             maxWidth={"100%"}
             height={"7"}
-            borderColor={"none"}
             isDisabled
+            border={"none"}
           />
           <Spacer />
           <Flex justify={"space-around"} flexGrow={"1"} px={"2"} width={"20%"}>
-            <Icon as={CiImageOn}></Icon>
-            <Icon as={CiChat2} />
+            <Text> Post</Text>
           </Flex>
         </Flex>
       </Flex>

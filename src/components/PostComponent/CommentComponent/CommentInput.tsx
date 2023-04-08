@@ -8,6 +8,7 @@ import {
   Input,
   Image,
   Box,
+  Stack,
 } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { BsFillSendFill } from "react-icons/bs";
@@ -52,27 +53,29 @@ export const CommentInput: React.FC<CommentInputProp> = ({
             position={"absolute"}
             left={"0"}
           />
-
-          <Textarea
-            ml={"5"}
-            variant={"flushed"}
-            _focus={{
-              resize: "none",
-            }}
-            border={"none"}
-            focusBorderColor="white"
-            outline={"none"}
-            value={commentText}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              e.preventDefault();
-              setCommentText(e.target.value);
-            }}
-            _placeholder={{
-              color: "brand.500",
-            }}
-            placeholder={"comment"}
-            fontSize={"sm"}
-          />
+          <Stack width={"100%"}>
+            <Textarea
+              ml={"5"}
+              variant={"flushed"}
+              _focus={{
+                resize: "none",
+              }}
+              border={"none"}
+              focusBorderColor="white"
+              outline={"none"}
+              value={commentText}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                e.preventDefault();
+                setCommentText(e.target.value);
+              }}
+              _placeholder={{
+                color: "brand.500",
+              }}
+              placeholder={"comment"}
+              fontSize={"inherit"}
+              maxWidth={"90%"}
+            />
+          </Stack>
 
           <Button
             size={"md"}

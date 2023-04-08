@@ -12,11 +12,7 @@ export const SpaceList: React.FC<SpaceListProp> = ({
   imageUrl,
 }) => {
   return (
-    <ListItem
-      display={"flex"}
-      justifyContent={"space-between"}
-      alignItems={"center"}
-    >
+    <ListItem display={"flex"} width={"100%"}>
       <Flex align={"center"}>
         <Image
           objectFit={"cover"}

@@ -9,6 +9,8 @@ export interface Space {
   createdAt?: Timestamp;
   imageUrl?: string;
   vibe?: string | string[];
+  desc: "";
+  rules: "";
 }
 export interface SpaceSnippet {
   spaceId: string;
