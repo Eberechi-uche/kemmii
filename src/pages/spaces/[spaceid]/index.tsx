@@ -20,7 +20,7 @@ import { About } from "@/src/components/Spaces.component.tsx/About";
 import { Posts } from "@/src/components/PostComponent/Posts";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { UpdateSpace } from "./SpaceUpdate";
+import { UpdateSpace } from "../../../components/Spaces.component.tsx/SpaceUpdate";
 
 type spacePageProps = {
   spaceData: Space;

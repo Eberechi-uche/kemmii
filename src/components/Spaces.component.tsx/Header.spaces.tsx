@@ -46,21 +46,24 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
         position={"relative"}
       >
         <Box height={"100px"} />
-        <Image
-          alt={spacesData.id}
-          boxSize={"140px"}
-          objectFit={"fill"}
-          borderRadius={"full"}
-          src={
-            spaceValue.currentSpace!.imageUrl
-              ? spaceValue.currentSpace!.imageUrl
-              : "/images/spaceDefault.png"
-          }
-          position={"absolute"}
-          top={"25px"}
-          border={"4px solid"}
-          borderColor={"brand.500"}
-        />
+        {spaceValue.currentSpace && (
+          <Image
+            alt={spacesData.id}
+            boxSize={"140px"}
+            objectFit={"fill"}
+            borderRadius={"full"}
+            src={
+              spaceValue.currentSpace.imageUrl
+                ? spaceValue.currentSpace!.imageUrl
+                : "/images/spaceDefault.png"
+            }
+            position={"absolute"}
+            top={"25px"}
+            border={"4px solid"}
+            borderColor={"brand.500"}
+          />
+        )}
+
         <Flex
           width={"100%"}
           justify={"center"}
