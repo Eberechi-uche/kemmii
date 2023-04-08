@@ -45,6 +45,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
           />
 
           <Textarea
+            maxW={"90%"}
             ml={"5"}
             variant={"flushed"}
             _focus={{
@@ -62,7 +63,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
               color: "brand.500",
             }}
             placeholder={"comment"}
-            fontSize={"inherit"}
+            fontSize={"16px"}
             maxWidth={"90%"}
           />
 

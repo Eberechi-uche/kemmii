@@ -40,7 +40,7 @@ const PostCommentPage: React.FC = () => {
   }, [postData.selectedPost, route.query]);
   return (
     <>
-      <Grid placeContent={"center"} mt={"1"}>
+      <Grid placeContent={"center"} mt={"1"} fontSize={"md"}>
         <Flex
           flexDir={"column"}
           px={"1"}
