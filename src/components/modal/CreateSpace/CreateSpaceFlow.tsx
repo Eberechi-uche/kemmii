@@ -9,6 +9,7 @@ import {
   Checkbox,
   Input,
   Image,
+  Heading,
 } from "@chakra-ui/react";
 import {
   BsFillArrowRightSquareFill,
@@ -62,10 +63,11 @@ export const PickSpaceVibeTab: React.FC<PickSpaceVibeTabProps> = ({
 }) => {
   return (
     <>
-      <Flex fontSize={"sm"} flexDir={"column"}>
+      <Flex fontSize={"sm"} flexDir={"column"} height={"50%"}>
+        <Heading alignSelf={"center"}> Welcome to spaces</Heading>
         <Text>
-          wellcome spaces; your space name should be unique, with you can use
-          hyphen, numbers but cannot have space
+          your space name should be unique, with you can use hyphen, numbers but
+          cannot have space
         </Text>
 
         <Flex

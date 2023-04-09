@@ -114,8 +114,14 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
       size={{ base: "full", md: "lg" }}
     >
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader color={"brand.700"}>
+      <ModalContent color={"telegram.800"}>
+        <ModalHeader
+          color={"brand.700"}
+          backgroundImage={"/images/createSpacebg.jpg"}
+          backgroundPosition={"center"}
+          backgroundSize={"cover"}
+          py={"20"}
+        >
           {!loading ? (
             "Create your space"
           ) : (

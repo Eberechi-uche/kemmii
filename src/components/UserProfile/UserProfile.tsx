@@ -100,7 +100,7 @@ export const UserProfile: React.FC = () => {
             )}
 
             <Grid
-              height={"70vh"}
+              height={"30vh"}
               placeContent={"center"}
               width={"100%"}
               justifyContent={"center"}
@@ -111,7 +111,7 @@ export const UserProfile: React.FC = () => {
                 mb={"5"}
                 fontWeight={"700"}
                 position={"absolute"}
-                top={"25%"}
+                bottom={"70%"}
               >
                 {name}
               </Text>
@@ -120,6 +120,7 @@ export const UserProfile: React.FC = () => {
                   handleInputChange(e);
                 }}
                 maxLength={10}
+                placeholder={"display name"}
               />
               <Text
                 mt={"5"}
@@ -170,7 +171,12 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
   }, [useAvatar]);
   return (
     <>
-      <Flex width={"100%"} justify={"space-evenly"} align={"center"}>
+      <Flex
+        width={"100%"}
+        justify={"space-evenly"}
+        align={"center"}
+        height={"50%"}
+      >
         <Box pb={"2"}>
           <Image
             alt={"male"}

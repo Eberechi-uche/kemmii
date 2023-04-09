@@ -28,7 +28,7 @@ const NavContentRight: React.FC<NavContentRightProps> = ({ user }) => {
           <Image
             src={user?.photoURL ? `${user.photoURL}` : "images/default.png"}
             alt={user?.uid}
-            boxSize={"30px"}
+            boxSize={"40px"}
             borderRadius={"full"}
           />
         </Flex>

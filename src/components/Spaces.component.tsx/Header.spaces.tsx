@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
         direction={"column"}
         width={"100%"}
         height={"min-content"}
-        backgroundImage={"/createSpace.jpg"}
+        backgroundImage={"/images/spaceHeaderbg.png"}
         backgroundSize={"cover"}
         backgroundRepeat={"no-repeat"}
         bgPosition={"bottom"}

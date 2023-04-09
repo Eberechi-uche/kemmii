@@ -1,6 +1,5 @@
 import {
   collection,
-  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -12,12 +11,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Post, Reaction } from "../Atoms/PostAtom";
 import { usePostData } from "../components/Hooks/usePostData";
-// import Image from "next/image";
-// import { Inter } from "@next/font/google";
-// import styles from "@/styles/Home.module.css";
-import { PageContentLayout } from "../components/layouts/PageContentLayout";
 import { PostItem } from "../components/PostComponent/PostItem";
-import { CreatePostLink } from "../components/Spaces.component.tsx/CreatePostLink";
 import { auth, firestore } from "../firebase/clientApp";
 import { useSpaceDataFetch } from "../components/Hooks/useSpaceDataFetch";
 import {
@@ -32,20 +26,24 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Loading } from "../components/animations/Loading";
-import NewSpace from "../components/DiscoverSpace/NewSpace";
+import NewSpace from "../components/Discover/NewSpace";
 import { Space } from "../Atoms/spacesAtom";
 import Link from "next/link";
-
+import {
+  NewPost,
+  NewPostLayout,
+} from "../components/Discover/TrendingPost/NewPost";
 export default function Home() {
   const [user, loadingUser] = useAuthState(auth);
   const [tabIndex, setTabIndex] = useState(0);
   const [loadingFeeds, setLoadingFeeds] = useState(true);
   const [discoverSpaces, setDiscoverSpaces] = useState<Space[]>([]);
+  const [trendingPost, setTrendingPost] = useState<Post[]>([]);
   const [error, setError] = useState("");
   const [tab, setCurrentTab] = useState("home");
   const { spaceValue, onSpaceJoinOrLeave, loading } = useSpaceDataFetch();
   const colors = useColorModeValue(
-    ["#EBF8FF", "#E53E3E"],
+    ["#EBF8FF", "#d2f2e7"],
     ["red.900", "teal.900"]
   );
   const bg = colors[tabIndex];
@@ -66,7 +64,18 @@ export default function Home() {
         where("privacyType", "!=", "private"),
         limit(20)
       );
+      const trendingPostQuerry = query(
+        collection(firestore, "posts"),
+        orderBy("numberOfComments", "desc"),
+        limit(10)
+      );
       const spaceDoc = await getDocs(feedsQuerry);
+      const trendingPostDoc = await getDocs(trendingPostQuerry);
+      const trendingPost = trendingPostDoc.docs.map((post) => ({
+        id: post.id,
+        ...post.data(),
+      }));
+      setTrendingPost(trendingPost as Post[]);
       const spaces = spaceDoc.docs.map((space) => ({
         id: space.id,
         ...space.data(),
@@ -195,10 +204,23 @@ export default function Home() {
           <Tabs
             variant="soft-rounded"
             size={"md"}
-            colorScheme={tab == "home" ? "blue" : "red"}
+            colorScheme={tab == "home" ? "blue" : "green"}
             onChange={(index) => setTabIndex(index)}
             w={{ base: "100%", md: "45%" }}
           >
+            <Flex flexDir={"column"}>
+              <>
+                {postData.posts && (
+                  <NewPostLayout>
+                    {trendingPost.map((post) => (
+                      <Flex key={post.id}>
+                        <NewPost post={post} onPostSelect={onPostSelect} />
+                      </Flex>
+                    ))}
+                  </NewPostLayout>
+                )}
+              </>
+            </Flex>
             <TabList ml={"4"}>
               <Tab
                 onClick={() => {
