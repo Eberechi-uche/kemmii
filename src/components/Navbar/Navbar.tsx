@@ -14,6 +14,7 @@ import { SlMenu } from "react-icons/sl";
 import { useSpaceDataFetch } from "../Hooks/useSpaceDataFetch";
 import { SideDrawer } from "./SideDrawer";
 import SearchInput from "./SearchInput/SearchInput.component";
+import Link from "next/link";
 
 export const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
@@ -22,17 +23,19 @@ export const Navbar: React.FC = () => {
   return (
     <Flex bg="white" height="50px" padding="10px 12px" alignItems="center">
       {!user && (
-        <Flex cursor={"pointer"}>
-          <Image src="/yellow.ico" height="25px" alt={"logo"} />
-          <Text
-            bgGradient="linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
-            bgClip="text"
-            display={{ base: "none", md: "unset" }}
-            as="b"
-          >
-            emmii
-          </Text>
-        </Flex>
+        <Link href={"/"}>
+          <Flex cursor={"pointer"}>
+            <Image src="/yellow.ico" height="25px" alt={"logo"} />
+            <Text
+              bgGradient="linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
+              bgClip="text"
+              display={{ base: "none", md: "unset" }}
+              as="b"
+            >
+              emmii
+            </Text>
+          </Flex>
+        </Link>
       )}
 
       {user && (

@@ -221,7 +221,7 @@ export default function Home() {
                 )}
               </>
             </Flex>
-            <TabList ml={"4"}>
+            <TabList ml={"1"}>
               <Tab
                 onClick={() => {
                   setCurrentTab("home");

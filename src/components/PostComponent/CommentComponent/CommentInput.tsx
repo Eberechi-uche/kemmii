@@ -39,9 +39,10 @@ export const CommentInput: React.FC<CommentInputProp> = ({
           <Image
             src={user?.photoURL ? user.photoURL : "/images/default.png"}
             alt={"logo"}
-            boxSize={"30px"}
+            boxSize={"35px"}
             position={"absolute"}
             left={"0"}
+            borderRadius={"full"}
           />
 
           <Textarea

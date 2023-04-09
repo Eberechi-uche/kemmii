@@ -121,6 +121,8 @@ export const UserProfile: React.FC = () => {
                 }}
                 maxLength={10}
                 placeholder={"display name"}
+                maxW={"80%"}
+                borderRadius={"full"}
               />
               <Text
                 mt={"5"}
@@ -175,7 +177,7 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
         width={"100%"}
         justify={"space-evenly"}
         align={"center"}
-        height={"50%"}
+        height={"fit-content"}
       >
         <Box pb={"2"}>
           <Image
@@ -184,7 +186,7 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
             boxSize={"50px"}
             borderRadius={"full"}
             objectFit={"cover"}
-            border={`5px solid ${
+            border={`2px solid ${
               avatarStyle === adventurer ? "green" : "blue.500"
             }`}
             onClick={() => {
@@ -199,7 +201,7 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
           boxSize={"50px"}
           borderRadius={"full"}
           objectFit={"cover"}
-          border={`5px solid ${
+          border={`2px solid ${
             avatarStyle === notionists ? "green" : "blue.500"
           }`}
           onClick={() => {
@@ -212,7 +214,7 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
           boxSize={"50px"}
           borderRadius={"full"}
           objectFit={"cover"}
-          border={`5px solid ${
+          border={`2px solid ${
             avatarStyle === openPeeps ? "green" : "blue.500"
           }`}
           onClick={() => {
@@ -220,7 +222,12 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
           }}
         />
       </Flex>
-      <Image src={genAvatar} alt="Avatar" boxSize={"400px"} />
+      <Image
+        src={genAvatar}
+        alt="Avatar"
+        boxSize={"300px"}
+        borderRadius={"full"}
+      />
       <Flex justify={"center"}>
         <Button
           onClick={() => {

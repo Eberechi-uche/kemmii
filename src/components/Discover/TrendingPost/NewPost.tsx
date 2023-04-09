@@ -11,8 +11,8 @@ export const NewPost: React.FC<NewPostProps> = ({ post, onPostSelect }) => {
   return (
     <>
       <Box
-        width={"100px"}
-        height={"130px"}
+        width={"120px"}
+        height={"150px"}
         bg={"whatsapp.500"}
         px={"2"}
         backgroundPosition={"center"}

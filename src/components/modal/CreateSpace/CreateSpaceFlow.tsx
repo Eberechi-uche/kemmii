@@ -63,11 +63,11 @@ export const PickSpaceVibeTab: React.FC<PickSpaceVibeTabProps> = ({
 }) => {
   return (
     <>
-      <Flex fontSize={"sm"} flexDir={"column"} height={"50%"}>
+      <Flex fontSize={"sm"} flexDir={"column"}>
         <Heading alignSelf={"center"}> Welcome to spaces</Heading>
         <Text>
-          your space name should be unique, with you can use hyphen, numbers but
-          cannot have space
+          your space name should be unique, can have hyphen, numbers, but no
+          have space
         </Text>
 
         <Flex
@@ -110,7 +110,12 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
     <>
       {!loading ? (
         <>
-          <Flex flexDir={"column"} height={"fit-content"}>
+          <Flex
+            flexDir={"column"}
+            height={"fit-content"}
+            align={"center"}
+            width={"90%"}
+          >
             <Text>Enter the name of the space you want to create</Text>
             <Input
               mt={"5"}
@@ -119,6 +124,7 @@ export const CreateSpaceTab: React.FC<CreateSpaceTabProp> = ({
               size={"lg"}
               color={"brand.700"}
               onChange={handleInputChange}
+              maxWidth={"80%"}
             />
             {error.length > 2 && (
               <Text color={"red.500"} fontSize={"xs"}>

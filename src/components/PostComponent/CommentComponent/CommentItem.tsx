@@ -53,7 +53,8 @@ const CommentItem: React.FC<CommentItemProp> = ({
                 : "/images/default.png"
             }
             alt={comment.creatorDisplayText}
-            boxSize={"30px"}
+            boxSize={"35px"}
+            borderRadius={"full"}
           />
           <Text fontWeight={"bold"} ml={"1"}>
             {comment.creatorDisplayText}

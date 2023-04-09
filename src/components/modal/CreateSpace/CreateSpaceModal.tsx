@@ -116,11 +116,11 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
       <ModalOverlay />
       <ModalContent color={"telegram.800"}>
         <ModalHeader
-          color={"brand.700"}
-          backgroundImage={"/images/createSpacebg.jpg"}
+          color={"white"}
           backgroundPosition={"center"}
           backgroundSize={"cover"}
           py={"20"}
+          bgImage={`linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)), url("/images/createSpacebg.jpg")`}
         >
           {!loading ? (
             "Create your space"
@@ -133,7 +133,7 @@ export const CreateSpaceModal: React.FC<createSpaceModalProps> = ({
           )}
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody display={"grid"} placeItems={"center"}>
+        <ModalBody>
           <CreateSpaceFlow
             handleCheckSelection={handleCheckSelection}
             handleInputChange={handleInputChange}

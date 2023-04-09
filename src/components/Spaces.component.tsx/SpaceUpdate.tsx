@@ -21,6 +21,7 @@ import { useState, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState } from "recoil";
 import { TbPhotoUp } from "react-icons/tb";
+import { BiBorderRadius } from "react-icons/bi";
 
 type UpdateSpaceProps = {
   spaceData: Space;
@@ -101,30 +102,40 @@ export const UpdateSpace: React.FC<UpdateSpaceProps> = ({ spaceData }) => {
     <>
       <Flex flexDir={"column"}>
         <Text textAlign={"center"}>{spaceData.desc}</Text>
-        <Text>space type: {spaceData.privacyType}</Text>
+
         {spaceData.creatorId === user?.uid && (
           <>
-            <Textarea
-              px={"2"}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                e.preventDefault();
-                setText(e.target.value);
-              }}
+            <Flex
+              flexDir={"column"}
               bg={"white"}
-              variant={"flushed"}
-              border={"none"}
-              placeholder={"enter space description"}
-              value={text}
-            />
-            <Button
-              width={"40%"}
-              placeSelf={"end"}
-              isDisabled={text.length < 5}
-              onClick={handleDescUpdate}
-              isLoading={loading}
+              borderRadius={"10px"}
+              my={"2"}
             >
-              update
-            </Button>
+              <Textarea
+                px={"2"}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  e.preventDefault();
+                  setText(e.target.value);
+                }}
+                bg={"white"}
+                variant={"flushed"}
+                border={"none"}
+                placeholder={"enter space description"}
+                value={text}
+                maxWidth={"80%"}
+                alignSelf={"center"}
+                focusBorderColor={"white"}
+              />
+              <Button
+                width={"20%"}
+                placeSelf={"end"}
+                isDisabled={text.length < 5}
+                onClick={handleDescUpdate}
+                isLoading={loading}
+              >
+                update
+              </Button>
+            </Flex>
           </>
         )}
 
@@ -189,6 +200,7 @@ export const UpdateSpace: React.FC<UpdateSpaceProps> = ({ spaceData }) => {
             </Flex>
           </Flex>
         )}
+        <Text>space type: {spaceData.privacyType}</Text>
         {error && (
           <Alert status="error" display={"flex"} flexDir={"column"}>
             <AlertIcon />
