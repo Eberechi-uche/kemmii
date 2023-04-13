@@ -17,18 +17,26 @@ import { PageContentLayout } from "@/src/components/layouts/PageContentLayout";
 import { CreatePostLink } from "@/src/components/Spaces.component.tsx/CreatePostLink";
 import { About } from "@/src/components/Spaces.component.tsx/About";
 import Posts from "@/src/components/PostComponent/Posts";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 
 import { UpdateSpace } from "../../../components/Spaces.component.tsx/SpaceUpdate";
 import { Loading } from "@/src/components/animations/Loading";
+import { useSetRecoilState } from "recoil";
 type spacePageProps = {
   spaceData: Space;
 };
 
 const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
+  const setspaceState = useSetRecoilState(spaceStateAtom);
   if (!spaceData) {
     return <NotFound />;
   }
+  useEffect(() => {
+    setspaceState((prev) => ({
+      ...prev,
+      currentSpace: spaceData,
+    }));
+  }, [spaceData]);
 
   return (
     <>
