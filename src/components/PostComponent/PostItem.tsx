@@ -43,7 +43,7 @@ type PostItemProps = {
   actionError?: string;
 };
 
-export const PostItem: React.FC<PostItemProps> = ({
+const PostItem: React.FC<PostItemProps> = ({
   post,
   userIsCreator,
   userReaction,
@@ -79,10 +79,8 @@ export const PostItem: React.FC<PostItemProps> = ({
     <>
       <Flex
         fontSize={"md"}
-        p={"3"}
         borderRadius={"3px"}
         flexDir={"column"}
-        bg={"white"}
         my={"1"}
         onClick={() => {
           onPostSelect && onPostSelect(post);
@@ -91,6 +89,15 @@ export const PostItem: React.FC<PostItemProps> = ({
       >
         <Flex justify={"flex-start"} align={"center"} width={"100%"}>
           <Flex align={"center"} justify={"center"}>
+            <Image
+              boxSize={"35px"}
+              src={
+                post.creatorImageUrl
+                  ? post.creatorImageUrl
+                  : "/images/default.png"
+              }
+              borderRadius={"5px"}
+            />
             <Flex flexDir={"column"} ml={"1"}>
               <Text pb={"none"} fontWeight={"500"}>
                 {post.creatorDisplayName}
@@ -112,6 +119,7 @@ export const PostItem: React.FC<PostItemProps> = ({
                         handleSpaceRoute(e, `/spaces/${post.spaceId}`);
                       }}
                     >
+                      posted in:
                       <Icon as={MdEditLocationAlt} fontSize={"15"} />
                       {post.spaceId}
                     </Text>
@@ -230,6 +238,8 @@ export const PostItem: React.FC<PostItemProps> = ({
           </ScaleFade>
         )}
       </Flex>
+      <Divider />
     </>
   );
 };
+export default PostItem;

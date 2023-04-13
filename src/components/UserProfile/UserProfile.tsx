@@ -177,7 +177,7 @@ export const AvatarPicker: React.FC<AvatarPickerProps> = ({
         width={"100%"}
         justify={"space-evenly"}
         align={"center"}
-        height={"fit-content"}
+        maxH={"50%"}
       >
         <Box pb={"2"}>
           <Image

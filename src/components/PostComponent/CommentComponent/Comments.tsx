@@ -1,9 +1,9 @@
 import { User } from "firebase/auth";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { CommentInput } from "./CommentInput";
-import { firestore } from "@/src/firebase/clientApp";
+import { firestore, auth } from "@/src/firebase/clientApp";
 import { Post, postState } from "@/src/Atoms/PostAtom";
 import CommentItem, { Comment } from "./CommentItem";
 import {
@@ -18,7 +18,7 @@ import {
   where,
   writeBatch,
 } from "firebase/firestore";
-import moment from "moment";
+
 import { useSetRecoilState } from "recoil";
 import { Loading } from "../../animations/Loading";
 
@@ -79,6 +79,7 @@ export const Comments: React.FC<CommentProps> = ({
       await batch.commit();
     } catch (error: any) {
       console.log("creating comment", error.message);
+      console.log(user.uid);
       setError("there was a problem sending comment");
       setComments(comentFallBack);
     }
@@ -158,7 +159,10 @@ export const Comments: React.FC<CommentProps> = ({
         >
           {fetchloading && (
             <Loading
-              link={"https://assets6.lottiefiles.com/temp/lf20_6Xbo3i.json"}
+              link={
+                "https://assets3.lottiefiles.com/private_files/lf30_fnvabe85.json"
+              }
+              size={100}
             />
           )}
           {error && <Text color={"red.600"}> {error}</Text>}

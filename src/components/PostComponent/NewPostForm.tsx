@@ -72,6 +72,7 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       numberOfComments: 0,
       reactions: 0,
       createdAt: serverTimestamp() as Timestamp,
+      creatorImageUrl: user.photoURL!,
     };
     setLoading(true);
     try {

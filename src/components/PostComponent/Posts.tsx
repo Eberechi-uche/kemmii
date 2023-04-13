@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Loading } from "../animations/Loading";
 import { usePostData } from "../Hooks/usePostData";
-import { PostItem } from "./PostItem";
+import PostItem from "./PostItem";
 
 type PostProps = {
   spaceData: Space;
 };
 
-export const Posts: React.FC<PostProps> = ({ spaceData }) => {
+const Posts: React.FC<PostProps> = ({ spaceData }) => {
   const [user] = useAuthState(auth);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -58,7 +58,7 @@ export const Posts: React.FC<PostProps> = ({ spaceData }) => {
         <>
           <Loading
             link={
-              "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
+              "https://assets3.lottiefiles.com/private_files/lf30_fnvabe85.json"
             }
           />
         </>
@@ -82,3 +82,5 @@ export const Posts: React.FC<PostProps> = ({ spaceData }) => {
     </>
   );
 };
+
+export default Posts;

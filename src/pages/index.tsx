@@ -11,13 +11,14 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Post, Reaction } from "../Atoms/PostAtom";
 import { usePostData } from "../components/Hooks/usePostData";
-import { PostItem } from "../components/PostComponent/PostItem";
+import PostItem from "../components/PostComponent/PostItem";
 import { auth, firestore } from "../firebase/clientApp";
 import { useSpaceDataFetch } from "../components/Hooks/useSpaceDataFetch";
 import {
   Button,
   Flex,
   Tab,
+  TabIndicator,
   TabList,
   TabPanel,
   TabPanels,
@@ -42,11 +43,7 @@ export default function Home() {
   const [error, setError] = useState("");
   const [tab, setCurrentTab] = useState("home");
   const { spaceValue, onSpaceJoinOrLeave, loading } = useSpaceDataFetch();
-  const colors = useColorModeValue(
-    ["#EBF8FF", "#d2f2e7"],
-    ["red.900", "teal.900"]
-  );
-  const bg = colors[tabIndex];
+
   const {
     setPostData,
     postData,
@@ -192,7 +189,6 @@ export default function Home() {
       </Head>
 
       <Flex
-        bg={bg}
         align={"center"}
         justify={"center"}
         flexDir={"column"}
@@ -202,10 +198,9 @@ export default function Home() {
       >
         <>
           <Tabs
-            variant="soft-rounded"
-            size={"md"}
+            size={"sm"}
+            variant={"unstyled"}
             colorScheme={tab == "home" ? "blue" : "green"}
-            onChange={(index) => setTabIndex(index)}
             w={{ base: "100%", md: "45%" }}
           >
             <Flex flexDir={"column"}>
@@ -221,33 +216,27 @@ export default function Home() {
                 )}
               </>
             </Flex>
-            <TabList ml={"1"}>
-              <Tab
-                onClick={() => {
-                  setCurrentTab("home");
-                }}
-                transition="all 0.3s ease-in"
-                fontWeight="400"
-                p={"9px"}
-              >
-                your feeds
-              </Tab>
-              <Tab
-                onClick={() => {
-                  setCurrentTab("discover");
-                }}
-                transition="all 0.5s ease-in-out"
-                fontWeight="400"
-              >
-                discover spaces
-              </Tab>
+            <TabList
+              ml={"1"}
+              width={"100%"}
+              display={"flex"}
+              justifyContent={"space-evenly"}
+            >
+              <Tab fontWeight="400">your feeds</Tab>
+              <Tab fontWeight="400">discover spaces</Tab>
             </TabList>
+            <TabIndicator
+              mt="-1.5px"
+              height="2px"
+              bg="blue.500"
+              borderRadius="1px"
+            />
             <TabPanels transition="all 3s ease-in">
               <TabPanel px={"1"}>
                 {loadingFeeds ? (
                   <Loading
                     link={
-                      "https://assets2.lottiefiles.com/packages/lf20_ngCmDSkEvD.json"
+                      "https://assets3.lottiefiles.com/private_files/lf30_fnvabe85.json"
                     }
                   />
                 ) : (

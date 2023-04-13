@@ -112,6 +112,7 @@ export const usePostData = () => {
       }
     } catch (error: any) {
       setError(error.message);
+      console.log(error.message);
     }
   };
   const onDeletePost = async (

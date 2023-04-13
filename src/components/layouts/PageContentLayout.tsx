@@ -15,7 +15,7 @@ export const PageContentLayout: React.FC<PageContentProps> = ({ children }) => {
           maxWidth={"760"}
           direction={{ base: "column-reverse", md: "row" }}
           mt={"20px"}
-          mx={"10px"}
+          mx={"1"}
         >
           <Flex
             direction={"column"}

@@ -3,7 +3,7 @@ import { usePostData } from "@/src/components/Hooks/usePostData";
 import { useSpaceDataFetch } from "@/src/components/Hooks/useSpaceDataFetch";
 
 import { Comments } from "@/src/components/PostComponent/CommentComponent/Comments";
-import { PostItem } from "@/src/components/PostComponent/PostItem";
+import PostItem from "@/src/components/PostComponent/PostItem";
 
 import { auth, firestore } from "@/src/firebase/clientApp";
 import { Flex, Grid, Text, Icon } from "@chakra-ui/react";

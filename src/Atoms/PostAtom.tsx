@@ -13,6 +13,7 @@ export type Post = {
   reactions: number;
   imageUrl?: string;
   createdAt: Timestamp;
+  creatorImageUrl: string;
 };
 export type Reaction = {
   id: string;
