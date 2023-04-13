@@ -6,6 +6,7 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  Text,
 } from "@chakra-ui/react";
 import { TabItem } from "./PostTabItems";
 import { useState } from "react";
@@ -107,6 +108,7 @@ export const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
 
   return (
     <>
+      {!user && <Text> login or signUp to post</Text>}
       <Flex
         width={"100%"}
         bg={"white"}

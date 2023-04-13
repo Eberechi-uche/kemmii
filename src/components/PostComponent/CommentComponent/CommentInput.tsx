@@ -3,6 +3,7 @@ import { Textarea, Flex, Button, Text, Icon, Image } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import { BsFillSendFill } from "react-icons/bs";
 import { useSetRecoilState } from "recoil";
+import NoUserSignIn from "../../modal/Auth/NoUser";
 
 type CommentInputProp = {
   user: User;
@@ -19,8 +20,6 @@ export const CommentInput: React.FC<CommentInputProp> = ({
   onCreateComment,
   creatCommentLoading,
 }) => {
-  const setAuthModalState = useSetRecoilState(authModalState);
-
   return (
     <Flex
       pos="sticky"
@@ -79,36 +78,7 @@ export const CommentInput: React.FC<CommentInputProp> = ({
           </Button>
         </Flex>
       ) : (
-        <>
-          <Flex align={"center"} justify={"space-between"} px="4">
-            <Text>login or sign up to comment</Text>
-            <Flex justify={"space-between"}>
-              <Button
-                variant={"outline"}
-                size={"md"}
-                onClick={() => {
-                  setAuthModalState({
-                    view: "log in",
-                    open: true,
-                  });
-                }}
-              >
-                login
-              </Button>
-              <Button
-                size={"md"}
-                onClick={() => {
-                  setAuthModalState({
-                    view: "sign up",
-                    open: true,
-                  });
-                }}
-              >
-                sign up
-              </Button>
-            </Flex>
-          </Flex>
-        </>
+        <NoUserSignIn />
       )}
     </Flex>
   );
