@@ -46,18 +46,21 @@ export const NewPost: React.FC<NewPostProps> = ({ post, onPostSelect }) => {
 
 type NewPostLayoutProps = {
   children: React.ReactNode;
+  heading: string;
 };
-export const NewPostLayout: React.FC<NewPostLayoutProps> = ({ children }) => {
+export const NewPostLayout: React.FC<NewPostLayoutProps> = ({
+  children,
+  heading,
+}) => {
   return (
     <>
       <Text
         align={"center"}
         fontWeight={"900"}
-        fontSize={"md"}
-        color={"green"}
+        fontSize={"lg"}
         alignSelf={"flex-start"}
       >
-        Trending post
+        {heading}
         <Icon as={FiTrendingUp} />
       </Text>
       <Flex

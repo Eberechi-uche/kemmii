@@ -206,7 +206,7 @@ export default function Home() {
             <Flex flexDir={"column"}>
               <>
                 {postData.posts && (
-                  <NewPostLayout>
+                  <NewPostLayout heading="Top Posts">
                     {trendingPost.map((post) => (
                       <Flex key={post.id}>
                         <NewPost post={post} onPostSelect={onPostSelect} />

@@ -1,5 +1,13 @@
 import { Space } from "@/src/Atoms/spacesAtom";
-import { Button, Flex, Stack, Image, Text, Grid } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Stack,
+  Image,
+  Text,
+  Grid,
+  Divider,
+} from "@chakra-ui/react";
 import Link from "next/link";
 
 type NewSpaceProp = {
@@ -27,17 +35,16 @@ const NewSpace: React.FC<NewSpaceProp> = ({
         <Link href={`/spaces/${space.id}`}>
           <Flex>
             <Image
-              boxSize={"50px"}
+              boxSize={"20%"}
               objectFit={"fill"}
               borderRadius={"full"}
               src={space.imageUrl ? space.imageUrl : "/images/spaceDefault.png"}
-              border={"4px solid"}
-              borderColor={"brand.500"}
               alt={"space image"}
             />
             <Flex ml={"2"} flexDir={"column"}>
               <Text>{space.id}</Text>
               <Text> {space.numberOfMembers}</Text>
+              <Text> {space.desc}</Text>
             </Flex>
           </Flex>
         </Link>
@@ -54,6 +61,7 @@ const NewSpace: React.FC<NewSpaceProp> = ({
           {isMember ? "joined" : "join"}
         </Button>
       </Stack>
+      <Divider />
     </>
   );
 };

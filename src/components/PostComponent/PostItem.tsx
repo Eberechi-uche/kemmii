@@ -15,6 +15,7 @@ import {
 
 import { BsChat } from "react-icons/bs";
 import { RiThumbUpLine, RiThumbUpFill } from "react-icons/ri";
+import { TfiComments } from "react-icons/tfi";
 
 import { MdEditLocationAlt } from "react-icons/md";
 import { HiOutlineXMark } from "react-icons/hi2";
@@ -176,7 +177,7 @@ const PostItem: React.FC<PostItemProps> = ({
           fontSize={"lg"}
         >
           <Flex align={"center"} cursor={"pointer"} mx={"3"}>
-            <Icon as={BsChat} />
+            <Icon as={TfiComments} />
             <Text ml={"1"} fontSize={"md"}>
               {post.numberOfComments}
             </Text>
@@ -238,7 +239,6 @@ const PostItem: React.FC<PostItemProps> = ({
           </ScaleFade>
         )}
       </Flex>
-      <Divider />
     </>
   );
 };
