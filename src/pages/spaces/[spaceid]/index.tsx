@@ -31,20 +31,20 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
   }
 
   return (
-    <Suspense
-      fallback={
-        <Loading
-          link={
-            "https://assets3.lottiefiles.com/private_files/lf30_fnvabe85.json"
-          }
-        />
-      }
-    >
-      <>
-        <Header spacesData={spaceData} />
+    <>
+      <Header spacesData={spaceData} />
 
-        <PageContentLayout>
-          <>
+      <PageContentLayout>
+        <>
+          <Suspense
+            fallback={
+              <Loading
+                link={
+                  "https://assets3.lottiefiles.com/private_files/lf30_fnvabe85.json"
+                }
+              />
+            }
+          >
             <Tabs position="relative" variant="unstyled">
               <TabList
                 ml={"1"}
@@ -71,14 +71,14 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
                 </TabPanel>
               </TabPanels>
             </Tabs>
-          </>
+          </Suspense>
+        </>
 
-          <>
-            <About spaceData={spaceData} />
-          </>
-        </PageContentLayout>
-      </>
-    </Suspense>
+        <>
+          <About spaceData={spaceData} />
+        </>
+      </PageContentLayout>
+    </>
   );
 };
 
