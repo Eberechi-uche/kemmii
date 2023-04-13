@@ -28,16 +28,16 @@ type spacePageProps = {
 
 const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
   const setspaceState = useSetRecoilState(spaceStateAtom);
-  if (!spaceData) {
-    return <NotFound />;
-  }
+
   useEffect(() => {
     setspaceState((prev) => ({
       ...prev,
       currentSpace: spaceData,
     }));
   }, [spaceData]);
-
+  if (!spaceData) {
+    return <NotFound />;
+  }
   return (
     <Suspense
       fallback={
