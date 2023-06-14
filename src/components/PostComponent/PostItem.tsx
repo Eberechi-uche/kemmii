@@ -11,7 +11,13 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
-import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import {
+  BsChatSquare,
+  BsHeart,
+  BsHeartFill,
+  BsSuitHeart,
+  BsSuitHeartFill,
+} from "react-icons/bs";
 
 import { HiOutlineXMark } from "react-icons/hi2";
 
@@ -20,6 +26,7 @@ import { useState } from "react";
 import { Loading } from "../animations/Loading";
 import { useRouter } from "next/router";
 import { BiComment } from "react-icons/bi";
+import { RxChatBubble } from "react-icons/rx";
 
 type PostItemProps = {
   post: Post;
@@ -88,7 +95,7 @@ const PostItem: React.FC<PostItemProps> = ({
         borderColor={"gray.200"}
       >
         <Flex justify={"flex-start"} align={"center"} width={"100%"}>
-          <Flex align={"center"} justify={"center"}>
+          <Flex align={"center"} justify={"center"} width={"inherit"}>
             <Image
               boxSize={"35px"}
               src={
@@ -98,7 +105,7 @@ const PostItem: React.FC<PostItemProps> = ({
               }
               borderRadius={"full"}
             />
-            <Flex flexDir={"column"} ml={"1"}>
+            <Flex flexDir={"column"} ml={"1"} width={"100%"}>
               <Text pb={"none"} fontWeight={"500"}>
                 {post.creatorDisplayName}
               </Text>
@@ -136,39 +143,37 @@ const PostItem: React.FC<PostItemProps> = ({
         </Flex>
         <Flex
           width={"100%"}
-          justify={"space-between"}
+          align={"flex-start"}
           flexDir={postID ? "column" : "row"}
         >
           <Stack my={"1"} mr={"2"} width={"100%"}>
             {postID ? (
               <ReactMarkdown>{post.body}</ReactMarkdown>
             ) : (
-              <Text noOfLines={[5, 7]}>
-                <ReactMarkdown>{post.body}</ReactMarkdown>
-              </Text>
+              <Text noOfLines={[5, 7]}>{post.body}</Text>
             )}
           </Stack>
 
           {post.imageUrl && (
-            <Stack align={"center"} maxWidth={[postID ? "100%" : "50%"]}>
-              {loadingImage && (
+            <Stack align={"center"} width={[postID ? "100%" : "40%"]}>
+              {/* {loadingImage && (
                 <Loading
                   link={
                     "https://assets4.lottiefiles.com/temporary_files/b7BtQW.json"
                   }
+                  size={150}
                 />
-              )}
+              )} */}
               <Image
+                loading="lazy"
+                placeSelf={"flex-end"}
                 src={post.imageUrl}
                 alt={post.creatorDisplayName}
                 objectFit={"cover"}
                 h={postID ? "100%" : "100px"}
-                width={postID ? "100%" : "200px"}
+                width={postID ? "100%" : "150px"}
                 borderRadius={"3px"}
-                onLoad={() => {
-                  setLoadingImage(false);
-                }}
-                display={loadingImage ? "none" : "unset"}
+                // display={loadingImage ? "none" : "unset"}
               />
             </Stack>
           )}
@@ -185,8 +190,8 @@ const PostItem: React.FC<PostItemProps> = ({
           borderColor={"gray.100"}
         >
           <Flex align={"center"} cursor={"pointer"} mx={"3"}>
-            <Icon as={BiComment} />
-            <Text ml={"1"} fontSize={"md"}>
+            <Icon as={RxChatBubble} />
+            <Text ml={"3"} fontSize={"md"}>
               {post.numberOfComments}
             </Text>
           </Flex>
@@ -213,9 +218,14 @@ const PostItem: React.FC<PostItemProps> = ({
                   loop={false}
                 />
               ) : (
-                <Icon as={userReaction === 1 ? BsSuitHeartFill : BsSuitHeart} />
+                <Icon
+                  as={userReaction === 1 ? BsHeartFill : BsHeart}
+                  color={"red.400"}
+                />
               )}
-              <Text fontSize={"md"}>{post.reactions}</Text>
+              <Text fontSize={"md"} ml={"3"}>
+                {post.reactions}
+              </Text>
             </Flex>
           </Flex>
           {userIsCreator && (
