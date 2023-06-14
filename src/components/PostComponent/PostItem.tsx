@@ -13,7 +13,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-import { BsChat } from "react-icons/bs";
+import { BsChat, BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { RiThumbUpLine, RiThumbUpFill } from "react-icons/ri";
 import { TfiComments } from "react-icons/tfi";
 
@@ -24,6 +24,7 @@ import moment from "moment";
 import { useState } from "react";
 import { Loading } from "../animations/Loading";
 import { useRouter } from "next/router";
+import { BiChat, BiComment, BiLike } from "react-icons/bi";
 
 type PostItemProps = {
   post: Post;
@@ -82,11 +83,14 @@ const PostItem: React.FC<PostItemProps> = ({
         fontSize={"md"}
         borderRadius={"3px"}
         flexDir={"column"}
-        my={"1"}
+        my={"2"}
         onClick={() => {
           onPostSelect && onPostSelect(post);
         }}
+        p={"4"}
         cursor={"pointer"}
+        border={"2px solid"}
+        borderColor={"gray.200"}
       >
         <Flex justify={"flex-start"} align={"center"} width={"100%"}>
           <Flex align={"center"} justify={"center"}>
@@ -97,7 +101,7 @@ const PostItem: React.FC<PostItemProps> = ({
                   ? post.creatorImageUrl
                   : "/images/default.png"
               }
-              borderRadius={"5px"}
+              borderRadius={"full"}
             />
             <Flex flexDir={"column"} ml={"1"}>
               <Text pb={"none"} fontWeight={"500"}>
@@ -120,8 +124,7 @@ const PostItem: React.FC<PostItemProps> = ({
                         handleSpaceRoute(e, `/spaces/${post.spaceId}`);
                       }}
                     >
-                      posted in:
-                      <Icon as={MdEditLocationAlt} fontSize={"15"} />
+                      posted-
                       {post.spaceId}
                     </Text>
                   </>
@@ -136,48 +139,51 @@ const PostItem: React.FC<PostItemProps> = ({
         <Flex align={"center"} justify={"space-between"}>
           <Text fontWeight={"600"}>{post.title}</Text>
         </Flex>
-        <Stack my={"1"}>
-          {postID ? (
-            <Text>{post.body}</Text>
-          ) : (
-            <Text noOfLines={[3, 5]}>{post.body}</Text>
-          )}
-        </Stack>
-
-        {post.imageUrl && (
-          <Stack align={"center"}>
-            {loadingImage && (
-              <Loading
-                link={
-                  "https://assets4.lottiefiles.com/temporary_files/b7BtQW.json"
-                }
-              />
+        <Flex width={"100%"}>
+          <Stack my={"1"} width="70%">
+            {postID ? (
+              <Text>{post.body}</Text>
+            ) : (
+              <Text noOfLines={[5, 7]}>{post.body}</Text>
             )}
-            <Image
-              src={post.imageUrl}
-              alt={post.creatorDisplayName}
-              maxH={postID ? "fit-content" : "300px"}
-              width={"100%"}
-              objectFit={"cover"}
-              borderRadius={"3px"}
-              onLoad={() => {
-                setLoadingImage(false);
-              }}
-              display={loadingImage ? "none" : "unset"}
-            />
           </Stack>
-        )}
-        <Divider my={"2"} />
+
+          {post.imageUrl && (
+            <Stack align={"center"} width="30%">
+              {loadingImage && (
+                <Loading
+                  link={
+                    "https://assets4.lottiefiles.com/temporary_files/b7BtQW.json"
+                  }
+                />
+              )}
+              <Image
+                src={post.imageUrl}
+                alt={post.creatorDisplayName}
+                objectFit={"cover"}
+                h={postID ? "fit-content" : "100px"}
+                borderRadius={"3px"}
+                onLoad={() => {
+                  setLoadingImage(false);
+                }}
+                display={loadingImage ? "none" : "unset"}
+              />
+            </Stack>
+          )}
+        </Flex>
+
         <Flex
           py={"2"}
           width={"100%"}
           align={"center"}
-          justify={"space-evenly"}
-          color={"brand.500"}
-          fontSize={"lg"}
+          justify={"space-between"}
+          border={"1px solid"}
+          my={"2"}
+          borderRadius={"3"}
+          borderColor={"gray.100"}
         >
           <Flex align={"center"} cursor={"pointer"} mx={"3"}>
-            <Icon as={TfiComments} />
+            <Icon as={BiComment} />
             <Text ml={"1"} fontSize={"md"}>
               {post.numberOfComments}
             </Text>
@@ -199,13 +205,13 @@ const PostItem: React.FC<PostItemProps> = ({
               {loading ? (
                 <Loading
                   link={`https://assets3.lottiefiles.com/packages/lf20_nz9vz5ng.json`}
-                  size={40}
+                  size={20}
                   display={"inline-block"}
                   speed={1}
                   loop={false}
                 />
               ) : (
-                <Icon as={userReaction === 1 ? RiThumbUpFill : RiThumbUpLine} />
+                <Icon as={userReaction === 1 ? BsSuitHeartFill : BsSuitHeart} />
               )}
               <Text fontSize={"md"}>{post.reactions}</Text>
             </Flex>

@@ -11,8 +11,8 @@ export const NewPost: React.FC<NewPostProps> = ({ post, onPostSelect }) => {
   return (
     <>
       <Box
-        width={"120px"}
-        height={"150px"}
+        width={"190px"}
+        height={"170px"}
         bg={"whatsapp.500"}
         px={"2"}
         backgroundPosition={"center"}
@@ -26,6 +26,7 @@ export const NewPost: React.FC<NewPostProps> = ({ post, onPostSelect }) => {
           onPostSelect(post);
         }}
         cursor={"pointer"}
+        borderRadius={"5"}
       >
         <Flex flexDir={"column"} justify={"space-between"} height={"100%"}>
           <Text fontWeight={"700"} fontSize={"sm"}>

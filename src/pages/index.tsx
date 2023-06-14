@@ -15,7 +15,6 @@ import PostItem from "../components/PostComponent/PostItem";
 import { auth, firestore } from "../firebase/clientApp";
 import { useSpaceDataFetch } from "../components/Hooks/useSpaceDataFetch";
 import {
-  Button,
   Flex,
   Tab,
   TabIndicator,
@@ -23,8 +22,6 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { Loading } from "../components/animations/Loading";
 import NewSpace from "../components/Discover/NewSpace";
@@ -199,9 +196,10 @@ export default function Home() {
         <>
           <Tabs
             size={"sm"}
-            variant={"unstyled"}
-            colorScheme={tab == "home" ? "blue" : "green"}
+            variant={"soft-rounded"}
             w={{ base: "100%", md: "45%" }}
+            px={"2"}
+            mt={"10"}
           >
             <Flex flexDir={"column"}>
               <>
@@ -216,21 +214,15 @@ export default function Home() {
                 )}
               </>
             </Flex>
-            <TabList
-              ml={"1"}
-              width={"100%"}
-              display={"flex"}
-              justifyContent={"space-evenly"}
-            >
-              <Tab fontWeight="400">your feeds</Tab>
-              <Tab fontWeight="400">discover spaces</Tab>
+            <TabList my={"4"}>
+              <Tab fontWeight="900" fontSize={"large"}>
+                your feeds
+              </Tab>
+              <Tab fontWeight="900" fontSize={"large"}>
+                discover spaces
+              </Tab>
             </TabList>
-            <TabIndicator
-              mt="-1.5px"
-              height="2px"
-              bg="blue.500"
-              borderRadius="1px"
-            />
+            <TabIndicator />
             <TabPanels transition="all 3s ease-in">
               <TabPanel px={"1"}>
                 {loadingFeeds ? (

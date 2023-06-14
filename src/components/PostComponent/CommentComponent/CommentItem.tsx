@@ -43,6 +43,7 @@ const CommentItem: React.FC<CommentItemProp> = ({
         flexDir={"column"}
         bg={"white"}
         my={"2"}
+        px={"3"}
         fontSize={"md"}
       >
         <Flex>
@@ -53,7 +54,7 @@ const CommentItem: React.FC<CommentItemProp> = ({
                 : "/images/default.png"
             }
             alt={comment.creatorDisplayText}
-            boxSize={"35px"}
+            boxSize={"25px"}
             borderRadius={"full"}
           />
           <Text fontWeight={"bold"} ml={"1"}>

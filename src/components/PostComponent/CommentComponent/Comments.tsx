@@ -146,6 +146,7 @@ export const Comments: React.FC<CommentProps> = ({
         pos={"relative"}
         flexDir={"column"}
         pb={"20px"}
+        px={"2"}
       >
         <Stack
           maxH={"75vh"}
