@@ -18,7 +18,7 @@ export const CreatePostLink: React.FC = () => {
     <>
       <Flex
         width={"100%"}
-        bg={"brand.500"}
+        bg={"blue.500"}
         py={"2"}
         borderRadius={"4px"}
         pos={"sticky"}
@@ -33,12 +33,13 @@ export const CreatePostLink: React.FC = () => {
           align={"center"}
           justifyContent={"space-evenly"}
           width={"100%"}
+          h={"50px"}
           px={"10px"}
         >
           <Image
             src={user?.photoURL ? user.photoURL : "/images/default.png"}
             alt={"logo"}
-            boxSize={"45px"}
+            boxSize={"25px"}
             mr={"2"}
             borderRadius={"full"}
           />

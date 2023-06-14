@@ -215,10 +215,18 @@ export default function Home() {
               </>
             </Flex>
             <TabList my={"4"}>
-              <Tab fontWeight="900" fontSize={"large"}>
+              <Tab
+                fontWeight="900"
+                fontSize={"large"}
+                textTransform={"capitalize"}
+              >
                 your feeds
               </Tab>
-              <Tab fontWeight="900" fontSize={"large"}>
+              <Tab
+                fontWeight="900"
+                fontSize={"large"}
+                textTransform={"capitalize"}
+              >
                 discover spaces
               </Tab>
             </TabList>

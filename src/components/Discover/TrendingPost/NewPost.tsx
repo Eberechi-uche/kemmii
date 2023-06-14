@@ -11,10 +11,11 @@ export const NewPost: React.FC<NewPostProps> = ({ post, onPostSelect }) => {
   return (
     <>
       <Box
-        width={"190px"}
+        width={"200px"}
         height={"170px"}
         bg={"whatsapp.500"}
-        px={"2"}
+        py={"4"}
+        px={"4"}
         backgroundPosition={"center"}
         backgroundSize={"cover"}
         color={"white"}
@@ -59,10 +60,10 @@ export const NewPostLayout: React.FC<NewPostLayoutProps> = ({
         align={"center"}
         fontWeight={"900"}
         fontSize={"lg"}
+        mx={"2"}
         alignSelf={"flex-start"}
       >
         {heading}
-        <Icon as={FiTrendingUp} />
       </Text>
       <Flex
         width={"100%"}

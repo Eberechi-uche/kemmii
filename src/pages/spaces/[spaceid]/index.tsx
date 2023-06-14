@@ -60,8 +60,20 @@ const SpacePage: React.FC<spacePageProps> = ({ spaceData }) => {
                 display={"flex"}
                 justifyContent={"space-evenly"}
               >
-                <Tab>Post</Tab>
-                <Tab>About</Tab>
+                <Tab
+                  fontWeight={"900"}
+                  textTransform={"capitalize"}
+                  fontSize={"lg"}
+                >
+                  Post
+                </Tab>
+                <Tab
+                  fontWeight={"900"}
+                  textTransform={"capitalize"}
+                  fontSize={"lg"}
+                >
+                  About
+                </Tab>
               </TabList>
               <TabIndicator
                 mt="-1.5px"

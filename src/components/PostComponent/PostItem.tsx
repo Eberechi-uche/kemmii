@@ -5,26 +5,21 @@ import {
   Image,
   Stack,
   Icon,
-  Divider,
   Alert,
   AlertIcon,
   ScaleFade,
   Spinner,
-  Button,
 } from "@chakra-ui/react";
+import ReactMarkdown from "react-markdown";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 
-import { BsChat, BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
-import { RiThumbUpLine, RiThumbUpFill } from "react-icons/ri";
-import { TfiComments } from "react-icons/tfi";
-
-import { MdEditLocationAlt } from "react-icons/md";
 import { HiOutlineXMark } from "react-icons/hi2";
 
 import moment from "moment";
 import { useState } from "react";
 import { Loading } from "../animations/Loading";
 import { useRouter } from "next/router";
-import { BiChat, BiComment, BiLike } from "react-icons/bi";
+import { BiComment } from "react-icons/bi";
 
 type PostItemProps = {
   post: Post;
@@ -136,20 +131,26 @@ const PostItem: React.FC<PostItemProps> = ({
             </Flex>
           </Flex>
         </Flex>
-        <Flex align={"center"} justify={"space-between"}>
+        <Flex align={"center"} justify={"space-between"} my={"4"}>
           <Text fontWeight={"600"}>{post.title}</Text>
         </Flex>
-        <Flex width={"100%"}>
-          <Stack my={"1"} width="70%">
+        <Flex
+          width={"100%"}
+          justify={"space-between"}
+          flexDir={postID ? "column" : "row"}
+        >
+          <Stack my={"1"} mr={"2"} width={"100%"}>
             {postID ? (
-              <Text>{post.body}</Text>
+              <ReactMarkdown>{post.body}</ReactMarkdown>
             ) : (
-              <Text noOfLines={[5, 7]}>{post.body}</Text>
+              <Text noOfLines={[5, 7]}>
+                <ReactMarkdown>{post.body}</ReactMarkdown>
+              </Text>
             )}
           </Stack>
 
           {post.imageUrl && (
-            <Stack align={"center"} width="30%">
+            <Stack align={"center"} maxWidth={[postID ? "100%" : "50%"]}>
               {loadingImage && (
                 <Loading
                   link={
@@ -161,7 +162,8 @@ const PostItem: React.FC<PostItemProps> = ({
                 src={post.imageUrl}
                 alt={post.creatorDisplayName}
                 objectFit={"cover"}
-                h={postID ? "fit-content" : "100px"}
+                h={postID ? "100%" : "100px"}
+                width={postID ? "100%" : "200px"}
                 borderRadius={"3px"}
                 onLoad={() => {
                   setLoadingImage(false);

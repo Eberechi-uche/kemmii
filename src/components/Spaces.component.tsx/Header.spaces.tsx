@@ -10,10 +10,9 @@ import {
   Icon,
   Heading,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+
 import { TiTime } from "react-icons/ti";
-import { useRecoilValue } from "recoil";
+
 import { BsPeople, BsClock } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 import { TfiSharethis } from "react-icons/tfi";
@@ -63,13 +62,7 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
           />
         )}
 
-        <Flex
-          width={"100%"}
-          justify={"center"}
-          bg={"brand.50"}
-          pt={"50px"}
-          mt={"6"}
-        >
+        <Flex width={"100%"} justify={"center"} pt={"50px"} mt={"6"}>
           <Flex
             width={"60%"}
             flexDir={"column"}
@@ -118,7 +111,8 @@ export const Header: React.FC<HeaderProps> = ({ spacesData }) => {
             >
               <Icon as={TfiSharethis}> share Space</Icon>
               <Button
-                size={{ base: "sm", md: "sm" }}
+                size={{ base: "md", md: "sm" }}
+                bg={"black"}
                 variant={isMember ? "outline" : "solid"}
                 isLoading={loading}
                 onClick={() => {
